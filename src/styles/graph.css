@@ -1,0 +1,47 @@
+.LogMonitor-display__graph{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* margin: 0px 30px; */
+}
+
+.graph-content{
+    background-color: #2D2F36;
+    color: whitesmoke;
+    padding: 20px;
+    border-radius: 3px;
+    font-size: 1.5em;
+    margin: 20px;
+    width: 40%;
+}
+.graph-title{
+    margin-left: 10px;
+}
+.graph-item{
+    border-radius: 3px;
+    background-color: aliceblue;
+    margin: 27px;
+}
+@media print {
+    @page { size: landscape; }
+}
+
+@media print {
+    @page {
+      size: 280mm 340mm;
+    }
+}
+.print-button button{
+    background-color: aliceblue;
+    width: 64px;
+    padding: 10px;
+    margin: 20px;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.print-button button:hover{
+    background-color: #2D2F36;
+}
+

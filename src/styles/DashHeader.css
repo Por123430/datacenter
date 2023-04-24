@@ -1,0 +1,51 @@
+.dash-header{
+    background-color: #0D3B66;
+    text-align: right;
+    font-size: 1.6em;
+    padding: 12px 0px;
+    display: flex;
+ 
+}
+.dash-header__container{
+    display: flex;
+    width: 100%;
+}
+.dash-header__logo{
+    float: left;
+
+}
+
+.dash-header__logo img{
+    margin: 0px 1.5em;
+    width: 7em;
+}
+.dash-header__title{
+    margin-left: 65%;
+    float: right;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.dash-header_logout-button{
+    margin: auto 50px auto auto;
+    padding: 0px 0px 0px 500px;
+}
+.icon-button{
+    background-color: white; /* Green */
+    border: none;
+    color: black;
+    padding: 11px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    width: 100%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.icon-button:hover {
+    background-color: #2D2F36;
+    color: white;
+  }

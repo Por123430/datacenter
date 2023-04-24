@@ -1,0 +1,36 @@
+
+.pagination-page li{
+    list-style: none;
+    display: flex;
+    border-radius: 3px;
+    border: solid 1px #0D3B66;
+    padding: 10px;
+    font-size: 1rem;
+    margin: 3px;
+    cursor: pointer;
+}
+.pagination-page{
+    display: flex;
+    margin: 20px 40%;
+}
+.pagination-page li.active{
+    background-color: #0D3B66;
+    color: aliceblue;
+}
+
+.pagination-page li button{
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    width: 40px;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.pagination-page li:hover{
+    background-color: #0D3B66;
+    color: aliceblue;
+}
+
+
+

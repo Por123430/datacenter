@@ -1,0 +1,96 @@
+.form_user{
+    background-color: #999;
+    border-radius: 6px;
+    padding: 20px;
+    
+    width: 50%;
+    margin: 30px auto;
+    color: whitesmoke;
+}
+.form{
+    
+    border-radius: 6px;
+    
+    margin: 30px 10%;
+    color: whitesmoke;
+}
+.form__Title-row{
+    text-align: center;
+    font-size: 1.8rem;
+}
+.form__label{
+    font-size: 1.2rem;
+    margin: 7px;
+}
+.form__input{
+    border: none;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin: 4px 2px;
+    padding: 7px 15px;
+    border-radius: 3px;
+    /* width: 94%; */
+    cursor: text;
+}
+label{
+    color: black; 
+    margin: 10px 0px;
+}
+
+.save-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 11px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    width: 100%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.save-button {
+    border-radius: 3px;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+    font-size: 1.1rem;
+  }
+  
+  .save-button:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .delete-button{
+    background-color: red; /* Green */
+    border: none;
+    color: white;
+    padding: 11px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    width: 100%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-button {
+    background-color: white; 
+    color: black; 
+    border: 2px solid red;
+  }
+  
+  .delete-button:hover {
+    background-color: red;
+    color: white;
+  }
+
+
