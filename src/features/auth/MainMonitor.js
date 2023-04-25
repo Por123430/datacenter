@@ -28,9 +28,9 @@ const MainMonitor = () => {
   }, []);
   function detect(x) {
     if (x === 0) {
-      x = "undetect";
-    } else {
       x = "detect";
+    } else {
+      x = "undetect";
     }
     return x;
   }
