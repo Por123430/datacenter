@@ -8,7 +8,7 @@ const initialState = noticameraAdapter.getInitialState()
 export const noticameraApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getNoticamera: builder.query({
-        query: () => '/notiimage',
+        query: () => '/notiCamera',
 
         validateStatus: (response, result) => {
             // console.log(result)
@@ -40,7 +40,7 @@ export const noticameraApiSlice = apiSlice.injectEndpoints({
     }),
     addNoticamera: builder.mutation({
         query: initialUserData => ({
-            url: '/notiimage',
+            url: '/notiCamera',
             method: 'POST',
             body: {
                 ...initialUserData,
