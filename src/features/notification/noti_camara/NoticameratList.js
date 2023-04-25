@@ -43,6 +43,23 @@ const NoticameraList = () => {
       const files = metadataList.map(([metadata, downloadURL]) => {
         return { metadata, downloadURL };
       });
+        files.sort((a, b) => {
+        // Compare timeCreated
+        if (a.metadata.timeCreated < b.metadata.timeCreated) {
+          return 1;
+        } else if (a.metadata.timeCreated > b.metadata.timeCreated) {
+          return -1;
+        }
+        
+        // If timeCreated is the same, compare downloadURL
+        if (a.downloadURL < b.downloadURL) {
+          return -1;
+        } else if (a.downloadURL > b.downloadURL) {
+          return 1;
+        }
+        
+        return 0;
+      });
       // console.log("file",files)
 
       setImageUrls(files);
