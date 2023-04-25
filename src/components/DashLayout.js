@@ -69,15 +69,16 @@ const DashLayout = () => {
 
 
 
-  useEffect(() => {
+    useEffect(() => {
     
    
     if (motionData.motion === true) {
       setButtonPopup(true);
       setTitlePopup("Motion");
-      const Motion = "detect";
-      setDataPopup(Motion);
+      const camera = "detect";
+      setDataPopup(camera);
       
+      addNoticamera({ camera })
     }
     if (sensor1Data.flame === 0) {
       setButtonPopup(true);
@@ -149,7 +150,6 @@ const DashLayout = () => {
     addNoticamera,
 
   ]);
-  
   return (
     <>
       <div className="dash" style={{ width: "100%", height: "100%"}}>
