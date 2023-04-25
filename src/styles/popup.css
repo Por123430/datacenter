@@ -7,8 +7,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.5rem;
+    color: whitesmoke;
 }
-
+.popup-inner img {
+    width: 86px;
+    margin: 10px 40%;
+}
 .popup-inner {
     /* position: relative; */
     padding: 32px;
@@ -18,7 +23,7 @@
     display: block;
     background-color: #0D3B66;
     border-radius: 3px;
-    color: brown;
+    color: whitesmoke;
     transition: 1s;
    
    
@@ -39,6 +44,7 @@
     text-align: center;
   
     transition: 0.5s;
+    font-size: 1.2rem;
 }
 .popup-inner .close-btn:hover{
     background-color: black;
