@@ -9,7 +9,7 @@ import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 
 import usePersist from "../../hooks/usePersist";
-import loginImg from "../../img/loginbg.jpg";
+import loginImg from "../../img/loginimg.png";
 import logo from "../../img/Egat-Logo.png";
 const Login = () => {
   const userRef = useRef();
@@ -87,11 +87,11 @@ const Login = () => {
           <div className="content-body">
             <main className="login">
             <header>Login</header>
-              <form className="form" onSubmit={handleSubmit}>
+              <form className="form-login" onSubmit={handleSubmit}>
                 <div className="login-input">
                   <label htmlFor="username">Username :</label>
                   <input
-                    className="form__input"
+                    className="form__input-login"
                     type="text"
                     id="username"
                     ref={userRef}
@@ -105,7 +105,7 @@ const Login = () => {
                 <div className="login-input">
                   <label htmlFor="password">Password :</label>
                   <input
-                    className="form__input"
+                    className="form__input-login"
                     type="password"
                     id="password"
                     value={password}
@@ -118,7 +118,7 @@ const Login = () => {
                 </p>
                 <div className="submit_section">
                   <button className="all-button">
-                    <label htmlFor="SignIn">Sign In</label>
+                    Sign In
                   </button>
 
                   <label htmlFor="persist" className="form__persist">
