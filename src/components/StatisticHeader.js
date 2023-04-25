@@ -40,7 +40,7 @@ const StatisticHeader = () => {
           <div className="NotiHeader-link__img">
             <img src={motion} alt="monitor"></img>
           </div>
-          <div className="NotiHeader-link__title">camara</div>
+          <div className="NotiHeader-link__title">motion</div>
         </div>
       </Link>
     </div>
