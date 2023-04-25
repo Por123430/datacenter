@@ -127,7 +127,7 @@ const MainMonitor = () => {
                 }}
                 width="410"
                 height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=64385fdb-2306-41ec-8042-eb1084ff92af&maxDataAge=300&theme=light&autoRefresh=true"
+                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643847dc-f155-4b1b-8b1f-cc909507c2c8&maxDataAge=300&theme=light&autoRefresh=true"
               ></iframe>
             </div>
 
@@ -142,7 +142,7 @@ const MainMonitor = () => {
                 }}
                 width="410"
                 height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643847dc-f155-4b1b-8b1f-cc909507c2c8&maxDataAge=300&theme=light&autoRefresh=true"
+                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=64385fdb-2306-41ec-8042-eb1084ff92af&maxDataAge=300&theme=light&autoRefresh=true"
               ></iframe>
             </div>
           </div>
