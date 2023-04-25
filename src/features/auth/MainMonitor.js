@@ -49,7 +49,7 @@ const MainMonitor = () => {
                 {todoData.temperature}
               </div>
 
-              {/* {imageData.photo} */}
+              
             </div>
             <div className="LogMonitor-display__item1">
             <div className="item-img">
