@@ -8,14 +8,14 @@ import temp from "../../img/celsius.png";
 import humi from "../../img/humidity2.png";
 import flame from "../../img/smoke-detector.png";
 const MainMonitor = () => {
-  const [todoData, setTodoData] = useState([]);
+  const [sensor1Data, setSensor1Data] = useState([]);
   const [sensor2Data, setSensor2Data] = useState([]);
 
   useEffect(() => {
     const starCountRef = ref(db, "ESP32/");
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      setTodoData(data);
+      setSensor1Data(data);
     });
   }, []);
 
@@ -46,7 +46,7 @@ const MainMonitor = () => {
               </div>
               <div className="item-content">
                 <label>sensor 1 : Temperature</label>
-                {todoData.temperature}
+                {sensor1Data.temperature}
               </div>
 
               
@@ -57,7 +57,7 @@ const MainMonitor = () => {
               </div>
               <div className="item-content">
               <label>sensor 1 : Humidity</label>
-              {todoData.humidity}</div>
+              {sensor1Data.humidity}
             </div>
             <div className="LogMonitor-display__item1">
             <div className="item-img">
