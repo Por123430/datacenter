@@ -7,7 +7,7 @@ import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { ROLES } from "../../config/roles";
 import "../../styles/edit.css";
 
-const USER_REGEX = /^[A-z0-9]{3,20}$/;
+const USER_REGEX = /^[A-z]{3,20}$/;
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
 const NewUserForm = () => {
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
@@ -106,7 +106,7 @@ const NewUserForm = () => {
           New User
         </div>
         <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[A-z,0-9][3-20 letters]</span>
+          Username: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validUserClass}`}
