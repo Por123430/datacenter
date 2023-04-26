@@ -144,7 +144,7 @@ const NewUserForm = () => {
         />
 
         <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[A-z,0-9][4-12 chars incl. !@#$%]</span>
+          Password: <span className="nowrap">[A-z,0-9,!@#$%][4-12 chars incl.]</span>
         </label>
         <input
           className={`form__input ${validPwdclass}`}
