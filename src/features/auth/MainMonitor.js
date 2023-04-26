@@ -142,7 +142,7 @@ const MainMonitor = () => {
                 }}
                 width="410"
                 height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=64385fdb-2306-41ec-8042-eb1084ff92af&maxDataAge=300&theme=light&autoRefresh=true"
+                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643e253b-33e4-4d63-8ffb-4dfb0a517ee4&maxDataAge=3600&theme=light&autoRefresh=true"
               ></iframe>
             </div>
           </div>
