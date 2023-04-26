@@ -144,7 +144,7 @@ const EditUserForm = ({ user }) => {
         <div className="form__Title-row">Edit User</div>
 
         <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
+          Username: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validUserClass}`}
@@ -157,7 +157,7 @@ const EditUserForm = ({ user }) => {
         />
 
         <label className="form__label" htmlFor="firstname">
-          Firstname: <span className="nowrap"></span>
+          Firstname: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validFirstClass}`}
@@ -169,7 +169,7 @@ const EditUserForm = ({ user }) => {
           onChange={onFirstnameChanged}
         />
         <label className="form__label" htmlFor="lastname">
-          Lastname: <span className="nowrap"></span>
+          Lastname: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validLastClass}`}
@@ -182,7 +182,7 @@ const EditUserForm = ({ user }) => {
         />
 
         <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          Password: <span className="nowrap">[A-z,0-9][4-12 chars incl. !@#$%]</span>
         </label>
         <input
           className={`form__input ${validPwdclass}`}
