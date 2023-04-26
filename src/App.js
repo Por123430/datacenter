@@ -45,7 +45,7 @@ function App() {
           <Route element={<Prefetch />}>
 
             <Route path="dash" element={<DashLayout />}>
-              <Route index element={<Monitor />
+              <Route index element={<Monitor />} />
               <Route path="LogMonitors">
                 <Route index element={<MonitorList />} />
               </Route>
