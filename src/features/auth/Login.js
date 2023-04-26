@@ -78,10 +78,7 @@ const Login = () => {
         
       </div>
     </header>
-      <section className="public" style={{
-              
-              backgroundColor: "#CACFD2"
-            }}>
+      <section className="public" >
         
         <div className="content">
           <div className="img-body">
