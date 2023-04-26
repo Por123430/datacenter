@@ -23,7 +23,7 @@ const DashNav = () => {
     <div className="dash-nav">
       <div className="dash-nav__container" >
         <div className="dash-nav__element" >
-          {(!isAdmin || isOfficer) && (
+          {(isAdmin || isOfficer) && (
             <Link to="/dash" className="dash-nav__link" >
               <div class="dropdown">
                 <img src={monitor} alt="monitor"  className={`imglink ${activeLink === 'monitor' ? 'active' : ''}`}
@@ -36,7 +36,7 @@ const DashNav = () => {
         </div>
 
         <div className="dash-nav__element" >
-          {(!isAdmin || isOfficer) && (
+          {(isAdmin || isOfficer) && (
             <Link to="/dash/LogMonitors" className="dash-nav__link">
               <div class="dropdown">
                 <img src={LogMonitor} alt="LogMonitor" className={`imglink ${activeLink === 'LogMonitor' ? 'active' : ''}`}
@@ -55,7 +55,7 @@ const DashNav = () => {
         </div> */}
 
         <div className="dash-nav__element">
-          {(!isAdmin || isOfficer) && (
+          {(isAdmin || isOfficer) && (
             <Link
               to="/dash/MainStistic/TempStatistic"
               className="dash-nav__link"
@@ -70,7 +70,7 @@ const DashNav = () => {
         </div>
 
         <div className="dash-nav__element">
-          {(!isAdmin || isOfficer) && (
+          {(isAdmin || isOfficer) && (
             <Link to="/dash/Mainnoti/NotitempList" className="dash-nav__link">
               <div class="dropdown">
                 <img src={notification} alt="notification" className={`imglink ${activeLink === 'notification' ? 'active' : ''}`}
@@ -84,7 +84,7 @@ const DashNav = () => {
         </div>
 
         <div className="dash-nav__element">
-          {(isAdmin || isOfficer, isAdmin) && (
+          {(isAdmin) && (
             <Link to="/dash/users" className="dash-nav__link">
               <div class="dropdown">
                 <img src={user} alt="user" className={`imglink ${activeLink === 'user' ? 'active' : ''}`}
@@ -97,7 +97,7 @@ const DashNav = () => {
         </div>
 
         <div className="dash-nav__element">
-          {(isAdmin || isOfficer, isAdmin) && (
+          {(isAdmin) && (
             <Link to="/dash/users/new" className="dash-nav__link">
               <div class="dropdown">
                 <img src={addUser} alt="addUser" className={`imglink ${activeLink === 'addUser' ? 'active' : ''}`}
@@ -109,7 +109,7 @@ const DashNav = () => {
         </div>
 
         <div className="dash-nav__element">
-          {(isAdmin && isOfficer, isAdmin) && (
+          {(isAdmin) && (
             <Link to="/dash/Sensor" className="dash-nav__link">
               <div class="dropdown">
                 <img src={editSensors} alt="editSensors" className={`imglink ${activeLink === 'editSensors' ? 'active' : ''}`}
