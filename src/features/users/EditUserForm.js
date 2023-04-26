@@ -215,7 +215,7 @@ const EditUserForm = ({ user }) => {
           className={`form__select ${validRolesClass}`}
           id="roles"
           name="roles"
-          multiple={true}
+       
           value={roles}
           size="3"
           onChange={onRolesChanged}
