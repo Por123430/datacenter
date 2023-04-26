@@ -164,7 +164,7 @@ const NewUserForm = () => {
           name="roles"
           
           value={roles}
-          size="2"
+          size="3"
           onChange={onRolesChanged}
         >
           {options}
