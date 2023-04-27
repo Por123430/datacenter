@@ -117,7 +117,7 @@ const DashLayout = () => {
         addNotiNumi({ humidity });
       }
 
-      if (sensor2Data.temperature > sensor1[0].temp) {
+      if (sensor2Data.temperature > sensor1[1].temp) {
         setButtonPopup(true);
         setTitlePopup("sensor2 over temperature");
         setDataPopup(sensor2Data.temperature);
@@ -125,7 +125,7 @@ const DashLayout = () => {
         const temperature = sensor2Data.temperature;
         addNotiTemp({ temperature });
       }
-      if (sensor2Data.humidity > sensor1[0].moisture) {
+      if (sensor2Data.humidity > sensor1[1].moisture) {
         setButtonPopup(true);
         setTitlePopup("sensor2 over humidity");
         setDataPopup(sensor2Data.humidity);
