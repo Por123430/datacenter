@@ -65,28 +65,24 @@ const Login = () => {
   const content = (
     <div className="body">
       <header className="dash-header">
-      <div className="dash-header__container">
-        <nav className="dash-header__logo">
-          <img src={logo} alt="Logo"></img>
-        </nav>
-        
-        {/* <Link to="/dash/notes" className="dash-header__title" >
+        <div className="dash-header__container">
+          <nav className="dash-header__logo">
+            <img src={logo} alt="Logo"></img>
+          </nav>
+
+          {/* <Link to="/dash/notes" className="dash-header__title" >
           DataCenter
         </Link> */}
-        
-        
-        
-      </div>
-    </header>
-      <section className="public" >
-        
+        </div>
+      </header>
+      <section className="public">
         <div className="content">
           <div className="img-body">
             <img src={loginImg} alt="Logo-login"></img>
           </div>
           <div className="content-body">
             <main className="login">
-            <header>Login</header>
+              <header>Login</header>
               <form className="form-login" onSubmit={handleSubmit}>
                 <div className="login-input">
                   <label htmlFor="username">Username :</label>
@@ -117,9 +113,7 @@ const Login = () => {
                   {errMsg}
                 </p>
                 <div className="submit_section">
-                  <button className="all-button">
-                    Sign In
-                  </button>
+                  <button className="all-button">Sign In</button>
 
                   <label htmlFor="persist" className="form__persist">
                     <input

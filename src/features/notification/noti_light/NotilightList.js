@@ -15,6 +15,14 @@ const NotilightList = () => {
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset current page when search query changes
+  };
+
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -81,12 +89,26 @@ const NotilightList = () => {
       ? ids
           .slice(indexOfFirstItem, indexOfLastItem)
           .map((notilightId) => (
-            <Notilight key={notilightId} notilightId={notilightId} />
+            <Notilight key={notilightId} notilightId={notilightId} searchQuery={searchQuery}/>
           ))
       : null;
 
     content = (
       <div>
+        <div className="search">
+          <form onSubmit={(e) => e.preventDefault()} role="search">
+            <label htmlFor="search">Search for stuff</label>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search..."
+              autoFocus
+              required
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+          </form>
+        </div>
         <table className="table-monitor">
           <thead className="table__thead">
             <tr>

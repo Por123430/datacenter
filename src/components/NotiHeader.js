@@ -10,6 +10,7 @@ import flame from "../img/smoke-detector.png";
 import {useState} from 'react'
 
 const NotiHeader = () => {
+
   const [activeLink, setActiveLink] = useState(null);
 
   const handleLinkClick = (link) => {

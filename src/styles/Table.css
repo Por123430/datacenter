@@ -68,3 +68,54 @@ img{
     color: aliceblue;
 } */
 
+
+
+:root {
+  --rad: .7rem;
+  --dur: .3s;
+  --color-dark: #2f2f2f;
+  --color-light: #fff;
+  --color-brand: #57bd84;
+  --font-fam: 'Lato', sans-serif;
+  
+  --btn-width: 6rem;
+  --bez: cubic-bezier(0, 0, 0.43, 1.49);
+}
+
+
+/* body {background: var(--color-dark); display: flex; align-items: center; justify-content: center; min-height: 100vh } */
+/* html { box-sizing: border-box; height: 100%; font-size: 10px; } *, *::before, *::after { box-sizing: inherit; } */
+
+.search{
+    margin: 40px auto;
+    width: 80%;
+}
+.search form {
+   
+  position: relative;
+  width: 260px;
+  
+  border-radius: var(--rad);
+  margin: 0px 0px 0px auto;
+}
+.search input, button {
+    padding: 10px 8px;
+  height: var(--height);
+  font-family: var(--font-fam);
+  border: 0;
+  color: var(--color-dark);
+  font-size: 1.2rem;
+}
+
+
+
+.search label {
+    
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}

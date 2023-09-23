@@ -4,7 +4,6 @@ import DashHeader from "./DashHeader";
 import DashFooter from "./DashFooter";
 import DashNav from "./DashNav";
 
-
 import { useAddNotihumiMutation } from "../features/notification/noti_humi/notihumiApiSlice";
 import { useAddNotitempMutation } from "../features/notification/noti_temp/notitempApiSlice";
 import { useAddNotilightMutation } from "../features/notification/noti_light/notilightApiSlice";
@@ -15,7 +14,7 @@ import Popup from "./popup";
 import { useState, useEffect } from "react";
 import { ref as dbRef, onValue } from "firebase/database";
 
-import { db,storage } from "../firebase";
+import { db, storage } from "../firebase";
 import { useSelector } from "react-redux";
 import { selectAllSensor } from "../features/sensor/sensorApiSlice";
 
@@ -32,9 +31,8 @@ const DashLayout = () => {
   const [sensor2Data, setSensor2Data] = useState([]);
   const [titlePopup, setTitlePopup] = useState("");
   const [dataPopup, setDataPopup] = useState(0);
-  
-  const [motionData, setMotionData] = useState(false);
 
+  const [motionData, setMotionData] = useState([]);
 
   useEffect(() => {
     const starCountRef = dbRef(db, "ESP32/");
@@ -42,7 +40,6 @@ const DashLayout = () => {
       const data = snapshot.val();
       setSensor1Data(data);
     });
-    
   }, []);
 
   useEffect(() => {
@@ -61,24 +58,14 @@ const DashLayout = () => {
     });
   }, []);
 
-
-  
-  
-
-  
-
-
-
-    useEffect(() => {
-    
-   
+  useEffect(() => {
     if (motionData.motion === true) {
       setButtonPopup(true);
       setTitlePopup("Motion");
       const camera = "detect";
       setDataPopup(camera);
-      
-      addNoticamera({ camera })
+
+      addNoticamera({ camera });
     }
     if (sensor1Data.flame === 0) {
       setButtonPopup(true);
@@ -86,7 +73,7 @@ const DashLayout = () => {
 
       const flame = "detect";
       setDataPopup(flame);
-      
+
       addNotiLight({ flame });
     }
     if (sensor2Data.flame === 0) {
@@ -94,7 +81,7 @@ const DashLayout = () => {
       setTitlePopup("sensor2 flame");
       const flame = "detect";
       setDataPopup(flame);
-      
+
       addNotiLight({ flame });
     }
 
@@ -103,33 +90,35 @@ const DashLayout = () => {
         setButtonPopup(true);
         setTitlePopup("sensor1 over temperature");
         setDataPopup(sensor1Data.temperature);
-        
+
         const temperature = sensor1Data.temperature;
         addNotiTemp({ temperature });
-        console.log(addNotiTemp({ temperature }));
+        // console.log(addNotiTemp({ temperature }));
       }
       if (sensor1Data.humidity > sensor1[0].moisture) {
         setButtonPopup(true);
         setTitlePopup("sensor1 over humidity");
         setDataPopup(sensor1Data.humidity);
-        
+
         const humidity = sensor1Data.humidity;
         addNotiNumi({ humidity });
       }
 
       if (sensor2Data.temperature > sensor1[1].temp) {
+        // console.log("sensor1[1].temp",sensor1[1].temp)
         setButtonPopup(true);
         setTitlePopup("sensor2 over temperature");
         setDataPopup(sensor2Data.temperature);
-        
+
         const temperature = sensor2Data.temperature;
         addNotiTemp({ temperature });
       }
       if (sensor2Data.humidity > sensor1[1].moisture) {
+        // console.log("sensor1[1].moisture",sensor1[1].moisture)
         setButtonPopup(true);
         setTitlePopup("sensor2 over humidity");
         setDataPopup(sensor2Data.humidity);
-        
+
         const humidity = sensor2Data.humidity;
         addNotiNumi({ humidity });
       }
@@ -143,36 +132,41 @@ const DashLayout = () => {
     sensor2Data.humidity,
     sensor2Data.flame,
     motionData.motion,
-    
     addNotiNumi,
     addNotiTemp,
     addNotiLight,
     addNoticamera,
-
   ]);
+
   return (
     <>
-      <div className="dash" style={{ width: "100%", height: "100%"}}>
+      <div className="dash" style={{ width: "100%", height: "100%" }}>
         <DashHeader />
         <div
           className="dash-container"
-          style={{ display: "flex", width: "100%"}}
+          style={{ display: "flex", width: "100%" }}
         >
           <DashNav />
-          
-          <div className="dash-space" style={{ width: "100%",minHeight: "800px", backgroundColor: "#CACFD2"}}>
-          {buttonPopup ? (
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-              {titlePopup}
-              <br></br>
-              {dataPopup}
-            </Popup>
-          ) : (
-            <></>
-          )}
+
+          <div
+            className="dash-space"
+            style={{
+              width: "100%",
+              minHeight: "800px",
+              backgroundColor: "#CACFD2",
+            }}
+          >
+            {buttonPopup ? (
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                {titlePopup}
+                <br></br>
+                {dataPopup}
+              </Popup>
+            ) : (
+              <></>
+            )}
             <Outlet />
             {/* <Mainnoti/> */}
-         
           </div>
         </div>
         <DashFooter />

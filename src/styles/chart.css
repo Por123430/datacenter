@@ -1,6 +1,7 @@
-/* .chart{
-    width: 480;
-    height: 260;
-    margin: 0px 20px;
-    padding: 10px;
-} */
+.chart-item{ 
+    width: 1024px;
+    height: 560;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 20px;
+}

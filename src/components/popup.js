@@ -9,9 +9,10 @@ function popup(props){
   }
   return (props.trigger) ? (
     
+    
     <div className='popup'>
         <div className='popup-inner'>
-    {play3()}
+        {play3()}
           <img src={alert} alt='alert'></img>
         
             <div className='title'>

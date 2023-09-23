@@ -1,10 +1,18 @@
 .LogMonitor-display__content{
-    display: flex;
-    width: 100%;
-    font-size: 24px;
+  display: flex;
+  flex-wrap: nowrap;
+  /* margin: 0px 30px; */
+  flex-direction: row;
+  font-size: 24px;
 }
 .LogMonitor-display__content label{
     color: black;
+}
+.LogMonitor-display__graph{
+  width: 100%;
+  display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
 }
 .LogMonitor-display__item1{
     text-align: center;
@@ -19,6 +27,7 @@
 }
 .item-img img{
     width: 84px;
+    cursor: default;
 }
 .item-img{
     width: 30%;
@@ -40,6 +49,35 @@
     transition: 1s;
     display: flex;
 }
+.countSections{
+  text-align: center;
+    padding: 30px;
+    margin: 20px;
+    width: 100%;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 14px;
+    transition: 1s;
+   
+}
+.countSections .title-content-Section{
+  text-align: right;
+}
+.countSections .item-content{
+  width: 100%;
+}
+.item-content label{
+  
+  width: 100%;
+  text-align: center;
+}
+
+.item-content .data{
+  font-size: 36px;
+}
+.countSections:hover{
+  box-shadow: 20px 20px 50px grey;
+}
 .LogMonitor-display__item2:hover{
     box-shadow: 20px 20px 50px grey;
 }
@@ -50,3 +88,165 @@
 .graph-item{
     margin-right: 20px;
 }
+
+/* /* h1 {
+    text-align: center;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #06D85F;
+    margin: 80px 0;
+  } */
+  
+  .box {
+    width: 40%;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.2);
+    padding: 35px;
+    border: 2px solid #fff;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+  }
+  .popupData .close{
+    background-color: #B3B6B7 ;
+    border-radius: 10px;
+  }
+  
+  .button {
+    font-size: 1em;
+    padding: 10px;
+    /* color: #fff; */
+    border: 2px solid #06D85F;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+
+  .popupData{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30%;
+    
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+  
+    /* padding: 30px; */
+    margin: 15% 35%;
+    background-color: #B3B6B7 ;
+    border-radius: 10px;
+}
+
+td {
+  margin: 0px;
+
+}
+tbody{
+  height: 20px;
+}
+.table-allcell{
+  padding: 0px;
+  margin: 0px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.icon-edit img{
+  width: 100%;
+}
+.table-allcell{
+  padding: 0px;
+  margin: 0px;
+}
+.table-allcell button {
+  background-color: transparent;
+  border: none;
+}
+
+.item-content-filter{
+  font-size: 64px;
+}
+.countSections{
+  cursor: pointer;
+}
+/* .popupData button{
+  margin-left: 430px;
+} */
+  /* .overlay{
+    width: 480px;
+    background-color: #F0F4CD;
+  } */
+
+  /* .popupdata{
+    background-color: #F0F4CD;
+    width: 480px;
+  } */
+  /* .button:hover {
+    background: #06D85F;
+  }
+  
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .overlay:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popupdata {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+  
+  .popupdata h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popupdata .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popupdata .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+  } */ 

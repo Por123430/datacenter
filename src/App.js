@@ -20,7 +20,6 @@ import Mainnoti from "./components/mainnoti";
 import NotitempList from "./features/notification/noti_temp/NotitempList";
 import NotilightList from "./features/notification/noti_light/NotilightList";
 import NoticameraList from "./features/notification/noti_camara/NoticameratList";
-import ActivityList from "./features/activity/ActivityList";
 import SensorList from "./features/sensor/SensorList";
 import EditSensor from "./features/sensor/EditSensor";
 

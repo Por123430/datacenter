@@ -3,7 +3,7 @@ import React from "react";
 import "../../../styles/Table.css";
 
 import "firebase/storage";
-const Noticamera = ({ url }) => {
+const Noticamera = ({ url ,searchQuery}) => {
   // const url1 = url.url;
 
   const x = url.metadata;
@@ -15,7 +15,7 @@ const Noticamera = ({ url }) => {
     // console.log("timeCreated",x.name)
 
     const cellStatus = url.active ? "" : "table__cell--inactive";
-
+    if (!searchQuery  || formattedDate.includes(searchQuery)) {
     return (
       <>
         <tr className="table-allcell">
@@ -26,6 +26,9 @@ const Noticamera = ({ url }) => {
         </tr>
       </>
     );
+  } else {
+    return null;
+  }
   } else return null;
 };
 

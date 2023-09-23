@@ -22,6 +22,14 @@ const NoticameraList = () => {
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset current page when search query changes
+  };
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -43,25 +51,25 @@ const NoticameraList = () => {
       const files = metadataList.map(([metadata, downloadURL]) => {
         return { metadata, downloadURL };
       });
-        files.sort((a, b) => {
+      files.sort((a, b) => {
         // Compare timeCreated
         if (a.metadata.timeCreated < b.metadata.timeCreated) {
           return 1;
         } else if (a.metadata.timeCreated > b.metadata.timeCreated) {
           return -1;
         }
-        
+
         // If timeCreated is the same, compare downloadURL
         if (a.downloadURL < b.downloadURL) {
           return -1;
         } else if (a.downloadURL > b.downloadURL) {
           return 1;
         }
-        
+
         return 0;
       });
-      // console.log("file",files)
 
+      // console.log("file", files);
       setImageUrls(files);
     };
 
@@ -110,11 +118,25 @@ const NoticameraList = () => {
   const tableContent = imageUrls?.length
     ? imageUrls
         .slice(indexOfFirstItem, indexOfLastItem)
-        .map((imageUrls) => <Noticamera url={imageUrls} />)
+        .map((imageUrls) => <Noticamera url={imageUrls} searchQuery={searchQuery}/>)
     : null;
 
   const content = (
     <div>
+      <div className="search">
+          <form onSubmit={(e) => e.preventDefault()} role="search">
+            <label htmlFor="search">Search for stuff</label>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search..."
+              autoFocus
+              required
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+          </form>
+        </div>
       <table className="table-monitor">
         <thead className="table__thead">
           <tr>

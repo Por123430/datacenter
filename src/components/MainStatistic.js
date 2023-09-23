@@ -6,38 +6,6 @@ import { useRef, useEffect, useState } from "react";
 export const MainStatistic = () => {
   const [focusRef, setFocusRef] = useState(null);
 
-  // useEffect(() => {
-  //   if(!focusRef) return;
-    
-  //   focusRef.focus();
-  // }, [focusRef]);
-  //   const printRef = useRef();
-    
-  //   const [loading, setLoading] = useState(false);
-  
-  //   const handleClick = useReactToPrint({
-  //     content: () => focusRef
-  //   });
-  // const componentRef = useRef();
-  // const [pinCode, setPinCode] = React.useState("");
-  // useEffect(()=>{
-
-  //     })
-  // const handlePrint = useReactToPrint({
-  //   content: () =>  componentRef.current,
-
-  //   documentTitle: "Statistic-data",
-  //   // onAfterPrint: () => alert('Print success')
-  // },10000);
-  //  useEffect(()=>{
-
-  //   const getData = setTimeout(() => {
-  //     componentRef.current = 5000;
-
-  //   }, 5000)
-  //   return () => clearTimeout(getData)
-
-  //  })
 
   return (
     <>
@@ -48,7 +16,7 @@ export const MainStatistic = () => {
         >
           <StatisticHeader />
         </div>
-        <div className="mainnoti-Outlet"  style={{margin: "0px 10%", width: "100%"}}>
+        <div className="mainnoti-Outlet"  style={{margin: "0px 10%", width: "80%" ,backgroundColor: "wheat"}}>
           <Outlet />
           
           {/* <button onClick={handleClick} disabled={loading}> Print It </button> */}
