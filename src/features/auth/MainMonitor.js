@@ -8,14 +8,89 @@ import temp from "../../img/celsius.png";
 import humi from "../../img/humidity2.png";
 import flame from "../../img/smoke-detector.png";
 const MainMonitor = () => {
-  const [todoData, setTodoData] = useState([]);
+  const [sensor1Data, setSensor1Data] = useState([]);
   const [sensor2Data, setSensor2Data] = useState([]);
 
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [popupData, setPopupData] = useState([]);
+  const [tempData, setTempData] = useState();
+  const [humiData, setHumiData] = useState();
+  const [lightData, setLightData] = useState();
+  const [tempdd, setTempdd] = useState([]);
+  const [humidd, setHumidd] = useState([]);
+  const [lightdd, setLightdd] = useState([]);
+
+  const [title, setTitle] = useState();
+  const fetchTempData = async () => {
+    try {
+      const response = await fetch("http://localhost:3500/notiTemp/filter");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch data");
+      }
+
+      const { noti_temp, count } = data;
+
+      setTempdd(noti_temp);
+      setTempData(count);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchHumiData = async () => {
+    try {
+      const response = await fetch("http://localhost:3500/notiHumi/filter");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch data");
+      }
+
+      const { noti_humi, count } = data;
+
+      setHumidd(noti_humi);
+      setHumiData(count);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchLightData = async () => {
+    try {
+      const response = await fetch("http://localhost:3500/notiLight/filter");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch data");
+      }
+
+      const { noti_light, count } = data;
+
+      setLightdd(noti_light);
+      setLightData(count);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handlePopupClick = (data, title) => {
+    setTitle(title);
+    setPopupData(data);
+    setPopupOpen(!isPopupOpen);
+  };
+  const closePopupClick = () => {
+    setPopupOpen(false);
+    setPopupData(null);
+  };
   useEffect(() => {
     const starCountRef = ref(db, "ESP32/");
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      setTodoData(data);
+      setSensor1Data(data);
+      fetchTempData();
+      fetchHumiData();
+      fetchLightData();
     });
   }, []);
 
@@ -24,9 +99,25 @@ const MainMonitor = () => {
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
       setSensor2Data(data);
+      fetchTempData();
+      fetchHumiData();
+      fetchLightData();
     });
   }, []);
+  function detect(x) {
+    if (x === 1) {
+      x = "undetect";
+    } else {
+      x = "detect";
+    }
+    return x;
+  }
 
+  const time = (tt) => {
+    const date = new Date(tt);
+    const formattedDate = date.toLocaleString();
+    return formattedDate;
+  };
   const content = (
     <div>
       <section className="LogMonitor">
@@ -38,106 +129,135 @@ const MainMonitor = () => {
               </div>
               <div className="item-content">
                 <label>sensor 1 : Temperature</label>
-                {todoData.temperature}
-              </div>
 
-              {/* {imageData.photo} */}
+                <div className="data">{sensor1Data.temperature}</div>
+              </div>
             </div>
             <div className="LogMonitor-display__item1">
-            <div className="item-img">
-              <img src={humi} alt="imgtemp"></img>
+              <div className="item-img">
+                <img src={humi} alt="imgtemp"></img>
               </div>
               <div className="item-content">
-              <label>sensor 1 : Humidity</label>
-              {todoData.humidity}</div>
+                <label>sensor 1 : Humidity</label>
+                <div className="data">{sensor1Data.humidity}</div>
+              </div>
             </div>
             <div className="LogMonitor-display__item1">
-            <div className="item-img">
-              <img src={flame} alt="imgtemp"></img>
+              <div className="item-img">
+                <img src={flame} alt="imgtemp"></img>
               </div>
               <div className="item-content">
-              <label>sensor 1 : flame</label>
-              {todoData.flame}
+                <label>sensor 1 : Flame</label>
+                <div className="data">{detect(sensor1Data.flame)}</div>
               </div>
             </div>
           </div>
+
           <div className="LogMonitor-display__content">
             <div className="LogMonitor-display__item2">
-            <div className="item-img">
-              <img src={temp} alt="imgtemp"></img>
+              <div className="item-img">
+                <img src={temp} alt="imgtemp"></img>
               </div>
               <div className="item-content">
-              <label>sensor 2 : Temperature</label>
-              {sensor2Data.temperature}
+                <label>sensor 2 : Temperature</label>
+                <div className="data"> {sensor2Data.temperature}</div>
+               
               </div>
             </div>
             <div className="LogMonitor-display__item2">
-            <div className="item-img">
-              <img src={humi} alt="imgtemp"></img>
+              <div className="item-img">
+                <img src={humi} alt="imgtemp"></img>
               </div>
               <div className="item-content">
-              <label>sensor 2 : Humidity</label>
-              {sensor2Data.humidity}
+                <label>sensor 2 : Humidity</label>
+                <div className="data">{sensor2Data.humidity}</div>
               </div>
             </div>
             <div className="LogMonitor-display__item2">
-            <div className="item-img">
-              <img src={flame} alt="imgtemp"></img>
+              <div className="item-img">
+                <img src={flame} alt="imgtemp"></img>
               </div>
               <div className="item-content">
-              <label>sensor 2 : flame</label>
-              {sensor2Data.flame}
+                <label>sensor 2 : Flame</label>
+                <div className="data">{detect(sensor2Data.flame)}</div>
               </div>
             </div>
-
           </div>
 
-          <div className="LogMonitor-display__graph">
-            <div className="graph-item">
-              <iframe
-                title="all-temp"
-                style={{
-                  // background: "#21313C",
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="410"
-                height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=6436b21b-53c5-4233-8a6a-28600d299260&maxDataAge=300&theme=light&autoRefresh=true"
-              ></iframe>
-            </div>
-
-            <div className="graph-item">
-              <iframe
-                title="all-humi"
-                style={{
-                  // background: "#21313C",
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="410"
-                height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=64385fdb-2306-41ec-8042-eb1084ff92af&maxDataAge=300&theme=light&autoRefresh=true"
-              ></iframe>
-            </div>
-
-            <div className="graph-item">
-              <iframe
-                title="all-humi"
-                style={{
-                  // background: "#21313C",
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="410"
-                height="340"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643847dc-f155-4b1b-8b1f-cc909507c2c8&maxDataAge=3600&theme=light&autoRefresh=true"
-              ></iframe>
+          <div className="LogMonitor-display__content">
+            <div className="LogMonitor-display__graph">
+              <div
+                className="countSections"
+                onClick={() => handlePopupClick(tempdd, "Temperature")}
+              >
+                <div class="title-content-Section">
+                 Temperature
+                </div>
+                <div className="item-content-filter">
+                  {tempData}
+                </div>
+              </div>
+              <div
+                className="countSections"
+                onClick={() => handlePopupClick(humidd, "Humidity")}
+              >
+                <div className="title-content-Section">
+                 Humidity
+                </div>
+                <div className="item-content-filter">
+                  {humiData}
+                </div>
+              </div>
+              <div
+                className="countSections"
+                onClick={() => handlePopupClick(lightdd, "flame")}
+              >
+                <div className="title-content-Section">
+                  Flame
+                </div>
+                <div className="item-content-filter">
+                  {lightData}
+                </div>
+              </div>
             </div>
           </div>
+          {isPopupOpen && (
+            <div className="overlay">
+              <div className="popupData">
+                <button className="close" onClick={closePopupClick}>
+                  x
+                </button>
+                <div className="content">
+                  {/* Display popupData here */}
+                  <table className="table-monitor">
+                    <thead className="table__thead">
+                      <tr>
+                        <th scope="col" className="table__th-temp">
+                          {title}
+                        </th>
+                        <th scope="col" className="table__th-moistures">
+                          Time
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {popupData.map((dataItem, index) => (
+                        <tr key={index} className="table-allcell">
+                          <td>
+                            {" "}
+                            {dataItem.temperature ||
+                              dataItem.humidity ||
+                              dataItem.flame}
+                          </td>
+                          <td> {time(dataItem.createdAt)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

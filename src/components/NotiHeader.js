@@ -7,12 +7,20 @@ import motion from "../img/motion.png";
 
 import humi from "../img/humidity2.png";
 import flame from "../img/smoke-detector.png";
+import {useState} from 'react'
 
 const NotiHeader = () => {
+
+  const [activeLink, setActiveLink] = useState(null);
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
   const content = (
     <div className="NotiHeader__element">
       <Link to="/dash/Mainnoti/NotitempList" className="NotiHeader-link">
-        <div className="NotiHeader-link-content">
+        <div className={`NotiHeader-link-content ${activeLink === 'temperature' ? 'active' : ''}`}
+          onClick={() => handleLinkClick('temperature')}>
           <div className="NotiHeader-link__img">
             <img src={temp} alt="monitor"></img>
           </div>
@@ -20,7 +28,8 @@ const NotiHeader = () => {
         </div>
       </Link>
       <Link to="/dash/Mainnoti/NotihumiList" className="NotiHeader-link">
-        <div className="NotiHeader-link-content">
+        <div className={`NotiHeader-link-content ${activeLink === 'humidity' ? 'active' : ''}`}
+          onClick={() => handleLinkClick('humidity')}>
           <div className="NotiHeader-link__img">
             <img src={humi} alt="monitor"></img>
           </div>
@@ -29,7 +38,8 @@ const NotiHeader = () => {
       </Link>
 
       <Link to="/dash/Mainnoti/NotilightList" className="NotiHeader-link">
-        <div className="NotiHeader-link-content">
+        <div className={`NotiHeader-link-content ${activeLink === 'flame' ? 'active' : ''}`}
+          onClick={() => handleLinkClick('flame')}>
           <div className="NotiHeader-link__img">
             <img src={flame} alt="monitor"></img>
           </div>
@@ -37,11 +47,12 @@ const NotiHeader = () => {
         </div>
       </Link>
       <Link to="/dash/Mainnoti/NoticameraList" className="NotiHeader-link">
-        <div className="NotiHeader-link-content">
+        <div className={`NotiHeader-link-content ${activeLink === 'motion' ? 'active' : ''}`}
+          onClick={() => handleLinkClick('motion')}>
           <div className="NotiHeader-link__img">
             <img src={motion} alt="monitor"></img>
           </div>
-          <div className="NotiHeader-link__title">camara</div>
+          <div className="NotiHeader-link__title">motion</div>
         </div>
       </Link>
     </div>

@@ -1,8 +1,12 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "../../../styles/Table.css";
 import Notitemp from "./Notitemp";
-import { useGetNotitempQuery } from "./notitempApiSlice";
+import {
+  useGetNotitempQuery,
+  useSearchNotitempMutation,
+} from "./notitempApiSlice";
 import "../../../styles/pagination.css";
+
 const NotitempList = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
@@ -13,9 +17,12 @@ const NotitempList = () => {
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+
   const {
     data: notitemp,
     isLoading,
@@ -24,34 +31,35 @@ const NotitempList = () => {
     error,
   } = useGetNotitempQuery();
 
-  let content;
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset current page when search query changes
+  };
 
-  if (isLoading) content = <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   if (isError) {
-    content = (
+    return (
       <p className={isError ? "errmsg" : "offscreen"}>{error?.data?.message}</p>
     );
   }
-  // console.log("notitemp",notitemp.length)
-  // useEffect(()=>{
-  //   const  ids  = notitemp;
-  //
-  //   setK(ids.ids)
 
-  // },[setK,notitemp,k])
   if (isSuccess) {
     const { ids } = notitemp;
 
-    for (let i = 1; i <= Math.ceil(ids.length / itemsperpage); i++) {
+    // Calculate total number of pages
+    const totalPages = Math.ceil(ids.length / itemsperpage);
+
+    for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
 
     const indexOfLastItem = currentpage * itemsperpage;
     const indexOfFirstItem = indexOfLastItem - itemsperpage;
-    ids.slice(indexOfFirstItem, indexOfLastItem);
+
     const renderPageNumbers = pages.map((number) => {
-      if (number < maxpageNumberLimit + 1 && number > minpageNumberLimit) {
+      if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
         return (
           <li
             key={number}
@@ -66,6 +74,7 @@ const NotitempList = () => {
         return null;
       }
     });
+
     const handleNextbtn = () => {
       setCurrentPage(currentpage + 1);
       if (currentpage + 1 > maxpageNumberLimit) {
@@ -73,6 +82,7 @@ const NotitempList = () => {
         setMinPageNumberLimit(minpageNumberLimit + pageNumberLimit);
       }
     };
+
     const handlePrevbtn = () => {
       setCurrentPage(currentpage - 1);
       if ((currentpage - 1) % pageNumberLimit === 0) {
@@ -81,33 +91,34 @@ const NotitempList = () => {
       }
     };
 
-    // let pageIncrementBtn = null;
-    // if(pages.length > maxpageNumberLimit){
-    //   pageIncrementBtn= <li onClick={handleNextbtn}> &hellip; </li>
-    // }
-
-    // let pageDecrementBtn = null;
-    // if(pages.length > maxpageNumberLimit){
-    //   pageDecrementBtn= <li onClick={handlePrevbtn}> &hellip; </li>
-    // }
-    // console.log("notitempsdfs",ids.length)
-    // const lenght = ids.length;
-    // const page = lenght-5;
-    // console.log("page",page)
     const tableContent = ids?.length
       ? ids
           .slice(indexOfFirstItem, indexOfLastItem)
-          .map((currentItems) => (
-            <Notitemp key={currentItems} notitempId={currentItems} />
+          .map((notitempId) => (
+            <Notitemp
+              key={notitempId}
+              notitempId={notitempId}
+              searchQuery={searchQuery}
+            />
           ))
-      : // : ids?.length || ids.lenght < 40
-        // ? ids.slice(11,20).map((notitempId) => (
-        //   <Notitemp key={notitempId} notitempId={notitempId} />
-        // ))
-        null;
+      : null;
 
-    content = (
+    return (
       <div>
+        <div className="search">
+          <form onSubmit={(e) => e.preventDefault()} role="search">
+            <label htmlFor="search">Search for stuff</label>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search..."
+              autoFocus
+              required
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+          </form>
+        </div>
         <table className="table-monitor">
           <thead className="table__thead">
             <tr>
@@ -120,7 +131,6 @@ const NotitempList = () => {
             </tr>
           </thead>
           <tbody>{tableContent}</tbody>
-          {/* <tbody>{kk}</tbody> */}
         </table>
         <div className="pagination-page">
           <li>
@@ -131,9 +141,7 @@ const NotitempList = () => {
               Prev
             </button>
           </li>
-
           {renderPageNumbers}
-
           <li>
             <button
               onClick={handleNextbtn}
@@ -146,6 +154,8 @@ const NotitempList = () => {
       </div>
     );
   }
-  return content;
+
+  return null;
 };
+
 export default NotitempList;

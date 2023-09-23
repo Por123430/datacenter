@@ -4,54 +4,79 @@ import { useRef, useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import ReactToPrint from "react-to-print";
+
+import {
+  useGetNotitempQuery,
+  useSearchNotitempMutation,
+} from "../notification/noti_temp/notitempApiSlice";
+import ChartsWeek from "../../components/Chartsweek";
+import ChartsMonth from "../../components/Chartyear";
+import ChartDay from "../../components/Chartday";
 const TempStatistic = () => {
-  // const [chartImage, setChartImage] = useState(null);
+  const [data, setData] = useState([]);
+  const [dataDay, setDataDay] = useState([]);
+  const [dataYear, setDataYear] = useState([]);
 
-  // // Function to download the chart as a PDF
-  // const downloadPDF = () => {
-  //   // Get the chart element from the iframe
-  //   const iframe = document.getElementById('iframe1');
-  //   // const chart = iframe.contentDocument.getElementById('chart-element');
-  //   // Get the image data from the chart
-  //   const imageData = iframe.toDataURL('image/png');
+  const [showWeekChart, setShowWeekChart] = useState(true);
+  const [showDayChart, setShowDayChart] = useState(false);
+  const [showMonthChart, setShowMonthChart] = useState(false);
 
-  //   // Create a new PDF document
-  //   const pdf = new jsPDF('landscape');
+  const toggleWeekChart = () => {
+    setShowWeekChart(true);
+    setShowDayChart(false);
+    setShowMonthChart(false);
+  };
 
-  //   // Add the image to the PDF
-  //   pdf.addImage(imageData, 'PNG', 10, 10, 280, 150);
+  const toggleDayChart = () => {
+    setShowWeekChart(false);
+    setShowDayChart(true);
+    setShowMonthChart(false);
+  };
 
-  //   // Save the PDF file
-  //   pdf.save('chart.pdf');
-  // }
+  const toggleMonthChart = () => {
+    setShowWeekChart(false);
+    setShowDayChart(false);
+    setShowMonthChart(true);
+  };
 
-  // const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    fetchData();
+    fetchDataDay();
+    fetchDataYear();
+  }, []);
 
-  // const handleMessage = (event) => {
-  //   if (event.data.action === "iframe1-loaded") {
-  //     setIsLoading(false);
-  //   }
-  // };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3500/notiTemp/chartByWeek"
+      );
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+  const fetchDataYear = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3500/notiTemp/chartByMonth"
+      );
+      const result = await response.json();
+      setDataYear(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
 
-  // const printIframe = (id) => {
-  //   const iframe = document.frames
-  //     ? document.frames[id]
-  //     : document.getElementById(id);
-  //   const iframeWindow = iframe.contentWindow || iframe;
-
-  //   iframe.focus();
-  //   iframeWindow.print();
-
-  //   return false;
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("message", handleMessage);
-
-  //   return () => {
-  //     window.removeEventListener("message", handleMessage);
-  //   };
-  // }, []);
+  const fetchDataDay = async () => {
+    try {
+      const response = await fetch("http://localhost:3500/notiTemp/chartByDay");
+      const result = await response.json();
+      setDataDay(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
   const chartRef = useRef(null);
   const [pauseDataUpdates, setPauseDataUpdates] = useState(false);
 
@@ -62,104 +87,71 @@ const TempStatistic = () => {
   const handleAfterPrint = () => {
     setPauseDataUpdates(false);
   };
+  // useEffect(() => {console.log(notitemp);},[])
   return (
     <>
-      <div className="chart">
-      <div className="LogMonitor-display__graph">
-          <div className="graph-item">
-            <iframe
-              id="iframe1"
-              title="iframe1"
-              style={{
-                
-                border: "none",
-                borderRadius: "2px",
-                boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-              }}
-              width="480"
-              height="360"
-              src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=6436b21b-53c5-4233-8a6a-28600d299260&maxDataAge=3600&theme=light&autoRefresh=true"
-            ></iframe>
-            </div> 
-
-            <div className="graph-item">
-              <iframe
-                
-                id="iframe1"
-                title="iframe1"
-                style={{
-                  
-                  
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="480"
-                height="360"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643834e0-5761-4a13-82a8-ffbdfbe8d7ea&maxDataAge=3600&theme=light&autoRefresh=true"
-              ></iframe>
+      <div className="chart" ref={chartRef}>
+        <div className="chart-content">
+          <div className="buttons">
+            <div className="btu-chart">
+              <button onClick={toggleWeekChart}>Week</button>
             </div>
-            
-            <div className="graph-item">
-              <iframe
-                ref={chartRef}
-                id="iframe1"
-                title="iframe1"
-                style={{
-                  
-                  
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="480"
-                height="360"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643836cf-f155-475b-8429-cc9095f4e873&maxDataAge=3600&theme=light&autoRefresh=true"
-              ></iframe>
+            <div className="btu-chart">
+              <button onClick={toggleDayChart}>Month</button>
             </div>
-
-             <div className="graph-item">
-              <iframe
-                
-                id="iframe1"
-                title="iframe1"
-                style={{
-                  
-                  
-                  border: "none",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                }}
-                width="480"
-                height="360"
-                src="https://charts.mongodb.com/charts-arduinoproject-dvaqg/embed/charts?id=643838db-5761-4715-8278-ffbdfbef9996&maxDataAge=3600&theme=light&autoRefresh=true"
-              ></iframe>
+            <div className="btu-chart">
+              <button onClick={toggleMonthChart}>Year</button>
             </div>
-        </div>
-        <div className='print-button'>
-        <ReactToPrint
-          trigger={() => <button>Print</button>}
-          content={() => chartRef.current}
-          onBeforeGetContent={handleBeforePrint}
-          onAfterPrint={handleAfterPrint}
-        />
+            <div className="print-button">
+          <ReactToPrint
+            trigger={() => <button>Print</button>}
+            content={() => chartRef.current}
+            onBeforeGetContent={handleBeforePrint}
+            onAfterPrint={handleAfterPrint}
+          />
         </div>
         <style>{`
-        .mongodb-chart-refreshing {
-          animation: none !important;
-        }
-        @page {
-          size: landscape;
-          size: 280mm 180mm;
-        }
-      `}</style>
+       .mongodb-chart-refreshing {
+         animation: none !important;
+       }
+       @page {
+         size: landscape;
+         size: 280mm 180mm;
+       }
+     `}</style>
         {pauseDataUpdates && (
           <style>{`
-          .mongodb-chart-refreshing {
-            animation: none !important;
-          }
-        `}</style>
+         .mongodb-chart-refreshing {
+           animation: none !important;
+         }
+       `}</style>
         )}
+          </div>
+          <div className="all-content">
+            {" "}
+            <div className="chart-title">Temperature Chart</div>
+            <section
+              className="ChartSection"
+              style={{ display: showWeekChart ? "block" : "none" }}
+            >
+              <ChartsWeek data={data} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showDayChart ? "block" : "none" }}
+            >
+              <ChartDay data={dataDay} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showMonthChart ? "block" : "none" }}
+            >
+              <ChartsMonth data={dataYear} />
+            </section>
+          </div>
+         
+        </div>
+     
       </div>
     </>
   );

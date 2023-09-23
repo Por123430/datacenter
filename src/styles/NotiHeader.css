@@ -39,3 +39,7 @@
     width: 60%;
     margin: 10px;
 }
+.NotiHeader-link-content.active {
+    border-radius: 4px;
+    background-color: #0D3B66;
+  }

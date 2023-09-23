@@ -57,3 +57,17 @@ img:hover{
     display: flex;
     cursor: pointer;
   }
+
+  .button {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .imglink.active {
+    border-radius: 4px;
+    background-color: #0D3B66;
+  }

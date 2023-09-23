@@ -9,7 +9,7 @@ import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 
 import usePersist from "../../hooks/usePersist";
-import loginImg from "../../img/loginbg.jpg";
+import loginImg from "../../img/loginimg.png";
 import logo from "../../img/Egat-Logo.png";
 const Login = () => {
   const userRef = useRef();
@@ -65,33 +65,29 @@ const Login = () => {
   const content = (
     <div className="body">
       <header className="dash-header">
-      <div className="dash-header__container">
-        <nav className="dash-header__logo">
-          <img src={logo} alt="Logo"></img>
-        </nav>
-        
-        {/* <Link to="/dash/notes" className="dash-header__title" >
+        <div className="dash-header__container">
+          <nav className="dash-header__logo">
+            <img src={logo} alt="Logo"></img>
+          </nav>
+
+          {/* <Link to="/dash/notes" className="dash-header__title" >
           DataCenter
         </Link> */}
-        
-        
-        
-      </div>
-    </header>
+        </div>
+      </header>
       <section className="public">
-        
         <div className="content">
           <div className="img-body">
             <img src={loginImg} alt="Logo-login"></img>
           </div>
           <div className="content-body">
             <main className="login">
-            <header>Login</header>
-              <form className="form" onSubmit={handleSubmit}>
+              <header>Login</header>
+              <form className="form-login" onSubmit={handleSubmit}>
                 <div className="login-input">
                   <label htmlFor="username">Username :</label>
                   <input
-                    className="form__input"
+                    className="form__input-login"
                     type="text"
                     id="username"
                     ref={userRef}
@@ -105,7 +101,7 @@ const Login = () => {
                 <div className="login-input">
                   <label htmlFor="password">Password :</label>
                   <input
-                    className="form__input"
+                    className="form__input-login"
                     type="password"
                     id="password"
                     value={password}
@@ -117,9 +113,7 @@ const Login = () => {
                   {errMsg}
                 </p>
                 <div className="submit_section">
-                  <button className="all-button">
-                    <label htmlFor="SignIn">Sign In</label>
-                  </button>
+                  <button className="all-button">Sign In</button>
 
                   <label htmlFor="persist" className="form__persist">
                     <input

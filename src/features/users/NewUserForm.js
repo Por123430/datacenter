@@ -7,7 +7,7 @@ import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { ROLES } from "../../config/roles";
 import "../../styles/edit.css";
 
-const USER_REGEX = /^[A-z0-9]{3,20}$/;
+const USER_REGEX = /^[A-z]{3,20}$/;
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
 const NewUserForm = () => {
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
@@ -106,7 +106,7 @@ const NewUserForm = () => {
           New User
         </div>
         <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
+          Username: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validUserClass}`}
@@ -119,7 +119,7 @@ const NewUserForm = () => {
         />
 
         <label className="form__label" htmlFor="firstname">
-          Firstname: <span className="nowrap"></span>
+          Firstname: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validFirstClass}`}
@@ -131,7 +131,7 @@ const NewUserForm = () => {
           onChange={onFirstnameChanged}
         />
         <label className="form__label" htmlFor="lastname">
-          Lastname: <span className="nowrap"></span>
+          Lastname: <span className="nowrap">[A-z][3-20 letters]</span>
         </label>
         <input
           className={`form__input ${validLastClass}`}
@@ -144,7 +144,7 @@ const NewUserForm = () => {
         />
 
         <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          Password: <span className="nowrap">[A-z,0-9,!@#$%][4-12 chars]</span>
         </label>
         <input
           className={`form__input ${validPwdclass}`}
@@ -164,7 +164,7 @@ const NewUserForm = () => {
           name="roles"
           
           value={roles}
-          size="2"
+          size="3"
           onChange={onRolesChanged}
         >
           {options}

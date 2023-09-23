@@ -50,11 +50,24 @@ export const notitempApiSlice = apiSlice.injectEndpoints({
               { type: 'NotiTemperature', id: "LIST"}
           ]
       }),
+      searchNotitemp: builder.mutation({
+        query: initialUserData => ({
+            url: '/notiTemp/search',
+            method: 'POST',
+            body: {
+                ...initialUserData,
+            }
+        }),
+        invalidatesTags: [
+            { type: 'NotiTemperature', id: "LIST"}
+        ]
+    }),
   })
 })
 export const {
   useGetNotitempQuery,
-  useAddNotitempMutation
+  useAddNotitempMutation,
+  useSearchNotitempMutation
 } = notitempApiSlice
 
 export const selectNotiTemperatureResult = notitempApiSlice.endpoints.getNotitemp.select()
