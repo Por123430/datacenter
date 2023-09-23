@@ -42,7 +42,7 @@ const CamaraStatistic = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByWeek");
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByWeek");
       const result = await response.json();
       setData(result); 
     } catch (error) {
@@ -52,7 +52,7 @@ const CamaraStatistic = () => {
 
   const fetchDataYear = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByMonth");
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByMonth");
       const result = await response.json();
       setDataYear(result); 
     } catch (error) {
@@ -62,7 +62,7 @@ const CamaraStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByDay");
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByDay");
       const result = await response.json();
       setDataDay(result); 
     } catch (error) {

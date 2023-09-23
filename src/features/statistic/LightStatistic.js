@@ -41,7 +41,7 @@ const LightStatistic = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/chartByWeek");
+      const response = await fetch("https://datacenter-api.onrender.com/notiLight/chartByWeek");
       const result = await response.json();
       setData(result); 
     } catch (error) {
@@ -51,7 +51,7 @@ const LightStatistic = () => {
 
   const fetchDataYear = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/chartByMonth");
+      const response = await fetch("https://datacenter-api.onrender.com/chartByMonth");
       const result = await response.json();
       setDataYear(result); 
     } catch (error) {
@@ -61,7 +61,7 @@ const LightStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/chartByDay");
+      const response = await fetch("https://datacenter-api.onrender.com/notiLight/chartByDay");
       const result = await response.json();
       setDataDay(result); 
     } catch (error) {

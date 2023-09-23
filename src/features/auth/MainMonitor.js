@@ -23,7 +23,7 @@ const MainMonitor = () => {
   const [title, setTitle] = useState();
   const fetchTempData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/filter");
+      const response = await fetch("https://datacenter-api.onrender.com/notiTemp/filter");
       const data = await response.json();
 
       if (!response.ok) {
@@ -40,7 +40,7 @@ const MainMonitor = () => {
   };
   const fetchHumiData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/filter");
+      const response = await fetch("https://datacenter-api.onrender.com/notiHumi/filter");
       const data = await response.json();
 
       if (!response.ok) {
@@ -58,7 +58,7 @@ const MainMonitor = () => {
 
   const fetchLightData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/filter");
+      const response = await fetch("https://datacenter-api.onrender.com/notiLight/filter");
       const data = await response.json();
 
       if (!response.ok) {

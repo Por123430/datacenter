@@ -48,7 +48,7 @@ const TempStatistic = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiTemp/chartByWeek"
+        "https://datacenter-api.onrender.com/notiTemp/chartByWeek"
       );
       const result = await response.json();
       setData(result);
@@ -59,7 +59,7 @@ const TempStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiTemp/chartByMonth"
+        "https://datacenter-api.onrender.com/notiTemp/chartByMonth"
       );
       const result = await response.json();
       setDataYear(result);
@@ -70,7 +70,7 @@ const TempStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/chartByDay");
+      const response = await fetch("https://datacenter-api.onrender.com/notiTemp/chartByDay");
       const result = await response.json();
       setDataDay(result);
     } catch (error) {

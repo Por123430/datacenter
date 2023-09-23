@@ -40,7 +40,7 @@ const HumiStatistic = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/chartByWeek");
+      const response = await fetch("https://datacenter-api.onrender.com/notiHumi/chartByWeek");
       const result = await response.json();
       setData(result); 
     } catch (error) {
@@ -49,7 +49,7 @@ const HumiStatistic = () => {
   };
   const fetchDataYear = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/chartByMonth");
+      const response = await fetch("https://datacenter-api.onrender.com/notiHumi/chartByMonth");
       const result = await response.json();
       setDataYear(result); 
     } catch (error) {
@@ -59,7 +59,7 @@ const HumiStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/chartByDay");
+      const response = await fetch("https://datacenter-api.onrender.com/notiHumi/chartByDay");
       const result = await response.json();
       setDataDay(result); 
     } catch (error) {
