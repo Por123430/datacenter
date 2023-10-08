@@ -125,7 +125,7 @@ const MonitorList = () => {
                 humidity
               </th>
               <th scope="col" className="table__th-lighting">
-                flame
+              smoke
               </th>
               <th scope="col" className="table__th-createdAt">
                 date-time

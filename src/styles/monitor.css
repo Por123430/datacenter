@@ -1,14 +1,13 @@
 .LogMonitor-display__content{
   display: flex;
   flex-wrap: nowrap;
-  /* margin: 0px 30px; */
   flex-direction: row;
   font-size: 24px;
 }
 .LogMonitor-display__content label{
     color: black;
 }
-.LogMonitor-display__graph{
+.Monitor-display__graph{
   width: 100%;
   display: flex;
     flex-wrap: nowrap;
@@ -73,7 +72,7 @@
 }
 
 .item-content .data{
-  font-size: 36px;
+  font-size: 42px;
 }
 .countSections:hover{
   box-shadow: 20px 20px 50px grey;
@@ -175,6 +174,19 @@ tr:nth-child(even){background-color: #f2f2f2}
 }
 .countSections{
   cursor: pointer;
+}
+.sensor{
+
+   background-color: white;
+  border: solid 1px gainsboro;
+  display: inline-block;
+  margin: 10px 20px 0px 20px;
+  width: 98%;
+  border-radius: 3px;
+}
+.sensor .sensor_Titile{
+  font-size: 26px;
+  margin: 20px 20px 0px 20px;
 }
 /* .popupData button{
   margin-left: 430px;

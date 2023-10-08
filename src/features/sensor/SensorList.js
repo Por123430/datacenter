@@ -33,6 +33,7 @@ const SensorList = () => {
               <th scope="col" className="table__thuser__username">model</th>
                 <th scope="col" className="table__thuser__username">temperature</th>
                 <th scope="col" className="table__thuser__username">humidity</th>
+                <th scope="col" className="table__thuser__username">position</th>
                 <th scope="col" className="table__thuser__username">edit</th>
               </tr>
             </thead>

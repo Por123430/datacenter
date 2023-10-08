@@ -43,7 +43,7 @@ const NotiHeader = () => {
           <div className="NotiHeader-link__img">
             <img src={flame} alt="monitor"></img>
           </div>
-          <div className="NotiHeader-link__title">flame</div>
+          <div className="NotiHeader-link__title">smoke</div>
         </div>
       </Link>
       <Link to="/dash/Mainnoti/NoticameraList" className="NotiHeader-link">

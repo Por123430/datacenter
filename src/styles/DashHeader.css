@@ -1,5 +1,5 @@
 .dash-header{
-    background-color: #0D3B66;
+    /* background-color: #0D3B66; */
     text-align: right;
     font-size: 1.6em;
     padding: 12px 0px;
@@ -32,13 +32,13 @@
 }
 .icon-button{
     background-color: white; /* Green */
-    border: none;
-    color: black;
+    border: 1px solid gainsboro;
+    color: #154295;
     padding: 11px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
+    font-size: 24px;
     margin: 4px 2px;
     width: 100%;
     transition-duration: 0.4s;
@@ -46,6 +46,6 @@
     border-radius: 3px;
 }
 .icon-button:hover {
-    background-color: #2D2F36;
+    background-color: #ffcc00;
     color: white;
   }

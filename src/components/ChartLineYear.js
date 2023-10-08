@@ -1,9 +1,9 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../../../frontend/src/styles/chart.css";
-const ChartsMonth = ({ data }) => {
+const ChartLineYear = ({ data }) => {
   const [temp, setTemp] = useState([]);
   useEffect(() => {
     setTemp(data);
@@ -40,9 +40,9 @@ const ChartsMonth = ({ data }) => {
     <div className="chart-item">
       {" "}
       {/* Set desired width and height */}
-      <Bar data={chartData} options={chartOptions} />
+      <Line data={chartData} options={chartOptions} />
     </div>
   );
 };
 
-export default ChartsMonth;
+export default ChartLineYear;

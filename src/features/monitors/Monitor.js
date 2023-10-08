@@ -12,11 +12,9 @@ const Monitor = ({ monitorId, searchQuery }) => {
     const formattedDate = date.toLocaleString();
     const cellStatus = monitor.active ? "" : "table__cell--inactive";
 
-    // const humidity = String(monitor.humidity).toLowerCase();
-    // const moisture = String(monitor.moisture).toLowerCase();
-    // const lighting = String(monitor.lighting).toLowerCase();
-    // const query = searchQuery.toLowerCase();
-    console.log(searchQuery);
+    // Define a class variable to hold the CSS class based on monitor.lighting
+    const lightingClass = monitor.lighting === 'detected' ? 'red-text' : '';
+console.log(monitor);
     if (
       !searchQuery ||
      String( monitor.temp).includes(searchQuery) ||
@@ -27,10 +25,10 @@ const Monitor = ({ monitorId, searchQuery }) => {
     ) {
       return (
         <tr className="table-allcell">
-          <td className={`table-cell ${cellStatus}`}>{monitor.temp}</td>
-          <td className={`table-cell ${cellStatus}`}>{monitor.moisture}</td>
-          <td className={`table-cell ${cellStatus}`}>{monitor.lighting}</td>
-          <td className={`table-cell ${cellStatus}`}>{formattedDate}</td>
+          <td className={`table-cell ${cellStatus} ${lightingClass}`}>{monitor.temp}</td>
+          <td className={`table-cell ${cellStatus} ${lightingClass}`}>{monitor.moisture}</td>
+          <td className={`table-cell ${cellStatus} ${lightingClass}`}>{monitor.lighting}</td>
+          <td className={`table-cell ${cellStatus} ${lightingClass}`}>{formattedDate}</td>
         </tr>
       );
     } else {

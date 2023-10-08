@@ -50,7 +50,7 @@ const DashHeader = () => {
       title="logout"
       onClick={onLogoutClicked}
     >
-      Logout
+      LOGOUT
     </button>
   )
   const content = (
@@ -63,7 +63,7 @@ const DashHeader = () => {
         {/* <Link to="/dash/notes" className="dash-header__title" >
           DataCenter
         </Link> */}
-        <p style={{color: "#c2c2c5"}}>
+        <p style={{color: "#154295"}}>
              {dateState.toLocaleString('en-US', {
                 hour: 'numeric',
                 minute: 'numeric',

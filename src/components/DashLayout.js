@@ -69,7 +69,7 @@ const DashLayout = () => {
     }
     if (sensor1Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor1 flame");
+      setTitlePopup("sensor1 smoke");
 
       const flame = "detect";
       setDataPopup(flame);
@@ -78,7 +78,7 @@ const DashLayout = () => {
     }
     if (sensor2Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor2 flame");
+      setTitlePopup("sensor2 smoke");
       const flame = "detect";
       setDataPopup(flame);
 

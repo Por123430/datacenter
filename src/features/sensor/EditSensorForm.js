@@ -7,6 +7,7 @@ import { useUpdateSensorMutation } from "./sensorApiSlice";
 import "../../styles/edit.css";
 
 const Sen_REGEX = /^[0-9]{1,4}$/;
+const Position_REGEX = /^[A-z]{3,30}$/;
 
 const EditSensorform = ({ sensor }) => {
   const [updateSensor, { isLoading, isSuccess, isError, error }] =
@@ -18,6 +19,8 @@ const EditSensorform = ({ sensor }) => {
   const [validTemp, setValidTemp] = useState(false);
   const [moisture, setMoisture] = useState(sensor.moisture);
   const [validMoisture, setValidMoisture] = useState(false);
+  const [position, setPosition] = useState(sensor.position);
+  const [validPosition, setValidPosition] = useState(false);
 
   useEffect(() => {
     setValidTemp(Sen_REGEX.test(temp));
@@ -25,17 +28,22 @@ const EditSensorform = ({ sensor }) => {
   useEffect(() => {
     setValidMoisture(Sen_REGEX.test(moisture));
   }, [moisture]);
+  useEffect(() => {
+    setValidPosition(Position_REGEX.test(position));
+  }, [position]);
 
   useEffect(() => {
     if (isSuccess) {
       setTemp("");
       setMoisture("");
+      setPosition("");
       navigate("/dash/Sensor");
     }
   }, [isSuccess, navigate]);
 
   const onTempChanged = (e) => setTemp(e.target.value);
   const onMoistureChanged = (e) => setMoisture(e.target.value);
+  const onPositionChanged = (e) => setPosition(e.target.value);
 
   //   const onRolesChanged = (e) => {
   //     const values = Array.from(
@@ -52,6 +60,7 @@ const EditSensorform = ({ sensor }) => {
       id: sensor.id,
       temp,
       moisture,
+      position
     });
   };
 
@@ -74,6 +83,7 @@ const EditSensorform = ({ sensor }) => {
 
   const validTempClass = !validTemp ? "form__input--incomplete" : "";
   const validMoistureClass = !validMoisture ? "form__input--incomplete" : "";
+  const validPositionClass = !validPosition ? "form__input--incomplete" : "";
 
   const content = (
     <>
@@ -106,6 +116,19 @@ const EditSensorform = ({ sensor }) => {
             autoComplete="off"
             value={moisture}
             onChange={onMoistureChanged}
+          />
+
+          <div className="label-form">
+            position: <span className="nowrap"></span>
+          </div>
+          <input
+            className={`form__input ${validPositionClass}`}
+            id="position"
+            name="position"
+            type="text"
+            autoComplete="off"
+            value={position}
+            onChange={onPositionChanged}
           />
 
           <div className="form__action-buttons">

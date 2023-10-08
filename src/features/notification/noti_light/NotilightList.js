@@ -113,7 +113,7 @@ const NotilightList = () => {
           <thead className="table__thead">
             <tr>
               <th scope="col" className="table__th-temp">
-                flame
+              smoke
               </th>
               <th scope="col" className="table__th-moistures">
                 date-time

@@ -7,9 +7,18 @@ import "../../styles/monitor.css";
 import temp from "../../img/celsius.png";
 import humi from "../../img/humidity2.png";
 import flame from "../../img/smoke-detector.png";
+
+import { useSelector } from "react-redux";
+import { selectAllSensor } from "../sensor/sensorApiSlice";
+
 const MainMonitor = () => {
+  const sensor1 = useSelector((state) => selectAllSensor(state));
+
+  console.log(sensor1);
   const [sensor1Data, setSensor1Data] = useState([]);
   const [sensor2Data, setSensor2Data] = useState([]);
+  const [position1Data, setPosition1Data] = useState([]);
+  const [position2Data, setPosition2Data] = useState([]);
 
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [popupData, setPopupData] = useState([]);
@@ -103,7 +112,11 @@ const MainMonitor = () => {
       fetchHumiData();
       fetchLightData();
     });
-  }, []);
+    if(sensor1.length>0){
+      setPosition1Data(sensor1[0].position);
+      setPosition2Data(sensor1[1].position);
+    }
+  }, [sensor1]);
   function detect(x) {
     if (x === 1) {
       x = "undetect";
@@ -122,102 +135,94 @@ const MainMonitor = () => {
     <div>
       <section className="LogMonitor">
         <div className="LogMonitor-display">
-          <div className="LogMonitor-display__content">
-            <div className="LogMonitor-display__item1">
-              <div className="item-img">
-                <img src={temp} alt="imgtemp"></img>
-              </div>
-              <div className="item-content">
-                <label>sensor 1 : Temperature</label>
+          <div className="sensor">
+            <div className="sensor_Titile">position: {position1Data}</div>
+            <div className="LogMonitor-display__content">
+              <div className="LogMonitor-display__item1">
+                <div className="item-img">
+                  <img src={temp} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 1 : Temperature</label>
 
-                <div className="data">{sensor1Data.temperature}</div>
+                  <div className="data">{sensor1Data.temperature}</div>
+                </div>
               </div>
-            </div>
-            <div className="LogMonitor-display__item1">
-              <div className="item-img">
-                <img src={humi} alt="imgtemp"></img>
+              <div className="LogMonitor-display__item1">
+                <div className="item-img">
+                  <img src={humi} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 1 : Humidity</label>
+                  <div className="data">{sensor1Data.humidity}</div>
+                </div>
               </div>
-              <div className="item-content">
-                <label>sensor 1 : Humidity</label>
-                <div className="data">{sensor1Data.humidity}</div>
-              </div>
-            </div>
-            <div className="LogMonitor-display__item1">
-              <div className="item-img">
-                <img src={flame} alt="imgtemp"></img>
-              </div>
-              <div className="item-content">
-                <label>sensor 1 : Flame</label>
-                <div className="data">{detect(sensor1Data.flame)}</div>
+              <div className="LogMonitor-display__item1">
+                <div className="item-img">
+                  <img src={flame} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 1 : Smoke</label>
+                  <div className="data">{detect(sensor1Data.flame)}</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="LogMonitor-display__content">
-            <div className="LogMonitor-display__item2">
-              <div className="item-img">
-                <img src={temp} alt="imgtemp"></img>
+          <div className="sensor">
+            <div className="sensor_Titile">position: {position2Data}</div>
+            <div className="LogMonitor-display__content">
+              <div className="LogMonitor-display__item2">
+                <div className="item-img">
+                  <img src={temp} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 2 : Temperature</label>
+                  <div className="data"> {sensor2Data.temperature}</div>
+                </div>
               </div>
-              <div className="item-content">
-                <label>sensor 2 : Temperature</label>
-                <div className="data"> {sensor2Data.temperature}</div>
-               
+              <div className="LogMonitor-display__item2">
+                <div className="item-img">
+                  <img src={humi} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 2 : Humidity</label>
+                  <div className="data">{sensor2Data.humidity}</div>
+                </div>
               </div>
-            </div>
-            <div className="LogMonitor-display__item2">
-              <div className="item-img">
-                <img src={humi} alt="imgtemp"></img>
-              </div>
-              <div className="item-content">
-                <label>sensor 2 : Humidity</label>
-                <div className="data">{sensor2Data.humidity}</div>
-              </div>
-            </div>
-            <div className="LogMonitor-display__item2">
-              <div className="item-img">
-                <img src={flame} alt="imgtemp"></img>
-              </div>
-              <div className="item-content">
-                <label>sensor 2 : Flame</label>
-                <div className="data">{detect(sensor2Data.flame)}</div>
+              <div className="LogMonitor-display__item2">
+                <div className="item-img">
+                  <img src={flame} alt="imgtemp"></img>
+                </div>
+                <div className="item-content">
+                  <label>sensor 2 : Smoke</label>
+                  <div className="data">{detect(sensor2Data.flame)}</div>
+                </div>
               </div>
             </div>
           </div>
-
           <div className="LogMonitor-display__content">
-            <div className="LogMonitor-display__graph">
+            <div className="Monitor-display__graph">
               <div
                 className="countSections"
                 onClick={() => handlePopupClick(tempdd, "Temperature")}
               >
-                <div class="title-content-Section">
-                 Temperature
-                </div>
-                <div className="item-content-filter">
-                  {tempData}
-                </div>
+                <div class="title-content-Section">Temperature</div>
+                <div className="item-content-filter">{tempData}</div>
               </div>
               <div
                 className="countSections"
                 onClick={() => handlePopupClick(humidd, "Humidity")}
               >
-                <div className="title-content-Section">
-                 Humidity
-                </div>
-                <div className="item-content-filter">
-                  {humiData}
-                </div>
+                <div className="title-content-Section">Humidity</div>
+                <div className="item-content-filter">{humiData}</div>
               </div>
               <div
                 className="countSections"
                 onClick={() => handlePopupClick(lightdd, "flame")}
               >
-                <div className="title-content-Section">
-                  Flame
-                </div>
-                <div className="item-content-filter">
-                  {lightData}
-                </div>
+                <div className="title-content-Section">Smoke</div>
+                <div className="item-content-filter">{lightData}</div>
               </div>
             </div>
           </div>

@@ -119,3 +119,8 @@ img{
   width: 1px;
   overflow: hidden;
 }
+
+.red-text {
+    color: red;
+  }
+  
