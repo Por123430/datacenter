@@ -14,6 +14,7 @@
 
 .chart-title{
     font-size: 32px;
+    display: flex;
     margin: 30px 20px;
 }
 .graph-content{
@@ -77,3 +78,17 @@ border-radius: 5px;
     background-color: #2D2F36;
     color: aliceblue;
 }
+.method-chart{
+    display: flex;
+    margin-left: 620px;
+}
+.method-chart button:hover{
+    background-color: #2D2F36;
+    color: aliceblue;
+}
+button.active {
+    background-color: #2D2F36;
+    color: aliceblue;
+}
+  
+  

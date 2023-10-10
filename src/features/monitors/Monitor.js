@@ -6,7 +6,6 @@ import "../../styles/Table.css";
 
 const Monitor = ({ monitorId, searchQuery }) => {
   const monitor = useSelector((state) => selectMonitorById(state, monitorId));
-  console.log(monitorId);
   if (monitor) {
     const date = new Date(monitor.createdAt);
     const formattedDate = date.toLocaleString();
@@ -14,7 +13,7 @@ const Monitor = ({ monitorId, searchQuery }) => {
 
     // Define a class variable to hold the CSS class based on monitor.lighting
     const lightingClass = monitor.lighting === 'detected' ? 'red-text' : '';
-console.log(monitor);
+
     if (
       !searchQuery ||
      String( monitor.temp).includes(searchQuery) ||

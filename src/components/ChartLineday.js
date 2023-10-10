@@ -1,9 +1,9 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../../../frontend/src/styles/chart.css"
-const ChartDay = ({ data }) => {
+const ChartLineDay = ({ data }) => {
   // console.log(data.temperature);
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
@@ -17,12 +17,12 @@ const ChartDay = ({ data }) => {
     labels: temp.map(item => `${item.day}/${currentMonth}/${currentYear}`), // Assuming you have a "week" property in your data
     datasets: [
       {
-        label: "Notifications Count",
+        label: "Notifications Values",
         backgroundColor: [
-         
+        
           "#c45850",
         ],
-        data: temp.map(item => item.Count),
+        data: temp.map(item => item.value),
       },
     ],
   };
@@ -32,7 +32,7 @@ const ChartDay = ({ data }) => {
       legend: { display: false },
       title: {
         display: true,
-        text: "Notifications By Month",
+        text: "Notifications Line By Month",
       },
     },
   };
@@ -41,9 +41,9 @@ const ChartDay = ({ data }) => {
     <div className="chart-item">
       {" "}
       {/* Set desired width and height */}
-      <Bar data={chartData} options={chartOptions} />
+      <Line data={chartData} options={chartOptions} />
     </div>
   );
 };
 
-export default ChartDay;
+export default ChartLineDay;
