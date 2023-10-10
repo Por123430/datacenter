@@ -33,6 +33,8 @@ const MainMonitor = () => {
     try {
       const response = await fetch("http://localhost:3500/notiTemp/filter", {
         method: "GET",
+        mode: "cors",
+        credentials: "include",
         headers: {
           "Accept": "application/json",
           // Add any other headers you need here
@@ -56,6 +58,8 @@ const MainMonitor = () => {
     try {
       const response = await fetch("http://localhost:3500/notiHumi/filter", {
         method: "GET",
+        mode: "cors",
+        credentials: "include",
         headers: {
           "Accept": "application/json",
           // Add any other headers you need here
@@ -80,6 +84,8 @@ const MainMonitor = () => {
     try {
       const response = await fetch("http://localhost:3500/notiLight/filter", {
         method: "GET",
+        mode: "cors",
+        credentials: "include",
         headers: {
           "Accept": "application/json",
           // Add any other headers you need here
