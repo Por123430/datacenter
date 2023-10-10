@@ -108,9 +108,10 @@ const HumiStatistic = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiHumi/chartByWeek"
+        "https://datacentersecurity.onrender.com/notiHumi/chartByWeek"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -125,9 +126,10 @@ const HumiStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiHumi/chartByMonth"
+        "https://datacentersecurity.onrender.com/notiHumi/chartByMonth"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -142,8 +144,9 @@ const HumiStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/chartByDay", {
+      const response = await fetch("https://datacentersecurity.onrender.com/notiHumi/chartByDay", {
         method: "GET",
+        mode: "cors",
         headers: {
           "Accept": "application/json",
           // Add any other headers you need here

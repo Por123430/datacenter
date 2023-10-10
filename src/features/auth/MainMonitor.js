@@ -31,7 +31,7 @@ const MainMonitor = () => {
   const [title, setTitle] = useState();
   const fetchTempData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/filter", {
+      const response = await fetch("https://datacentersecurity.onrender.com/notiTemp/filter", {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -56,7 +56,7 @@ const MainMonitor = () => {
   };
   const fetchHumiData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/filter", {
+      const response = await fetch("https://datacentersecurity.onrender.com/notiHumi/filter", {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -82,7 +82,7 @@ const MainMonitor = () => {
 
   const fetchLightData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/filter", {
+      const response = await fetch("https://datacentersecurity.onrender.com/notiLight/filter", {
         method: "GET",
         mode: "cors",
         credentials: "include",

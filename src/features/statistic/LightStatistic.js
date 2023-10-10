@@ -106,9 +106,10 @@ const LightStatistic = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiLight/chartByWeek"
+        "https://datacentersecurity.onrender.com/notiLight/chartByWeek"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -124,9 +125,10 @@ const LightStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiLight/chartByMonth"
+        "https://datacentersecurity.onrender.com/notiLight/chartByMonth"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -142,9 +144,10 @@ const LightStatistic = () => {
   const fetchDataDay = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiLight/chartByDay"
+        "https://datacentersecurity.onrender.com/notiLight/chartByDay"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here

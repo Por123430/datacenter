@@ -113,9 +113,10 @@ const TempStatistic = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiTemp/chartByWeek"
+        "https://datacentersecurity.onrender.com/notiTemp/chartByWeek"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -130,9 +131,10 @@ const TempStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3500/notiTemp/chartByMonth"
+        "https://datacentersecurity.onrender.com/notiTemp/chartByMonth"
         , {
           method: "GET",
+          mode: "cors",
           headers: {
             "Accept": "application/json",
             // Add any other headers you need here
@@ -147,8 +149,9 @@ const TempStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/chartByDay", {
+      const response = await fetch("https://datacentersecurity.onrender.com/notiTemp/chartByDay", {
         method: "GET",
+        mode: "cors",
         headers: {
           "Accept": "application/json",
           // Add any other headers you need here
