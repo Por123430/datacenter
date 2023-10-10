@@ -31,7 +31,13 @@ const MainMonitor = () => {
   const [title, setTitle] = useState();
   const fetchTempData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/filter");
+      const response = await fetch("http://localhost:3500/notiTemp/filter", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const data = await response.json();
 
       if (!response.ok) {
@@ -48,7 +54,13 @@ const MainMonitor = () => {
   };
   const fetchHumiData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/filter");
+      const response = await fetch("http://localhost:3500/notiHumi/filter", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const data = await response.json();
 
       if (!response.ok) {
@@ -66,7 +78,13 @@ const MainMonitor = () => {
 
   const fetchLightData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiLight/filter");
+      const response = await fetch("http://localhost:3500/notiLight/filter", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const data = await response.json();
 
       if (!response.ok) {

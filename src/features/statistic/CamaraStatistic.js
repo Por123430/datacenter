@@ -108,7 +108,13 @@ const CamaraStatistic = () => {
   }, [options]);
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByWeek");
+      const response = await fetch("http://localhost:3500/notiCamera/chartByWeek", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setData(result); 
     } catch (error) {
@@ -118,7 +124,13 @@ const CamaraStatistic = () => {
 
   const fetchDataYear = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByMonth");
+      const response = await fetch("http://localhost:3500/notiCamera/chartByMonth", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setDataYear(result); 
     } catch (error) {
@@ -128,7 +140,13 @@ const CamaraStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiCamera/chartByDay");
+      const response = await fetch("http://localhost:3500/notiCamera/chartByDay", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setDataDay(result); 
     } catch (error) {

@@ -114,7 +114,13 @@ const TempStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiTemp/chartByWeek"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -125,7 +131,13 @@ const TempStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiTemp/chartByMonth"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -135,7 +147,13 @@ const TempStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiTemp/chartByDay");
+      const response = await fetch("http://localhost:3500/notiTemp/chartByDay", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setDataDay(result);
     } catch (error) {

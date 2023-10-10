@@ -107,7 +107,13 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiLight/chartByWeek"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -119,7 +125,13 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiLight/chartByMonth"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -131,7 +143,13 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiLight/chartByDay"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataDay(result);
     } catch (error) {

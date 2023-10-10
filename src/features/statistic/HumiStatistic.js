@@ -109,7 +109,13 @@ const HumiStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiHumi/chartByWeek"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -120,7 +126,13 @@ const HumiStatistic = () => {
     try {
       const response = await fetch(
         "http://localhost:3500/notiHumi/chartByMonth"
-      );
+        , {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -130,7 +142,13 @@ const HumiStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("http://localhost:3500/notiHumi/chartByDay");
+      const response = await fetch("http://localhost:3500/notiHumi/chartByDay", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setDataDay(result);
     } catch (error) {
