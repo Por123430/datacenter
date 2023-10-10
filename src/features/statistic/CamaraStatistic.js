@@ -108,7 +108,7 @@ const CamaraStatistic = () => {
   }, [options]);
   const fetchData = async () => {
     try {
-      const response = await fetch("https://datacentersecurity.onrender.com/notiCamera/chartByWeek", {
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByWeek", {
         method: "GET",
         mode: "cors",
         headers: {
@@ -125,7 +125,7 @@ const CamaraStatistic = () => {
 
   const fetchDataYear = async () => {
     try {
-      const response = await fetch("https://datacentersecurity.onrender.com/notiCamera/chartByMonth", {
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByMonth", {
         method: "GET",
         mode: "cors",
         headers: {
@@ -142,7 +142,7 @@ const CamaraStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("https://datacentersecurity.onrender.com/notiCamera/chartByDay", {
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/chartByDay", {
         method: "GET",
         mode: "cors",
         headers: {

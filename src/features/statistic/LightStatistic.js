@@ -106,7 +106,7 @@ const LightStatistic = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://datacentersecurity.onrender.com/notiLight/chartByWeek"
+        "https://datacenter-api.onrender.com/notiLight/chartByWeek"
         , {
           method: "GET",
           mode: "cors",
@@ -125,7 +125,7 @@ const LightStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "https://datacentersecurity.onrender.com/notiLight/chartByMonth"
+        "https://datacenter-api.onrender.com/notiLight/chartByMonth"
         , {
           method: "GET",
           mode: "cors",
@@ -144,7 +144,7 @@ const LightStatistic = () => {
   const fetchDataDay = async () => {
     try {
       const response = await fetch(
-        "https://datacentersecurity.onrender.com/notiLight/chartByDay"
+        "https://datacenter-api.onrender.com/notiLight/chartByDay"
         , {
           method: "GET",
           mode: "cors",
