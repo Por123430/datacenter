@@ -168,7 +168,7 @@ const MainMonitor = () => {
                 <div className="item-content">
                   <label>sensor 1 : Temperature</label>
 
-                  <div className="data">{sensor1Data.temperature}</div>
+                  <div className="data">`${sensor1Data.temperature} °C`</div>
                 </div>
               </div>
               <div className="LogMonitor-display__item1">
