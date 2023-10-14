@@ -168,7 +168,7 @@ const MainMonitor = () => {
                 <div className="item-content">
                   <label>sensor 1 : Temperature</label>
 
-                  <div className="data">`${sensor1Data.temperature} °C`</div>
+                  <div className="data">{sensor1Data.temperature} °C</div>
                 </div>
               </div>
               <div className="LogMonitor-display__item1">
@@ -177,7 +177,7 @@ const MainMonitor = () => {
                 </div>
                 <div className="item-content">
                   <label>sensor 1 : Humidity</label>
-                  <div className="data">{sensor1Data.humidity}</div>
+                  <div className="data">{sensor1Data.humidity} %</div>
                 </div>
               </div>
               <div className="LogMonitor-display__item1">
@@ -201,7 +201,7 @@ const MainMonitor = () => {
                 </div>
                 <div className="item-content">
                   <label>sensor 2 : Temperature</label>
-                  <div className="data"> {sensor2Data.temperature}</div>
+                  <div className="data"> {sensor2Data.temperature} °C</div>
                 </div>
               </div>
               <div className="LogMonitor-display__item2">
@@ -210,7 +210,7 @@ const MainMonitor = () => {
                 </div>
                 <div className="item-content">
                   <label>sensor 2 : Humidity</label>
-                  <div className="data">{sensor2Data.humidity}</div>
+                  <div className="data">{sensor2Data.humidity} %</div>
                 </div>
               </div>
               <div className="LogMonitor-display__item2">
@@ -231,21 +231,21 @@ const MainMonitor = () => {
                 onClick={() => handlePopupClick(tempdd, "Temperature")}
               >
                 <div class="title-content-Section">Temperature</div>
-                <div className="item-content-filter">{tempData}</div>
+                <div className="item-content-filter">{tempData} times</div>
               </div>
               <div
                 className="countSections"
                 onClick={() => handlePopupClick(humidd, "Humidity")}
               >
                 <div className="title-content-Section">Humidity</div>
-                <div className="item-content-filter">{humiData}</div>
+                <div className="item-content-filter">{humiData} times</div>
               </div>
               <div
                 className="countSections"
                 onClick={() => handlePopupClick(lightdd, "flame")}
               >
                 <div className="title-content-Section">Smoke</div>
-                <div className="item-content-filter">{lightData}</div>
+                <div className="item-content-filter">{lightData} times</div>
               </div>
             </div>
           </div>
