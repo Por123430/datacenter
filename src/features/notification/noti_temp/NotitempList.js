@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/Table.css";
 import Notitemp from "./Notitemp";
 import {
@@ -29,7 +29,14 @@ const NotitempList = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiTemp/chartByMonth"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -41,6 +48,9 @@ const NotitempList = () => {
     setCurrentPage(Number(event.target.id));
   };
 
+  useEffect(() => {
+    fetchDataYear();
+  }, []);
   const {
     data: notitemp,
     isLoading,
