@@ -123,4 +123,18 @@ img{
 .red-text {
     color: red;
   }
+
+  .data-section{
+    margin: 0px 100px;
+    display: flex;
+}
+
+.table-section{
+    width: 50%;
+    margin: 10px;
+}
+.ChartSection{
+    width: 50%;
+    
+}
   
