@@ -3,11 +3,17 @@ import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../styles/chart.css";
-const ChartLineYear = ({ data }) => {
+const ChartLineYear = ({ data , monitor}) => {
   const [temp, setTemp] = useState([]);
+  const [show, setShow] = useState("chart-item");
   useEffect(() => {
+    console.log(monitor);
     setTemp(data);
-  }, [data]);
+    if(monitor) {
+      setShow('chart-item-monitor')
+    }
+  }, [data, monitor]);
+  
 
   const chartData = {
     labels: temp.map((item) => item.month), // Assuming you have a "week" property in your data
@@ -30,16 +36,20 @@ const ChartLineYear = ({ data }) => {
         display: true,
         text: "Notifications Line By Year",
       },
+      
     },
   };
 
+  const chartStyle = {
+    height: 720,
+    width:480,
+  };
+
   return (
-    <div className="chart-item">
-      {" "}
-      {/* Set desired width and height */}
-      <Line data={chartData} options={chartOptions} />
+    <div className={show}>
+     
+      <Line data={chartData} options={chartOptions} style={chartStyle}/>
     </div>
   );
 };
-
 export default ChartLineYear;

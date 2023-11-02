@@ -5,3 +5,12 @@
     border-radius: 5px;
     padding: 20px;
 }
+
+.chart-item-monitor{ 
+    width: 720px;
+    height: 480px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 20px;
+    /* margin: 0px 0px 0px 20px; */
+}
