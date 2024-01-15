@@ -3,6 +3,8 @@ import "../../../styles/Table.css";
 import Noticamera from "./Noticamera";
 import { useState, useEffect } from "react";
 
+import ChartLineYear from "../../../components/ChartLineYear";
+
 import {
   ref,
   list,
@@ -24,6 +26,20 @@ const NoticameraList = () => {
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [dataYear, setDataYear] = useState([]);
+
+  const fetchDataYear = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3500/notiCamera/chartByMonth"
+      );
+      const result = await response.json();
+      setDataYear(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
 
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
@@ -74,6 +90,7 @@ const NoticameraList = () => {
     };
 
     fetchImages();
+    fetchDataYear();
   }, []);
 
   for (let i = 1; i <= Math.ceil(imageUrls.length / itemsperpage); i++) {
@@ -118,61 +135,72 @@ const NoticameraList = () => {
   const tableContent = imageUrls?.length
     ? imageUrls
         .slice(indexOfFirstItem, indexOfLastItem)
-        .map((imageUrls) => <Noticamera url={imageUrls} searchQuery={searchQuery}/>)
+        .map((imageUrls) => (
+          <Noticamera url={imageUrls} searchQuery={searchQuery} />
+        ))
     : null;
 
   const content = (
     <div>
       <div className="search">
-          <form onSubmit={(e) => e.preventDefault()} role="search">
-            <label htmlFor="search">Search for stuff</label>
-            <input
-              id="search"
-              type="search"
-              placeholder="Search..."
-              autoFocus
-              required
-              value={searchQuery}
-              onChange={handleSearchInputChange}
-            />
-          </form>
+        <form onSubmit={(e) => e.preventDefault()} role="search">
+          <label htmlFor="search">Search for stuff</label>
+          <input
+            id="search"
+            type="search"
+            placeholder="Search..."
+            autoFocus
+            required
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
+        </form>
+      </div>
+      <div className="data-section">
+        <div className="ChartSection">
+          <ChartLineYear data={dataYear} monitor={1} />
         </div>
-      <table className="table-monitor">
-        <thead className="table__thead">
-          <tr>
-            <th scope="col" className="table__th-temp">
-              image
-            </th>
-            <th scope="col" className="table__th-moistures">
-              date-time
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* {console.log(x)} */}
-          {tableContent}
-        </tbody>
-      </table>
-      <div className="pagination-page">
-        <li>
-          <button
-            onClick={handlePrevbtn}
-            disabled={currentpage === pages[0] ? true : false}
-          >
-            Prev
-          </button>
-        </li>
+        <div className="table-section">
+          <table className="table-monitor">
+            <thead className="table__thead">
+              <tr>
+                <th scope="col" className="table__th-temp">
+                  image
+                </th>
+                <th scope="col" className="table__th-moistures">
+                  date-time
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {console.log(x)} */}
+              {tableContent}
+            </tbody>
+          </table>
+          <div className="pagination-page">
+            <li>
+              <button
+                onClick={handlePrevbtn}
+                disabled={currentpage === pages[0] ? true : false}
+              >
+                Prev
+              </button>
+            </li>
 
-        {renderPageNumbers}
+            {renderPageNumbers}
 
-        <li>
-          <button
-            onClick={handleNextbtn}
-            disabled={currentpage === pages[pages.length - 1] ? true : false}
-          >
-            Next
-          </button>
-        </li>
+            <li>
+              <button
+                onClick={handleNextbtn}
+                disabled={
+                  currentpage === pages[pages.length - 1] ? true : false
+                }
+              >
+                Next
+              </button>
+            </li>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -3,8 +3,10 @@ import "../../../styles/Table.css";
 import { useGetNotilightQuery } from "./notilightApiSlice";
 import Notilight from "./Notilight";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../../styles/pagination.css";
+import ChartLineYear from "../../../components/ChartLineYear";
+
 const NotilightList = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
@@ -17,6 +19,20 @@ const NotilightList = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [dataYear, setDataYear] = useState([]);
+
+  const fetchDataYear = async () => {
+    try {
+      const response = await fetch(
+        "https://datacenter-api.onrender.com/notiLight/chartByMonth"
+      );
+      const result = await response.json();
+      setDataYear(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
@@ -26,6 +42,9 @@ const NotilightList = () => {
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+  useEffect(() => {
+    fetchDataYear();
+  }, []);
   const {
     data: notilight,
     isLoading,
@@ -89,7 +108,11 @@ const NotilightList = () => {
       ? ids
           .slice(indexOfFirstItem, indexOfLastItem)
           .map((notilightId) => (
-            <Notilight key={notilightId} notilightId={notilightId} searchQuery={searchQuery}/>
+            <Notilight
+              key={notilightId}
+              notilightId={notilightId}
+              searchQuery={searchQuery}
+            />
           ))
       : null;
 
@@ -109,39 +132,48 @@ const NotilightList = () => {
             />
           </form>
         </div>
-        <table className="table-monitor">
-          <thead className="table__thead">
-            <tr>
-              <th scope="col" className="table__th-temp">
-              smoke
-              </th>
-              <th scope="col" className="table__th-moistures">
-                date-time
-              </th>
-            </tr>
-          </thead>
-          <tbody>{tableContent}</tbody>
-        </table>
-        <div className="pagination-page">
-          <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={currentpage === pages[0] ? true : false}
-            >
-              Prev
-            </button>
-          </li>
+        <div className="data-section">
+          <div className="ChartSection">
+            <ChartLineYear data={dataYear} monitor={1} />
+          </div>
+          <div className="table-section">
+            <table className="table-monitor">
+              <thead className="table__thead">
+                <tr>
+                  <th scope="col" className="table__th-temp">
+                    smoke
+                  </th>
+                  <th scope="col" className="table__th-moistures">
+                    date-time
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{tableContent}</tbody>
+            </table>
+            <div className="pagination-page">
+              <li>
+                <button
+                  onClick={handlePrevbtn}
+                  disabled={currentpage === pages[0] ? true : false}
+                >
+                  Prev
+                </button>
+              </li>
 
-          {renderPageNumbers}
+              {renderPageNumbers}
 
-          <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={currentpage === pages[pages.length - 1] ? true : false}
-            >
-              Next
-            </button>
-          </li>
+              <li>
+                <button
+                  onClick={handleNextbtn}
+                  disabled={
+                    currentpage === pages[pages.length - 1] ? true : false
+                  }
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
       </div>
     );
