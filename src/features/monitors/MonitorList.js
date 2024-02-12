@@ -45,7 +45,7 @@ const MonitorList = () => {
     try {
       const response = await fetch(`https://datacenter-api.onrender.com/moniters/chartByMonth${chartType}`);
       const result = await response.json();
-      const responseAllData= await fetch(`https://datacenter-api.onrender.com/csv`);
+      const responseAllData= await fetch(`https://datacenter-api.onrender.com/moniters/csv`);
       const resultAllData = await responseAllData.json();
       setDataImage(result);
       setAllData(resultAllData);
