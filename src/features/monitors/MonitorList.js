@@ -3,8 +3,13 @@ import { useGetMonitorsQuery } from "./monitorApiSlice";
 import Monitor from "./Monitor";
 import "../../styles/Table.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/pagination.css";
+
+
+import ChartLineYear from "../../components/ChartLineYear";
+import ExportCSV from "../../app/importCsv";
+
 const MonitorList = () => {
   const [dataimage, setDataImage] = useState([]);
 
@@ -19,6 +24,14 @@ const MonitorList = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [selectedChart, setSelectedChart] = useState("Temp")
+  const [allData, setAllData ] = useState([]);
+
+  useEffect(() => {
+    fetchData(selectedChart); // Fetch data for the selected chart
+  }, [selectedChart]);
+
+
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
@@ -28,6 +41,23 @@ const MonitorList = () => {
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+  const fetchData = async (chartType) => {
+    try {
+      const response = await fetch(`https://datacenter-api.onrender.com/moniters/chartByMonth${chartType}`);
+      const result = await response.json();
+      const responseAllData= await fetch(`https://datacenter-api.onrender.com/csv`);
+      const resultAllData = await responseAllData.json();
+      setDataImage(result);
+      setAllData(resultAllData);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  const handleChartButtonClick = (chartType) => {
+    setSelectedChart(chartType); // Set the selected chart
+  };
+
   const {
     data: monitors,
     isLoading,
@@ -89,19 +119,40 @@ const MonitorList = () => {
     };
     const tableContent = ids?.length
       ? ids
-          .slice(indexOfFirstItem, indexOfLastItem)
-          .map((monitersId) => (
-            <Monitor
-              key={monitersId}
-              monitorId={monitersId}
-              searchQuery={searchQuery}
-            />
-          ))
+        .slice(indexOfFirstItem, indexOfLastItem)
+        .map((monitersId) => (
+          <Monitor
+            key={monitersId}
+            monitorId={monitersId}
+            searchQuery={searchQuery}
+          />
+        ))
       : null;
 
-      return  (
+    return (
       <div>
+
         <div className="search">
+          <div className="filter">
+            <button
+              onClick={() => handleChartButtonClick("Temp")}
+              className={selectedChart === "Temp" ? "active" : ""}
+            >
+              Temperature Chart
+            </button>
+            <button
+              onClick={() => handleChartButtonClick("Humi")}
+              className={selectedChart === "Humi" ? "active" : ""}
+            >
+              Humidity Chart
+            </button>
+            <button
+              onClick={() => handleChartButtonClick("Light")}
+              className={selectedChart === "Light" ? "active" : ""}
+            >
+              Light Chart
+            </button>
+          </div>
           <form onSubmit={(e) => e.preventDefault()} role="search">
             <label htmlFor="search">Search for stuff</label>
             <input
@@ -115,47 +166,60 @@ const MonitorList = () => {
             />
           </form>
         </div>
-        <table className="table-monitor">
-          <thead className="table__thead">
-            <tr>
-              <th scope="col" className="table__th-temp">
-                temperature
-              </th>
-              <th scope="col" className="table__th-moistures">
-                humidity
-              </th>
-              <th scope="col" className="table__th-lighting">
-              smoke
-              </th>
-              <th scope="col" className="table__th-createdAt">
-                date-time
-              </th>
-            </tr>
-          </thead>
-          <tbody>{tableContent}</tbody>
-        </table>
-        <div className="pagination-page">
-          <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={currentpage === pages[0] ? true : false}
-            >
-              Prev
-            </button>
-          </li>
 
-          {renderPageNumbers}
+        <div className="data-section">
+          <div className="ChartSection" >
+            <ChartLineYear data={dataimage} monitor={1} />
+          </div>
+          <div className="table-section">
+            <table className="table-monitor">
+              <thead className="table__thead">
+                <tr>
+                  <th scope="col" className="table__th-temp">
+                    temperature
+                  </th>
+                  <th scope="col" className="table__th-moistures">
+                    humidity
+                  </th>
+                  <th scope="col" className="table__th-lighting">
+                    smoke
+                  </th>
+                  <th scope="col" className="table__th-createdAt">
+                    date-time
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{tableContent}</tbody>
+            </table>
+            <div className="pagination-page">
+              <li>
+                <button
+                  onClick={handlePrevbtn}
+                  disabled={currentpage === pages[0] ? true : false}
+                >
+                  Prev
+                </button>
+              </li>
 
-          <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={currentpage === pages[pages.length - 1] ? true : false}
-            >
-              Next
-            </button>
-          </li>
+              {renderPageNumbers}
+
+              <li>
+                <button
+                  onClick={handleNextbtn}
+                  disabled={currentpage === pages[pages.length - 1] ? true : false}
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
+        <div>
+      
+      <ExportCSV data={allData} fileName="exported_data.csv" />
+    </div>
       </div>
+      
     );
   }
   return null;
