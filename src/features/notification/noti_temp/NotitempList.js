@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-// import "../../../styles/Table.css";
+import React, { useState, useEffect } from "react";
+import "../../../styles/Table.css";
 import Notitemp from "./Notitemp";
 import {
   useGetNotitempQuery,

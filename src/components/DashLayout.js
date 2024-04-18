@@ -109,6 +109,7 @@ const DashLayout = () => {
         const temperature = sensor1Data.temperature;
         addNotiTemp({ temperature });
         
+        // console.log(addNotiTemp({ temperature }));
       }
       if (sensor1Data.humidity > sensor1[0].moisture) {
         setButtonPopup(true);

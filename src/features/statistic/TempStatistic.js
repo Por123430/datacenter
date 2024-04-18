@@ -114,7 +114,14 @@ const TempStatistic = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiTemp/chartByWeek"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -125,7 +132,14 @@ const TempStatistic = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiTemp/chartByMonth"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -135,7 +149,14 @@ const TempStatistic = () => {
 
   const fetchDataDay = async () => {
     try {
-      const response = await fetch("https://datacenter-api.onrender.com/notiTemp/chartByDay");
+      const response = await fetch("https://datacenter-api.onrender.com/notiTemp/chartByDay", {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Accept": "application/json",
+          // Add any other headers you need here
+        },
+      });
       const result = await response.json();
       setDataDay(result);
     } catch (error) {

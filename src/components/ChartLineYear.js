@@ -2,8 +2,8 @@ import React from "react";
 import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
-import "../../../frontend/src/styles/chart.css";
-const ChartLineYear = ({ data, monitor }) => {
+import "../styles/chart.css";
+const ChartLineYear = ({ data , monitor}) => {
   const [temp, setTemp] = useState([]);
   const [show, setShow] = useState("chart-item");
   useEffect(() => {

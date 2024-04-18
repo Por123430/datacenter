@@ -120,6 +120,7 @@ const NotihumiList = () => {
     content = (
       <div>
         <div className="search">
+<<<<<<< HEAD
         <div className="filter" >
             <button
                style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
@@ -140,6 +141,8 @@ const NotihumiList = () => {
               Light Chart
             </button>
           </div>
+=======
+>>>>>>> 160ad2180d0a00890d1d8dd9e8477b0c497cd4bc
           <form onSubmit={(e) => e.preventDefault()} role="search">
             <label htmlFor="search">Search for stuff</label>
             <input
@@ -172,6 +175,7 @@ const NotihumiList = () => {
               <tbody>{tableContent}</tbody>
             </table>
             <div className="pagination-page">
+<<<<<<< HEAD
               <div className="content-pg">
                 <li className="btn-pg-li">
                   <button
@@ -193,6 +197,29 @@ const NotihumiList = () => {
                   </button>
                 </li>
               </div>
+=======
+              <li>
+                <button
+                  onClick={handlePrevbtn}
+                  disabled={currentpage === pages[0] ? true : false}
+                >
+                  Prev
+                </button>
+              </li>
+
+              {renderPageNumbers}
+
+              <li>
+                <button
+                  onClick={handleNextbtn}
+                  disabled={
+                    currentpage === pages[pages.length - 1] ? true : false
+                  }
+                >
+                  Next
+                </button>
+              </li>
+>>>>>>> 160ad2180d0a00890d1d8dd9e8477b0c497cd4bc
             </div>
           </div>
         </div>
