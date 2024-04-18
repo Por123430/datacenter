@@ -1,10 +1,22 @@
+body {
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 .dash-header{
-    background-color: #0D3B66;
+    /* background-color: #0D3B66; */
+    background-color:#FFDA44;
     text-align: right;
     font-size: 1.6em;
     padding: 12px 0px;
     display: flex;
  
+}
+.title-under{
+    font-size: 0.5em;
+    width: 130px;
+    /* background-color: red; */
+    margin-left: 50px;
 }
 .dash-header__container{
     display: flex;
@@ -26,19 +38,25 @@
     text-decoration: none;
 }
 
+.title-user-data{
+    display: flex;
+    padding: 0px 0px 0px 500px;
+    margin: auto 0px auto auto;
+}
+
 .dash-header_logout-button{
     margin: auto 50px auto auto;
-    padding: 0px 0px 0px 500px;
+    /* padding: 0px 0px 0px 500px; */
 }
 .icon-button{
     background-color: white; /* Green */
-    border: none;
-    color: black;
+    border: 1px solid gainsboro;
+    color: #154295;
     padding: 11px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
+    font-size: 18px;
     margin: 4px 2px;
     width: 100%;
     transition-duration: 0.4s;
@@ -46,6 +64,16 @@
     border-radius: 3px;
 }
 .icon-button:hover {
-    background-color: #2D2F36;
+    background-color: #ffcc00;
     color: white;
   }
+
+  .dash-title{
+    text-align: right;
+    font-size: 1.2em;
+    padding: 20px 10px;
+    color: #154295;
+    /* background-color: #F0F1F3; */
+    /* display: flex; */
+
+}

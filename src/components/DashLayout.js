@@ -4,6 +4,9 @@ import DashHeader from "./DashHeader";
 import DashFooter from "./DashFooter";
 import DashNav from "./DashNav";
 
+import sound1 from "../sound/Radar_-_iPhone_Ringtone.mp4";
+import sound2 from "../sound/todtod.mp4";
+
 import { useAddNotihumiMutation } from "../features/notification/noti_humi/notihumiApiSlice";
 import { useAddNotitempMutation } from "../features/notification/noti_temp/notitempApiSlice";
 import { useAddNotilightMutation } from "../features/notification/noti_light/notilightApiSlice";
@@ -19,6 +22,18 @@ import { useSelector } from "react-redux";
 import { selectAllSensor } from "../features/sensor/sensorApiSlice";
 
 const DashLayout = () => {
+
+  function play1() {
+    new Audio(sound1).play();
+  }
+
+  function play2() {
+    new Audio(sound2).play();
+  }
+
+  function play3() {
+    new Audio(sound1).play();
+  }
   const sensor1 = useSelector((state) => selectAllSensor(state));
 
   const [addNoticamera] = useAddNoticameraMutation();
@@ -69,7 +84,7 @@ const DashLayout = () => {
     }
     if (sensor1Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor1 flame");
+      setTitlePopup("sensor1 smoke");
 
       const flame = "detect";
       setDataPopup(flame);
@@ -78,7 +93,7 @@ const DashLayout = () => {
     }
     if (sensor2Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor2 flame");
+      setTitlePopup("sensor2 smoke");
       const flame = "detect";
       setDataPopup(flame);
 
@@ -93,7 +108,7 @@ const DashLayout = () => {
 
         const temperature = sensor1Data.temperature;
         addNotiTemp({ temperature });
-        // console.log(addNotiTemp({ temperature }));
+        
       }
       if (sensor1Data.humidity > sensor1[0].moisture) {
         setButtonPopup(true);
@@ -153,9 +168,20 @@ const DashLayout = () => {
             style={{
               width: "100%",
               minHeight: "800px",
-              backgroundColor: "#CACFD2",
+              backgroundColor: "#FAFAF8",
             }}
           >
+            <div className="dash-space-content"
+            style={{
+              margin:"8px",
+              width: "99%",
+              border: "solid 1px gainsboro",
+              borderRadius: "3px",
+              minHeight: "800px",
+              backgroundColor: "#F0F1F3",
+            }}>
+
+           
             {buttonPopup ? (
               <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 {titlePopup}
@@ -165,8 +191,8 @@ const DashLayout = () => {
             ) : (
               <></>
             )}
-            <Outlet />
-            {/* <Mainnoti/> */}
+            <Outlet /> 
+            </div>
           </div>
         </div>
         <DashFooter />

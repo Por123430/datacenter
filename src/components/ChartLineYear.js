@@ -1,24 +1,30 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../../../frontend/src/styles/chart.css";
-const ChartsMonth = ({ data }) => {
+const ChartLineYear = ({ data, monitor }) => {
   const [temp, setTemp] = useState([]);
+  const [show, setShow] = useState("chart-item");
   useEffect(() => {
+    console.log(monitor);
     setTemp(data);
-  }, [data]);
+    if(monitor) {
+      setShow('chart-item-monitor')
+    }
+  }, [data, monitor]);
+  
 
   const chartData = {
     labels: temp.map((item) => item.month), // Assuming you have a "week" property in your data
     datasets: [
       {
-        label: "Notifications Count",
+        label: "Notifications Values",
         backgroundColor: [
-         
+          
           "#c45850",
         ],
-        data: temp.map((item) => item.Count),
+        data: temp.map((item) => item.value),
       },
     ],
   };
@@ -28,18 +34,23 @@ const ChartsMonth = ({ data }) => {
       legend: { display: false },
       title: {
         display: true,
-        text: "Notifications By Year",
+        text: "Notifications Line By Year",
       },
+      
     },
   };
 
+  const chartStyle = {
+    height: 720,
+    width:480,
+  };
+
   return (
-    <div className="chart-item">
-      {" "}
-      {/* Set desired width and height */}
-      <Bar data={chartData} options={chartOptions} />
+    <div className={show}>
+     
+      <Line data={chartData} options={chartOptions} style={chartStyle}/>
     </div>
   );
 };
 
-export default ChartsMonth;
+export default ChartLineYear;

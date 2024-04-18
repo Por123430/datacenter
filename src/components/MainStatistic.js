@@ -10,6 +10,7 @@ export const MainStatistic = () => {
   return (
     <>
       <div>
+      <div className="all-title-content" style={{ background: "gray", fontSize: "1.4rem", padding: "20px 70px", color: "white" }}>Statistic</div>
         <div
           className="mainnoti-NotiHeader"
           style={{ margin: "50px 10%", width: "80%" }}

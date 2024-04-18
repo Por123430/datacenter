@@ -61,12 +61,15 @@ const EditUserForm = ({ user }) => {
   const onLastnameChanged = (e) => setLastname(e.target.value);
   const onPasswordChanged = (e) => setPassword(e.target.value);
 
-  const onRolesChanged = (e) => {
-    const values = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setRoles(values);
+  // const onRolesChanged = (e) => {
+  //   const values = Array.from(
+  //     e.target.selectedOptions,
+  //     (option) => option.value
+  //   );
+  //   setRoles(values);
+  // };
+  const onRolesChanged = (role) => {
+    setRoles([`${role}`]);
   };
 
   const onActiveChanged = () => setActive((prev) => !prev);
@@ -137,109 +140,163 @@ const EditUserForm = ({ user }) => {
 
   const content = (
     <>
-    <div className="form-eidt">
-      <p className={errClass}>{errContent}</p>
+      <div className="form-eidt">
+        <p className={errClass}>{errContent}</p>
 
-      <form className="form" onSubmit={(e) => e.preventDefault()}>
-        <div className="form__Title-row">Edit User</div>
+        <form className="form" onSubmit={(e) => e.preventDefault()}>
+          <div className="form__Title-row">Edit User</div>
 
-        <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[A-z][3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
-          type="text"
-          autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
-        />
+          <label className="form__label" htmlFor="username">
+            Username: <span className="nowrap"></span>
+          </label>
+          <div className="area-field">
+            <input
+              className={`form__input ${validUserClass}`}
+              id="username"
+              name="username"
+              type="text"
+              autoComplete="off"
+              value={username}
+              onChange={onUsernameChanged}
+            />
+            <span class="area-field-Hover">[A-z][3-20 letters]</span>
+          </div>
+          <label className="form__label" htmlFor="firstname">
+            Firstname: <span className="nowrap"></span>
+          </label>
+          <div className="area-field">
+            <input
+              className={`form__input ${validFirstClass}`}
+              id="firstname"
+              name="firstname"
+              type="text"
+              autoComplete="off"
+              value={firstname}
+              onChange={onFirstnameChanged}
+            />
+            <span class="area-field-Hover">[A-z][3-20 letters]</span>
+          </div>
+          <label className="form__label" htmlFor="lastname">
+            Lastname: <span className="nowrap"></span>
+          </label>
+          <div className="area-field">
+            <input
+              className={`form__input ${validLastClass}`}
+              id="lastname"
+              name="lastname"
+              type="text"
+              autoComplete="off"
+              value={lastname}
+              onChange={onLastnameChanged}
+            />
+            <span class="area-field-Hover">[A-z][3-20 letters]</span>
+          </div>
+          <label className="form__label" htmlFor="password">
+            Password: <span className="nowrap"></span>
+          </label>
+          <div className="area-field">
+            <input
+              className={`form__input ${validPwdclass}`}
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={onPasswordChanged}
+            />
+            <span class="area-field-Hover">[A-z,0-9,!@#$%][4-12 chars]</span>
 
-        <label className="form__label" htmlFor="firstname">
-          Firstname: <span className="nowrap">[A-z][3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validFirstClass}`}
-          id="firstname"
-          name="firstname"
-          type="text"
-          autoComplete="off"
-          value={firstname}
-          onChange={onFirstnameChanged}
-        />
-        <label className="form__label" htmlFor="lastname">
-          Lastname: <span className="nowrap">[A-z][3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validLastClass}`}
-          id="lastname"
-          name="lastname"
-          type="text"
-          autoComplete="off"
-          value={lastname}
-          onChange={onLastnameChanged}
-        />
-
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[A-z,0-9,!@#$%][4-12 chars]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdclass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
-
-        <label
-          className="form__label form__checkbox-container"
-          htmlFor="user-active"
-        >
-          ACTIVE:
-          <input
-            className="form__checkbox"
-            id="user-active"
-            name="user-active"
-            type="checkbox"
-            checked={active}
-            onChange={onActiveChanged}
-          />
-        </label>
-
-        <label className="form__label" htmlFor="roles">
-          ASSIGNED ROLES:
-        </label>
-        <select
-          className={`form__select ${validRolesClass}`}
-          id="roles"
-          name="roles"
-       
-          value={roles}
-          size="3"
-          onChange={onRolesChanged}
-        >
-          {options}
-        </select>
-        <div className="form__action-buttons">
-          <button
-            className="save-button"
-            title="Save"
-            onClick={onSaveUserClicked}
-            disabled={!canSave}
+          </div>
+          <label
+            className="form__label form__checkbox-container"
+            htmlFor="user-active"
           >
-            Save
-          </button>
-          <button
-            className="delete-button"
-            title="Delete"
-            onClick={onDeleteUserClicked}
+            <label class="form__label">ACTIVE:</label>
+            {/* <input
+              className="form__checkbox"
+              id="user-active"
+              name="user-active"
+              type="checkbox"
+              checked={active}
+              onChange={onActiveChanged}
+            /> */}
+            <div class="checkbox-wrapper-2">
+              <input type="checkbox" class="sc-gJwTLC ikxBAC"
+                id="user-active"
+                name="user-active"
+
+                checked={active}
+                onChange={onActiveChanged} />
+            </div>
+
+
+
+          </label>
+
+          {/* <label className="form__label" htmlFor="roles">
+            ASSIGNED ROLES:
+          </label>
+          <select
+            className={`form__select ${validRolesClass}`}
+            id="roles"
+            name="roles"
+
+            value={roles}
+            size="3"
+            onChange={onRolesChanged}
           >
-            Delete
-          </button>
-        </div>
-      </form>
+            {options}
+          </select> */}
+ <label
+            className="form__label form__checkbox-container"
+            htmlFor="user-active"
+          >
+          <div  className="redio-content">
+            <label class="form__label">ASSIGNED ROLES:</label>
+            <div className="checkbox-redio">
+              <label class="form-control">
+                <input
+                  type="radio"
+                  name="roles"
+                  value="Admin"
+                  checked={roles === "Admin"}
+                  onChange={() => onRolesChanged("Admin")}
+                />
+                Admin
+              </label>
+
+              <label class="form-control">
+                <input
+                  type="radio"
+                  name="roles"
+                  value="Officer"
+                  checked={roles === "Officer"}
+                  onChange={() => onRolesChanged("Officer")}
+                />
+                Officer
+              </label>
+            </div>
+            {/* Add more radio buttons for other roles if needed */}
+          </div>
+          </label>
+
+          <div className="form__action-buttons">
+            <button
+              className="save-button"
+              title="Save"
+              onClick={onSaveUserClicked}
+              disabled={!canSave}
+            >
+              Save
+            </button>
+            <button
+              className="delete-button"
+              title="Delete"
+              onClick={onDeleteUserClicked}
+            >
+              Delete
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

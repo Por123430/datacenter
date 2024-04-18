@@ -28,11 +28,13 @@ const DashFooter = () => {
   const content = (
     <footer className="dash-footer">
       {/* {goHomeButton} */}
-      <div className="title">
+      {/* <div className="title">
          User: {username}
-      </div>
-      <div className="title">
-         Status: {roles + ""}
+      </div> */}
+      <div className="title-data">
+        ผู้ดูแลระบบ: นายเอก เจียมวงษา  หัวหน้าแผนกบำรุงรักษาอุปกรณ์ศูนย์ควบคุม (หรอ-ส) โทร. 62255<br></br>
+        เจ้าหน้าที่ผูัรับผิดชอบ: นายจารุภัทร ศรีสุขใส วิศวกรระดับ 7 โทร62251<br></br>
+        ผู้พัฒนาระบบ:
       </div>
     </footer>
   );

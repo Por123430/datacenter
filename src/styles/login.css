@@ -1,80 +1,127 @@
-/* .body{
-    background: linear-gradient(to top,#2D2F36 0%,#2D2F36 50%,white 50%, white 100%);
-} */
-.public{
-    width: 800px;
-    background-color: #B2BDC8;
-    border-radius: 15px;
-   margin: 150px auto;
-    padding: 20px;
-    color: whitesmoke;
+body {
     
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-header{
-    font-size: 1.8rem;
+
+
+.public {
+    width: 320px;
+    /* background-color: #B2BDC8; */
+    background-color:#F4F4EF;
+    /* background-image: -moz-linear-gradient(0deg, #144194 0%, #FFCC00 100%);
+    background-image: -webkit-linear-gradient(240deg, #144194 0%, #FFCC00 100%); */
+    /* opacity: 0.7; */
+    border-radius: 15px;
+    margin: 150px auto;
+    padding: 20px;
+    color: red;
+    box-shadow: rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px;
 }
-.content{
+
+header {
+    font-size: 2rem;
+}
+
+.content {
+    color: #000;
     display: flex;
 }
-.img-body img{
+
+.img-body img {
     width: 450px;
 }
-.content-body{
+
+.content-body {
     margin-left: 30px;
     border-left: solid 2px black;
     width: 450px;
 }
 
-.img-body{
+.img-body {
     margin: 50px 0px;
     padding: 20px 0px;
     width: 450px;
 }
-header{
+
+header {
     text-align: center;
 }
 
-.login-input{
+.login-input {
     padding: 20px auto;
     margin: 20px auto;
-    
+
 }
-label{
+
+label {
     display: block;
-    color: black; 
+    color: black;
     margin: 10px 0px;
 }
 
-.form__input{
+.form__input {
     border-radius: 3px;
     display: block;
     width: 84%;
     height: 24px;
 }
-.form__input-login{
-    width: 84%;
-    border: none;
-    display: inline-block;
-    font-size: 1.1rem;
-    margin: 4px 2px;
-    padding: 7px 15px;
-    border-radius: 3px;
-    /* width: 94%; */
-    cursor: text;
+
+.form__input-login {
+    position: relative;
+    width: 90%;
+    padding: 15px 12px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    border: 1px solid #e5e5e5;
+    border-bottom: 2px solid #ddd;
+    background: rgba(255, 255, 255, 0.2) ;
+    color: black;
 }
 
-.submit_section{
+.unmask {
+    position: relative;
+    /* right: 807px; */
+    /* right: 42%; */
+     top: -45px; 
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    /* transform: translateY(10000%); */
+    transform: translateX(1100%);
+}
+
+
+.form__persist {
+    color: black;
+
+}
+
+.form__checkbox {
+    margin-top: 4px;
+}
+
+span {
+    font-size: 12px;
+
+    margin-left: 3px;
+}
+
+.submit_section {
     margin: auto;
 }
-.form__submit-button{
+
+.form__submit-button {
     width: 100%;
     opacity: 0.65;
     margin: auto;
     height: 26px;
     background-color: whitesmoke;
 }
-.all-button{
-    background-color: white; /* Green */
+
+/* .all-button{
+    background-color: white; 
     border: none;
     color: black;
 
@@ -83,24 +130,46 @@ label{
     display: inline-block;
     font-size: 15px;
     margin: 4px 2px;
-    /* width: 100%; */
+    
     transition-duration: 0.4s;
     cursor: pointer;
     padding: 7px 31px;
     border-radius: 3px;
     width: 94%;
+} */
+
+.all-button {
+    position: relative;
+    /* Make the position relative for the parent */
+    width: 98%;
+    margin: 0px;
+    padding: 15px 12px;
+    margin-bottom: 5px;
+    border: 1px solid #e5e5e5;
+    border-bottom: 2px solid #ddd;
+    background: rgb(21, 66, 149);
+    font-size: 20px;
+    transition-duration: 0.4s;
+    color: white;
 }
-.all-button:hover{
-    background-color: #2D2F36;
+
+.all-button:hover {
+    background: rgb(51, 101, 194);
 }
-.form-login{
+
+.form-login {
     width: 320px;
 }
-.form-login{
-    background-color: #B2BDC8;
+
+.form-login {
+    /* background-color: #B2BDC8; */
     border-radius: 6px;
-    
-    margin: 30px auto;
+
+    margin: 15px auto;
     color: whitesmoke;
     padding: 20px 7px;
+}
+
+.title-login {
+    margin: 20px;
 }

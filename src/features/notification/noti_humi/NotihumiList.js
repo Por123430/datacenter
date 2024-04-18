@@ -3,8 +3,10 @@ import { useGetNotihumiQuery } from "./notihumiApiSlice";
 import Notihumi from "./Notihumi";
 import "../../../styles/Table.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../styles/pagination.css";
+
+import ChartLineYear from "../../../components/ChartLineYear";
 const NotihumiList = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
@@ -17,6 +19,19 @@ const NotihumiList = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [dataYear, setDataYear] = useState([]);
+
+  const fetchDataYear = async () => {
+    try {
+      const response = await fetch(
+        "https://datacenter-api.onrender.com/notiHumi/chartByMonth"
+      );
+      const result = await response.json();
+      setDataYear(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
@@ -26,6 +41,9 @@ const NotihumiList = () => {
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+  useEffect(() => {
+    fetchDataYear();
+  }, []);
   const {
     data: notihumi,
     isLoading,
@@ -54,15 +72,17 @@ const NotihumiList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsperpage;
     ids.slice(indexOfFirstItem, indexOfLastItem);
     const renderPageNumbers = pages.map((number) => {
-      if (number < maxpageNumberLimit + 1 && number > minpageNumberLimit) {
+      if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
         return (
           <li
-            key={number}
-            id={number}
-            onClick={handleClick}
-            className={currentpage === number ? "active" : null}
+
           >
-            {number}
+            <button key={number}
+              id={number}
+              onClick={handleClick}
+              className={currentpage === number ? "active" : null}>
+              {number}
+            </button>
           </li>
         );
       } else {
@@ -89,13 +109,37 @@ const NotihumiList = () => {
       ? ids
           .slice(indexOfFirstItem, indexOfLastItem)
           .map((notihumiId) => (
-            <Notihumi key={notihumiId} notihumiId={notihumiId} searchQuery={searchQuery}/>
+            <Notihumi
+              key={notihumiId}
+              notihumiId={notihumiId}
+              searchQuery={searchQuery}
+            />
           ))
       : null;
 
     content = (
       <div>
-       <div className="search">
+        <div className="search">
+        <div className="filter" >
+            <button
+               style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
+              
+            >
+              Temperature Chart
+            </button>
+            <button
+              style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
+
+            >
+              Humidity Chart
+            </button>
+            <button
+              style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
+
+            >
+              Light Chart
+            </button>
+          </div>
           <form onSubmit={(e) => e.preventDefault()} role="search">
             <label htmlFor="search">Search for stuff</label>
             <input
@@ -109,39 +153,48 @@ const NotihumiList = () => {
             />
           </form>
         </div>
-        <table className="table-monitor">
-          <thead className="table__thead">
-            <tr>
-              <th scope="col" className="table__th-temp">
-                humidity
-              </th>
-              <th scope="col" className="table__th-moistures">
-                date-time
-              </th>
-            </tr>
-          </thead>
-          <tbody>{tableContent}</tbody>
-        </table>
-        <div className="pagination-page">
-          <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={currentpage === pages[0] ? true : false}
-            >
-              Prev
-            </button>
-          </li>
+        <div className="data-section">
+          <div className="ChartSection">
+            <ChartLineYear data={dataYear} monitor={1} />
+          </div>
+          <div className="table-section">
+            <table className="table-monitor">
+              <thead className="table__thead">
+                <tr>
+                  <th scope="col" className="table__th-temp">
+                    humidity
+                  </th>
+                  <th scope="col" className="table__th-moistures">
+                    date-time
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{tableContent}</tbody>
+            </table>
+            <div className="pagination-page">
+              <div className="content-pg">
+                <li className="btn-pg-li">
+                  <button
+                    onClick={handlePrevbtn}
+                    disabled={currentpage === pages[0] ? true : false}
 
-          {renderPageNumbers}
+                  >
+                    Prev
+                  </button>
+                </li>
+                {renderPageNumbers}
+                <li className="btn-pg-li">
+                  <button
+                    onClick={handleNextbtn}
+                    disabled={currentpage === pages[pages.length - 1] ? true : false}
 
-          <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={currentpage === pages[pages.length - 1] ? true : false}
-            >
-              Next
-            </button>
-          </li>
+                  >
+                    Next
+                  </button>
+                </li>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
