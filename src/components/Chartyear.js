@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../styles/chart.css";
-const ChartsMonth = ({ data }) => {
+const ChartsMonth = ({ data , width, height}) => {
   const [temp, setTemp] = useState([]);
   useEffect(() => {
     setTemp(data);

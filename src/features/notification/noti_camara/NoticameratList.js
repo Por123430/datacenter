@@ -32,7 +32,7 @@ const NoticameraList = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/notiCamera/chartByMonth"
+        "https://datacenter-api.onrender.com/notiCamera/chartByMonth"
       );
       const result = await response.json();
       setDataYear(result);

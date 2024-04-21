@@ -177,7 +177,7 @@ const MonitorList = () => {
 
         <div className="data-section">
           <div className="ChartSection" >
-            <ChartLineYear data={dataimage} monitor={1}  width={720} height={480}/>
+            <ChartLineYear data={dataimage}   width={720} height={480}/>
           </div>
           <div className="table-section">
             <table className="table-monitor">

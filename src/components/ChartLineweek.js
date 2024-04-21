@@ -3,7 +3,7 @@ import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../styles/chart.css"
-const ChartLineWeek = ({ data }) => {
+const ChartLineWeek = ({ data, width, height }) => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
         
@@ -40,8 +40,8 @@ const ChartLineWeek = ({ data }) => {
   };
 
   const chartStyle = {
-    width:0,
-    height:0,
+    width,
+    height,
   };
   console.log(chartStyle);
   return (

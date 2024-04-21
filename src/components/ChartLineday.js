@@ -3,7 +3,7 @@ import { Bar, Line } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../styles/chart.css"
-const ChartLineDay = ({ data }) => {
+const ChartLineDay = ({ data, width, height }) => {
   // console.log(data.temperature);
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
