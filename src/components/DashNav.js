@@ -4,7 +4,7 @@ import "../styles/DashNav.css";
 import useAuth from "../hooks/useAuth";
 import addUser from "../img/addUser.png";
 import notification from "../img/notification.png";
-import { useState} from 'react'
+import { useState } from 'react'
 
 import editSensors from "../img/editSensors.png";
 import monitor from "../img/monitors.png";
@@ -26,9 +26,9 @@ const DashNav = () => {
           {(isAdmin || isOfficer) && (
             <Link to="/dash" className="dash-nav__link" >
               <div class="dropdown">
-                <img src={monitor} alt="monitor"  className={`imglink ${activeLink === 'monitor' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('monitor')}
-            ></img>
+                <img src={monitor} alt="monitor" className={`imglink ${activeLink === 'monitor' ? 'active' : ''}`}
+                  onClick={() => handleLinkClick('monitor')}
+                ></img>
                 <div class="dropdown-content">Monitor</div>
               </div>
             </Link>
@@ -40,7 +40,7 @@ const DashNav = () => {
             <Link to="/dash/LogMonitors" className="dash-nav__link">
               <div class="dropdown">
                 <img src={LogMonitor} alt="LogMonitor" className={`imglink ${activeLink === 'LogMonitor' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('LogMonitor')}></img>
+                  onClick={() => handleLinkClick('LogMonitor')}></img>
                 <div class="dropdown-content">Log Monitor</div>
               </div>
             </Link>
@@ -62,7 +62,7 @@ const DashNav = () => {
             >
               <div class="dropdown">
                 <img src={statistic} alt="statistic" className={`imglink ${activeLink === 'statistics' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('statistics')}></img>
+                  onClick={() => handleLinkClick('statistics')}></img>
                 <div class="dropdown-content">Statistics</div>
               </div>
             </Link>
@@ -74,8 +74,8 @@ const DashNav = () => {
             <Link to="/dash/Mainnoti/NotitempList" className="dash-nav__link">
               <div class="dropdown">
                 <img src={notification} alt="notification" className={`imglink ${activeLink === 'notification' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('notification')}
-            ></img>
+                  onClick={() => handleLinkClick('notification')}
+                ></img>
 
                 <div class="dropdown-content">Notification</div>
               </div>
@@ -88,32 +88,32 @@ const DashNav = () => {
             <Link to="/dash/users" className="dash-nav__link">
               <div class="dropdown">
                 <img src={user} alt="user" className={`imglink ${activeLink === 'user' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('user')}
-            ></img>
+                  onClick={() => handleLinkClick('user')}
+                ></img>
                 <div class="dropdown-content">Users</div>
               </div>
             </Link>
           )}
         </div>
 
-        <div className="dash-nav__element">
+        {/* <div className="dash-nav__element">
           {(isAdmin) && (
             <Link to="/dash/users/new" className="dash-nav__link">
               <div class="dropdown">
                 <img src={addUser} alt="addUser" className={`imglink ${activeLink === 'addUser' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('addUser')}></img>
+                  onClick={() => handleLinkClick('addUser')}></img>
                 <div class="dropdown-content">Add User</div>
               </div>
             </Link>
           )}
-        </div>
+        </div> */}
 
         <div className="dash-nav__element">
           {(isAdmin) && (
             <Link to="/dash/Sensor" className="dash-nav__link">
               <div class="dropdown">
                 <img src={editSensors} alt="editSensors" className={`imglink ${activeLink === 'editSensors' ? 'active' : ''}`}
-          onClick={() => handleLinkClick('editSensors')}></img>
+                  onClick={() => handleLinkClick('editSensors')}></img>
                 <div class="dropdown-content">Edit sensor</div>
               </div>
             </Link>

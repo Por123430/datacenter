@@ -1,3 +1,8 @@
+body {
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 .LogMonitor-display__graph{
     width: 100%;
     display: flex;
@@ -14,7 +19,12 @@
 
 .chart-title{
     font-size: 32px;
-    margin: 30px 20px;
+    display: flex;
+    margin: 30px 20px 0px 20px;
+}
+.chart-name{
+ width: 270px;
+ /* background-color: red; */
 }
 .graph-content{
     background-color: #2D2F36;
@@ -43,7 +53,7 @@
     }
 }
 .print-button button{
-    background-color: aliceblue;
+    background-color: #0D3B66;
     width: 70px;
     
     font-size: 1rem;
@@ -52,7 +62,8 @@
     border-radius: 5px;
 }
 
-.ChartSection{
+.-Statistic{
+    width: 300px;
     margin: 20px;
 }
 .chart{
@@ -77,3 +88,17 @@ border-radius: 5px;
     background-color: #2D2F36;
     color: aliceblue;
 }
+.method-chart{
+    display: flex;
+    margin-left: 620px;
+}
+.method-chart button:hover{
+    background-color: #2D2F36;
+    color: aliceblue;
+}
+button.active {
+    background-color: #2D2F36;
+    color: aliceblue;
+}
+  
+  

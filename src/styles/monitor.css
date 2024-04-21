@@ -1,25 +1,47 @@
+body {
+  font-family: "Sarabun", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .LogMonitor-display__content{
-  display: flex;
+  /* display: flex; */
   flex-wrap: nowrap;
-  /* margin: 0px 30px; */
   flex-direction: row;
   font-size: 24px;
 }
 .LogMonitor-display__content label{
     color: black;
 }
-.LogMonitor-display__graph{
+.Monitor-display__graph{
   width: 100%;
   display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
 }
 .LogMonitor-display__item1{
-    text-align: center;
+    text-align: right;
+    padding: 30px;
+    margin: 20px;
+    /* width: 100%; */
+    height: 180px;
+    background-color: #F6E7AC;
+    color: black;
+    border-radius: 14px;
+    /* display: flex; */
+    transition: 1s;
+}
+.LogMonitor-display__item1-under{
+  display: flex;
+}
+.LogMonitor-display__item2-under{
+  display: flex;
+}
+.LogMonitor-display__item1-under .LogMonitor-display__item1-sub{
+  text-align: center;
     padding: 30px;
     margin: 20px;
     width: 100%;
-    background-color: #F0F4CD;
+    background-color: #F6E7AC;
     color: black;
     border-radius: 14px;
     display: flex;
@@ -33,54 +55,73 @@
     width: 30%;
 }
 .item-content{
-    width: 70%;
+  /* margin: 20px 0px; */
+    width: 100%;
 }
-.LogMonitor-display__item1:hover{
+/* .LogMonitor-display__item1-sub:hover{
     box-shadow: 20px 20px 50px grey;
-}
+} */
 .LogMonitor-display__item2{
-    text-align: center;
+  text-align: right;
+  padding: 30px;
+  margin: 20px;
+  /* width: 100%; */
+  height: 180px;
+  background-color: #CACFD2;
+  color: black;
+  border-radius: 14px;
+  /* display: flex; */
+  transition: 1s;
+}
+.LogMonitor-display__item2-under .LogMonitor-display__item2-sub{
+  text-align: center;
     padding: 30px;
     margin: 20px;
     width: 100%;
-    background-color: #B2BDC8;
+    background-color: #CACFD2;
     color: black;
     border-radius: 14px;
-    transition: 1s;
     display: flex;
+    transition: 1s;
 }
 .countSections{
   text-align: center;
     padding: 30px;
     margin: 20px;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: #F4F4EF;
+    border: solid 1px gainsboro;
     color: black;
-    border-radius: 14px;
+    border-radius: 3px;
     transition: 1s;
    
 }
 .countSections .title-content-Section{
-  text-align: right;
+  text-align: left;
 }
 .countSections .item-content{
   width: 100%;
 }
-.item-content label{
-  
+.LogMonitor-display__item1 .item-content label{
+  margin: 0px 0px 0px 0px;
   width: 100%;
-  text-align: center;
+  text-align: right;
+}
+.LogMonitor-display__item2 .item-content label{
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  text-align: right;
 }
 
 .item-content .data{
-  font-size: 36px;
+  font-size: 42px;
 }
 .countSections:hover{
   box-shadow: 20px 20px 50px grey;
 }
-.LogMonitor-display__item2:hover{
+/* .LogMonitor-display__item2-sub:hover{
     box-shadow: 20px 20px 50px grey;
-}
+} */
 .LogMonitor-display__item label{
     color: beige;
 }
@@ -107,8 +148,15 @@
     text-align: center;
   }
   .popupData .close{
+    position: relative;
+    left: 490px;
     background-color: #B3B6B7 ;
     border-radius: 10px;
+  }
+
+  .close-icon{
+    width: 20px;
+    right: 20px;
   }
   
   .button {
@@ -127,16 +175,18 @@
     top: 0;
     left: 0;
     width: 30%;
-    
+    height: 520px;
     display: flexbox;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
   
     /* padding: 30px; */
-    margin: 15% 35%;
+    margin: 15% 37%;
     background-color: #B3B6B7 ;
     border-radius: 10px;
+    box-shadow: rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px;
+
 }
 
 td {
@@ -146,35 +196,56 @@ td {
 tbody{
   height: 20px;
 }
-.table-allcell{
-  padding: 0px;
-  margin: 0px;
-}
+
 
 th, td {
   text-align: left;
   padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+/* tr:nth-child(even){background-color: #f2f2f2} */
 
 .icon-edit img{
   width: 100%;
 }
-.table-allcell{
-  padding: 0px;
-  margin: 0px;
-}
+
 .table-allcell button {
   background-color: transparent;
   border: none;
 }
 
 .item-content-filter{
+  margin-top: 20px;
   font-size: 64px;
 }
 .countSections{
   cursor: pointer;
+}
+.content-sensor{
+  display: flex;
+}
+
+
+.sensor{
+  height: 580px;
+  background-color: #F4F4EF;
+  border: solid 1px gainsboro;
+  display: inline-block;
+  margin: 10px 20px 0px 20px;
+  width: 50%;
+  border-radius: 3px;
+}
+.title{
+  display: flex;
+  width: 100%;
+}
+.sensor .sensor_Titile{
+  font-size: 26px;
+  margin: 20px 20px 0px 20px;
+}
+.sensor .sensor_Titile-model{
+  font-size: 26px;
+  margin: 20px 20px auto auto;
 }
 /* .popupData button{
   margin-left: 430px;
@@ -250,3 +321,94 @@ tr:nth-child(even){background-color: #f2f2f2}
       width: 70%;
     }
   } */ 
+
+  
+ .multi-graph {
+  width: 300px;
+  height: 150px;
+  position: relative;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin:  10px auto;
+}
+
+.multi-graph:before {
+  content: '';
+  width: 300px;
+  height: 150px;
+  border: 50px solid rgba(0, 0, 0, .15);
+  border-bottom: none;
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: 50% 0%;
+  border-radius: 300px 300px 0 0;
+  left: 0;
+  top: 0;
+}
+
+.graph {
+  width: 300px;
+  height: 150px;
+  border: 50px solid var(--fill);
+  border-top: none;
+  position: absolute;
+  transform-origin: 50% 0% 0;
+  border-radius: 0 0 300px 300px;
+  left: 0;
+  top: 100%;
+  z-index: 5;
+  animation: 1s fillGraphAnimation ease-in;
+  transform: rotate(calc(1deg * (var(--percentage) * 1.8)));
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.graph:after {
+  content: attr(data-name) ' ' counter(varible) '%';
+  counter-reset: varible var(--percentage);
+  background: var(--fill);
+  box-sizing: border-box;
+  border-radius: 2px;
+  color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+  height: 20px;
+  padding: 3px 5px;
+  top: 0px;
+  position: absolute;
+  left: 0;
+  transform: rotate(calc(-1deg * var(--percentage) * 1.8)) translate(-30px, 0px);
+  transition: 0.2s ease-in;
+  transform-origin: 0 50% 0;
+  opacity: 0;
+}
+
+.graph:hover {
+  opacity: 0.8;
+}
+
+.graph:hover:after {
+  opacity: 1;
+  left: 30px;
+}
+
+@keyframes fillGraphAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+
+
+.overlay .content{
+display: block;
+}

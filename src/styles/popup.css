@@ -1,4 +1,11 @@
+body {
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .popup{
+    opacity: 0.95;
     position: fixed;
     top: 0;
     left: 0;
@@ -9,10 +16,11 @@
     align-items: center;
     font-size: 1.5rem;
     color: whitesmoke;
+   
 }
 .popup-inner img {
     width: 86px;
-    margin: 10px 40%;
+    margin: 10px 136px;
 }
 .popup-inner {
     /* position: relative; */
@@ -25,14 +33,14 @@
     border-radius: 3px;
     color: whitesmoke;
     transition: 1s;
-   
+    border-radius: 10px;
    
 }
 .popup-inner:hover{
     box-shadow: 20px 20px 50px grey;
     
 }
-.title{
+.title-popup{
     text-align: center;
 }
 .popup-inner .close-btn{

@@ -1,13 +1,22 @@
+body {
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 table{
     border-collapse: collapse;
-    margin: 40px auto;
+    margin: 15px auto 0px auto;
     width: 80%;
     border-radius: 3px;
+    border: 2px solid red;
 }
 .table__thead{
     text-align: left;
     color: whitesmoke;
     background: #0D3B66;
+    border:  6px solid whitesmoke;
+    border-radius: 5px;
+    height: 50px;
 }
 td {
     margin: 0px;
@@ -17,8 +26,11 @@ tbody{
     height: 20px;
 }
 .table-allcell{
+    background-color: #E1E0E0;
     padding: 0px;
-    margin: 0px;
+    margin: 2px 0px;
+    border:  6px solid whitesmoke;
+    border-radius: 5px;
 }
 
 th, td {
@@ -26,7 +38,7 @@ th, td {
     padding: 8px;
   }
   
-  tr:nth-child(even){background-color: #f2f2f2}
+  /* tr:nth-child(even){background-color: #f2f2f2} */
 
 .icon-edit img{
     width: 100%;
@@ -43,9 +55,12 @@ img{
     width: 320px;
     margin: 20px auto;
 }
+.title{
+    justify-content: center;
+}
 .table-button button{
     
-    background-color: #2D2F36;
+    /* background-color: #2D2F36; */
     border: none;
     color: white;
     padding: 11px 16px;
@@ -87,8 +102,9 @@ img{
 /* html { box-sizing: border-box; height: 100%; font-size: 10px; } *, *::before, *::after { box-sizing: inherit; } */
 
 .search{
-    margin: 40px auto;
-    width: 80%;
+    margin: 40px 100px;
+    /* width: 80%; */
+    display: flex;
 }
 .search form {
    
@@ -96,7 +112,7 @@ img{
   width: 260px;
   
   border-radius: var(--rad);
-  margin: 0px 0px 0px auto;
+  margin: 20px 0px 0px 33%;
 }
 .search input, button {
     padding: 10px 8px;
@@ -106,8 +122,15 @@ img{
   color: var(--color-dark);
   font-size: 1.2rem;
 }
-
-
+.search .filter {
+    padding: 10px;
+   
+}
+.search .filter button{
+    padding: 10px;
+    width: 220px;
+    font-size: 1.2rem;
+}
 
 .search label {
     
@@ -118,4 +141,41 @@ img{
   height: 1px;
   width: 1px;
   overflow: hidden;
+}
+
+.red-text {
+    color: red;
+  }
+  
+.data-section{
+    margin: 0px 100px;
+    display: flex;
+}
+
+.table-section{
+    width: 50%;
+    margin: 10px;
+    border: 2px red;
+}
+.ChartSection{
+    width: 50%;
+    
+}
+.sound {
+    width: 80%;
+    margin: 15px auto 0px auto;
+
+}
+.update {
+    justify-content: center;
+    /* width: 420px; */
+    display: flex;
+    margin: 0px 9%;
+}
+.update button{
+    width: 94px;
+}
+
+.btn-export{
+    margin: 0px 100px;
 }

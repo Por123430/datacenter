@@ -1,7 +1,12 @@
+body {
+  font-family: "Sarabun", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .dash-nav{
     content: left;
     display: inline-block;
-    background-color: #B2BDC8;
+    background-color: #0D3B66;
     /* background-color: #9999; */
     width: 80px;
     font-size: 1.2em;
@@ -10,7 +15,7 @@
     width: 13em;
 } */
 .dash-nav__link{
-    margin: 20px 15px;
+   margin: 20px 15px 20px 12px;
     display: flex;
     color: whitesmoke;
     text-decoration: none;
@@ -19,7 +24,7 @@
 }
 
 .dash-nav__link:hover {
-    color: #2D2F36;
+  /* background-color: #385DAD; */
 }
 .dash-nav__element{
     padding: 0;
@@ -28,6 +33,7 @@
 }
 .dash-nav__element img{
     width: 46px;
+    padding: 5px ;
 }
 img:hover{
     /* background-color: #f9f9f9; */
@@ -41,13 +47,14 @@ img:hover{
     color: #f9f9f9;
     display: none;
     position:relative;
-    background-color: #B2BDC8;
-    min-width: 130px;
+    background-color: #0D3B66;
+    min-width: 135px;
     max-height: 50px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 10px 1.5em;
     /* margin: 10px 20px; */
-    margin: 0px 0px 0px 20px;
+    font-size: 24px;
+    margin: 0px 0px 0px 10px;
     z-index: 1;
   }
   :link{
@@ -67,7 +74,8 @@ img:hover{
     cursor: pointer;
   }
   
-  .imglink.active {
+  /* .imglink.active {
+    padding: 5px ;
     border-radius: 4px;
-    background-color: #0D3B66;
-  }
+    background-color: #FFB900;
+  } */

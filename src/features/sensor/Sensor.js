@@ -19,8 +19,9 @@ const Sensor = ({ sensorId }) => {
         <td className={`table-cell ${cellStatus}`}>{sensor.model}</td>
         <td className={`table-cell ${cellStatus}`}>{sensor.temp}</td>
         <td className={`table-cell ${cellStatus}`}>{sensor.moisture}</td>
+        <td className={`table-cell ${cellStatus}`}>{sensor.position}</td>
         <td className={`table-cell ${cellStatus}`}>
-          <button className="icon-edit" onClick={handleEdit}>
+          <button className="icon-edit" onClick={handleEdit} style={{ padding: "0px", margin: "0px", width: "20px"}}>
             <img src={edit} alt="editUser"></img>
           </button>
         </td>

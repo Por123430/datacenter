@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import "../../../frontend/src/styles/chart.css";
-const ChartsMonth = ({ data }) => {
+const ChartsMonth = ({ data , width, height}) => {
   const [temp, setTemp] = useState([]);
   useEffect(() => {
     setTemp(data);
@@ -15,10 +15,7 @@ const ChartsMonth = ({ data }) => {
       {
         label: "Notifications Count",
         backgroundColor: [
-          "#3e95cd",
-          "#8e5ea2",
-          "#3cba9f",
-          "#e8c3b9",
+         
           "#c45850",
         ],
         data: temp.map((item) => item.Count),
@@ -27,20 +24,27 @@ const ChartsMonth = ({ data }) => {
   };
 
   const chartOptions = {
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
       title: {
         display: true,
-        text: "Notifications By Month",
+        text: "Notifications By Year",
       },
+      
     },
+    
   };
 
+  const chartStyle = {
+    width,
+    height,
+  };
   return (
     <div className="chart-item">
-      {" "}
+      {/* {" "} */}
       {/* Set desired width and height */}
-      <Bar data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions}style={chartStyle} />
     </div>
   );
 };
