@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import "../../../frontend/src/styles/chart.css";
+import "../styles/chart.css";
 
 const ChartLineYear = ({ data, width, height }) => {
   const [temp, setTemp] = useState([]);
