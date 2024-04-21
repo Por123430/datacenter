@@ -107,7 +107,14 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiLight/chartByWeek"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -119,7 +126,14 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiLight/chartByMonth"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -131,7 +145,14 @@ const LightStatistic = () => {
     try {
       const response = await fetch(
         "https://datacenter-api.onrender.com/notiLight/chartByDay"
-      );
+        , {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Accept": "application/json",
+            // Add any other headers you need here
+          },
+        });
       const result = await response.json();
       setDataDay(result);
     } catch (error) {
@@ -262,6 +283,24 @@ const LightStatistic = () => {
               style={{ display: showLineWeekChart ? "block" : "none" }}
             >
               <ChartLineWeek data={data} width={1024} height={560}/>
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineYearChart ? "block" : "none" }}
+            >
+              <ChartLineYear data={dataYear} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineMonthChart ? "block" : "none" }}
+            >
+              <ChartLineMonth data={dataDay} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineWeekChart ? "block" : "none" }}
+            >
+              <ChartLineWeek data={data} />
             </section>
           </div>
         </div>

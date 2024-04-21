@@ -197,7 +197,6 @@ tbody{
   height: 20px;
 }
 
-
 th, td {
   text-align: left;
   padding: 8px;
@@ -208,7 +207,6 @@ th, td {
 .icon-edit img{
   width: 100%;
 }
-
 .table-allcell button {
   background-color: transparent;
   border: none;

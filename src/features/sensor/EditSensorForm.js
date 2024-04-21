@@ -142,6 +142,19 @@ const EditSensorform = ({ sensor }) => {
             onChange={onPositionChanged}
           />
 
+          <div className="label-form">
+            position: <span className="nowrap"></span>
+          </div>
+          <input
+            className={`form__input ${validPositionClass}`}
+            id="position"
+            name="position"
+            type="text"
+            autoComplete="off"
+            value={position}
+            onChange={onPositionChanged}
+          />
+
           <div className="form__action-buttons">
             <button
               className="save-button"

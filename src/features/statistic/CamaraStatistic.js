@@ -262,6 +262,24 @@ const CamaraStatistic = () => {
             >
               <ChartLineWeek data={data} width={1024} height={560}/>
             </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineYearChart ? "block" : "none" }}
+            >
+              <ChartLineYear data={dataYear} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineMonthChart ? "block" : "none" }}
+            >
+              <ChartLineMonth data={dataDay} />
+            </section>
+            <section
+              className="ChartSection"
+              style={{ display: showLineWeekChart ? "block" : "none" }}
+            >
+              <ChartLineWeek data={data} />
+            </section>
           </div>
         </div>
       </div>
