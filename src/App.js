@@ -3,15 +3,14 @@ import Layout from "./components/Layout";
 
 import Login from "./features/auth/Login";
 import DashLayout from "./components/DashLayout";
-import Welcome from "./features/auth/Welcome";
 
 import UserList from "./features/users/UserList";
 import NotihumiList from "./features/notification/noti_humi/NotihumiList";
-import LogUser from "./features/users/LogUser";
 import Monitor from "./features/auth/MainMonitor";
 import Stistic from "./features/auth/Stistics";
 import EditUser from "./features/users/EditUser";
 import NewUserForm from "./features/users/NewUserForm";
+import SettingUser from "./features/users/SettingUser";
 import MonitorList from "./features/monitors/MonitorList";
 import Prefetch from "./features/auth/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
@@ -45,6 +44,10 @@ function App() {
 
             <Route path="dash" element={<DashLayout />}>
               <Route index element={<Monitor />} />
+              <Route path="EditProfile">
+                
+                <Route path=":id" element={<SettingUser />} />
+              </Route>
               <Route path="LogMonitors">
                 <Route index element={<MonitorList />} />
               </Route>

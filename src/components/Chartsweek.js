@@ -6,9 +6,6 @@ import "../styles/chart.css"
 const ChartsWeek = ({ data , width, height}) => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
-        
-  // console.log(data.temperature);
-  console.log(data);
   const [temp, setTemp] = useState([]);
   useEffect(() => {
     setTemp(data);

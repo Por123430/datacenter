@@ -14,9 +14,10 @@ body {
 }
 .title-under{
     font-size: 0.5em;
-    width: 130px;
+    /* width: 130px; */
     /* background-color: red; */
-    margin-left: 50px;
+    /* margin-left: 50px; */
+    text-align: left;
 }
 .dash-header__container{
     display: flex;
@@ -69,11 +70,75 @@ body {
   }
 
   .dash-title{
+    padding: 10px;
+    cursor: pointer;
     text-align: right;
     font-size: 1.2em;
-    padding: 20px 10px;
+    margin: 0px 10px;
     color: #154295;
     /* background-color: #F0F1F3; */
-    /* display: flex; */
-
+    border-radius: 6px;
+    display: flex;
+    transition: background-color 0.3s ease;
 }
+
+
+.user-title{
+   margin-top: 10px;
+    width: 45px;
+}
+.title-span{
+    margin: 0px 0px 0px 10px;
+}
+
+.dash-title:hover {
+    cursor: pointer;
+    background-color: #f2c50f; /* Change background color on hover */
+  }
+  
+
+  
+  
+  .dropdown-menu {
+    display: none; 
+    position: absolute;
+    width: 89%;
+    margin: 0px 10px;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .user-data{
+    position: relative;
+  }
+  .user-data:hover .dropdown-menu {
+    
+    display: block;
+  }
+  .dropdown-menu ul {
+   
+    text-align: left;
+    font-size: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu ul li {
+    display: flex;
+    padding-left: 15px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .dropdown-menu ul li img{
+    position:absolute;
+    right: 5px;
+   width: 20px;
+  }
+  
+  .dropdown-menu ul li:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+  }
+  

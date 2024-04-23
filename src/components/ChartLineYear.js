@@ -18,7 +18,7 @@ const ChartLineYear = ({ data, width, height }) => {
         backgroundColor: "#c45850",
         borderColor: "#c45850",
         borderWidth: 1,
-        data: temp.map((item) => item.value),
+        data: temp.map((item) => item.Count),
       },
     ],
   };

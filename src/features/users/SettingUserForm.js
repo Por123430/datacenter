@@ -10,9 +10,10 @@ import "../../styles/edit.css"
 const USER_REGEX = /^[A-z]{3,30}$/;
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
 
-const EditUserForm = ({ user }) => {
+const SettingUserForm = ({ user }) => {
   const [updateUser, { isLoading, isSuccess, isError, error }] =
     useUpdateUserMutation();
+
   const [
     deleteUser,
     { isSuccess: isDelSuccess, isError: isDelError, error: delerror },
@@ -51,8 +52,8 @@ const EditUserForm = ({ user }) => {
       setFirstname("");
       setLastname("");
       setPassword("");
-      setRoles([]);
-      navigate("/dash/users");
+      
+      navigate("/dash");
     }
   }, [isSuccess, isDelSuccess, navigate]);
 
@@ -117,16 +118,16 @@ const EditUserForm = ({ user }) => {
   if (password) {
     canSave =
       [
-        roles.length,
+        
         validUsername,
         validFirstname,
         validLastname,
-        line,
+        
         validPassword,
       ].every(Boolean) && !isLoading;
   } else {
     canSave =
-      [roles.length, validUsername, validFirstname, validLastname, line].every(
+      [ validUsername, validFirstname, validLastname].every(
         Boolean
       ) && !isLoading;
   }
@@ -136,9 +137,9 @@ const EditUserForm = ({ user }) => {
   const validFirstClass = !validFirstname ? "form__input--incomplete" : "";
   const validLastClass = !validLastname ? "form__input--incomplete" : "";
   const validPwdclass = !validPassword ? "form__input--incomplete" : "";
-  const validRolesClass = !Boolean(roles.length)
-    ? "form__input--incomplete"
-    : "";
+  // const validRolesClass = !Boolean(roles.length)
+  //   ? "form__input--incomplete"
+  //   : "";
 
   const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
 
@@ -154,7 +155,7 @@ const EditUserForm = ({ user }) => {
           boxShadow: "rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px"
         }}
       >
-        Edit User
+        Edit Profile
       </div>
       <div className="form-eidt">
         <p className={errClass}>{errContent}</p>
@@ -237,79 +238,7 @@ const EditUserForm = ({ user }) => {
             <span class="area-field-Hover">[A-z,0-9,!@#$%][4-12 chars]</span>
 
           </div>
-          <label
-            className="form__label form__checkbox-container"
-            htmlFor="user-active"
-          >
-            <label class="form__label">ACTIVE:</label>
-            {/* <input
-              className="form__checkbox"
-              id="user-active"
-              name="user-active"
-              type="checkbox"
-              checked={active}
-              onChange={onActiveChanged}
-            /> */}
-            <div class="checkbox-wrapper-2">
-              <input type="checkbox" class="sc-gJwTLC ikxBAC"
-                id="user-active"
-                name="user-active"
-
-                checked={active}
-                onChange={onActiveChanged} />
-            </div>
-
-
-
-          </label>
-
-          {/* <label className="form__label" htmlFor="roles">
-            ASSIGNED ROLES:
-          </label>
-          <select
-            className={`form__select ${validRolesClass}`}
-            id="roles"
-            name="roles"
-
-            value={roles}
-            size="3"
-            onChange={onRolesChanged}
-          >
-            {options}
-          </select> */}
-          <label
-            className="form__label form__checkbox-container"
-            htmlFor="user-active"
-          >
-            <div className="redio-content">
-              <label class="form__label">ASSIGNED ROLES:</label>
-              <div className="checkbox-redio">
-                <label class="form-control">
-                  <input
-                    type="radio"
-                    name="roles"
-                    value="Admin"
-                    checked={roles === "Admin"}
-                    onChange={() => onRolesChanged("Admin")}
-                  />
-                  Admin
-                </label>
-
-                <label class="form-control">
-                  <input
-                    type="radio"
-                    name="roles"
-                    value="Officer"
-                    checked={roles === "Officer"}
-                    onChange={() => onRolesChanged("Officer")}
-                  />
-                  Officer
-                </label>
-              </div>
-              {/* Add more radio buttons for other roles if needed */}
-            </div>
-          </label>
-
+         
           <div className="form__action-buttons">
             <button
               className="save-button"
@@ -333,4 +262,4 @@ const EditUserForm = ({ user }) => {
   );
   return content;
 };
-export default EditUserForm;
+export default SettingUserForm;

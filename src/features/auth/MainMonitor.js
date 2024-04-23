@@ -29,6 +29,10 @@ const MainMonitor = () => {
   const [humidd, setHumidd] = useState([]);
   const [lightdd, setLightdd] = useState([]);
 
+  const [motionData, setMotionData] = useState();
+  const [motiondd, setMotiontdd] = useState([]);
+ 
+
   const [currentPage, setCurrentPage] = useState(1);
 
   
@@ -92,6 +96,24 @@ const MainMonitor = () => {
     }
   };
 
+  const fetchMotionData = async () => {
+    try {
+      const response = await fetch("https://datacenter-api.onrender.com/notiCamera/filter");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch data");
+      }
+
+      const { noti_Motion, count } = data;
+
+      setMotiontdd(noti_Motion);
+      setMotionData(count);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const handlePopupClick = (data, title) => {
     setTitle(title);
     setPopupData(data);
@@ -110,7 +132,7 @@ const MainMonitor = () => {
       fetchTempData();
       fetchHumiData();
       fetchLightData();
-
+      fetchMotionData();
 
     });
   }, []);
@@ -123,6 +145,8 @@ const MainMonitor = () => {
       fetchTempData();
       fetchHumiData();
       fetchLightData();
+      fetchMotionData();
+      console.log("motiondd",motiondd);
     });
     if (sensor1.length > 0) {
       setPosition1Data(sensor1[0].position);
@@ -319,13 +343,20 @@ const MainMonitor = () => {
                 <div className="title-content-Section">Notifications per day: Smoke</div>
                 <div className="item-content-filter">{lightData}</div>
               </div>
+              <div
+                className="countSections"
+                onClick={() => handlePopupClick(motiondd, "Motion")}
+              >
+                <div className="title-content-Section">Notifications per day: Motion</div>
+                <div className="item-content-filter">{motionData}</div>
+              </div>
             </div>
           </div>
           {isPopupOpen && (
             <div className="overlay">
               <div className="popupData">
                 <div className="content-close-icon">
-                  <button className="close" onClick={closePopupClick}>
+                  <button className="close" onClick={closePopupClick} >
                     <img src={close} alt="close-icon" className="close-icon"></img>
                   </button>
                 </div>

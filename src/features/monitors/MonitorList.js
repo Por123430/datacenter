@@ -1,62 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useGetMonitorsQuery } from "./monitorApiSlice";
 import Monitor from "./Monitor";
 import "../../styles/Table.css";
-
-import { useState, useEffect } from "react";
-import "../../styles/pagination.css";
-
-
 import ChartLineYear from "../../components/ChartLineYear";
 import ExportCSV from "../../app/importCsv";
 
 const MonitorList = () => {
   const [dataimage, setDataImage] = useState([]);
-
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
-
-  const pages = [];
-
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [selectedChart, setSelectedChart] = useState("Temp")
-  const [allData, setAllData ] = useState([]);
-
-  useEffect(() => {
-    fetchData(selectedChart); // Fetch data for the selected chart
-  }, [selectedChart]);
-
-
-  const handleSearchInputChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    setCurrentPage(1); // Reset current page when search query changes
-  };
-
-  const handleClick = (event) => {
-    setCurrentPage(Number(event.target.id));
-  };
-  const fetchData = async (chartType) => {
-    try {
-      const response = await fetch(`https://datacenter-api.onrender.com/moniters/chartByMonth${chartType}`);
-      const result = await response.json();
-      const responseAllData= await fetch(`https://datacenter-api.onrender.com/moniters/csv`);
-      const resultAllData = await responseAllData.json();
-      setDataImage(result);
-      setAllData(resultAllData);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  };
-
-  const handleChartButtonClick = (chartType) => {
-    setSelectedChart(chartType); // Set the selected chart
-  };
+  const [selectedChart, setSelectedChart] = useState("Temp");
+  const [allData, setAllData] = useState([]);
 
   const {
     data: monitors,
@@ -65,6 +23,36 @@ const MonitorList = () => {
     isError,
     error,
   } = useGetMonitorsQuery();
+
+  useEffect(() => {
+    console.log("Selected Chart changed:", selectedChart);
+    fetchData(selectedChart);
+  }, [selectedChart]);
+
+  const fetchData = async (chartType) => {
+    try {
+      const response = await fetch(`https://datacenter-api.onrender.com/moniters/chartByMonth${chartType}`);
+      const result = await response.json();
+      const responseAllData = await fetch(`https://datacenter-api.onrender.com/moniters/csv`);
+      const resultAllData = await responseAllData.json();
+      setDataImage(result);
+      setAllData(resultAllData);
+      console.log("result",result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
+
+  const handleChartButtonClick = (chartType) => {
+    console.log("chartType", chartType);
+    setSelectedChart(chartType);
+  };
 
   let content;
 
@@ -77,26 +65,39 @@ const MonitorList = () => {
   }
 
   if (isSuccess) {
-    const { ids } = monitors;
-    const totalPages = Math.ceil(ids.length / itemsperpage);
+    const { entities } = monitors;
+    const monitorIds = Object.keys(entities);
 
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
+    const filteredIds = monitorIds.filter((monitorId) => {
+      const monitor = entities[monitorId];
+      const date = new Date(monitor.createdAt);
+      const formattedDate = date.toLocaleString();
+      if (!searchQuery) return true;
+      
+      return (
+        String(monitor.temp).includes(searchQuery) ||
+        String(monitor.humidity).includes(searchQuery) ||
+        (searchQuery === "detect" && monitor.lighting === "detect") ||
+        String(monitor.lighting).includes(searchQuery) ||
+        String(formattedDate).includes(searchQuery)
+      );
+    });
+
+    const totalPages = Math.ceil(filteredIds.length / itemsperpage);
 
     const indexOfLastItem = currentpage * itemsperpage;
     const indexOfFirstItem = indexOfLastItem - itemsperpage;
 
-    const renderPageNumbers = pages.map((number) => {
+    const renderPageNumbers = Array.from({ length: totalPages }).map((_, index) => {
+      const number = index + 1;
       if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
         return (
-          <li
-
-          >
-            <button key={number}
+          <li key={number}>
+            <button
               id={number}
-              onClick={handleClick}
-              className={currentpage === number ? "active" : null}>
+              onClick={() => setCurrentPage(number)}
+              className={currentpage === number ? "active" : null}
+            >
               {number}
             </button>
           </li>
@@ -105,6 +106,7 @@ const MonitorList = () => {
         return null;
       }
     });
+
     const handleNextbtn = () => {
       setCurrentPage(currentpage + 1);
       if (currentpage + 1 > maxpageNumberLimit) {
@@ -112,6 +114,7 @@ const MonitorList = () => {
         setMinPageNumberLimit(minpageNumberLimit + pageNumberLimit);
       }
     };
+
     const handlePrevbtn = () => {
       setCurrentPage(currentpage - 1);
       if ((currentpage - 1) % pageNumberLimit === 0) {
@@ -119,27 +122,21 @@ const MonitorList = () => {
         setMinPageNumberLimit(minpageNumberLimit - pageNumberLimit);
       }
     };
-    const tableContent = ids?.length
-      ? ids
-        .slice(indexOfFirstItem, indexOfLastItem)
-        .map((monitersId) => (
-          <Monitor
-            key={monitersId}
-            monitorId={monitersId}
-            searchQuery={searchQuery}
-          />
-        ))
-      : null;
+
+    const tableContent = filteredIds.slice(indexOfFirstItem, indexOfLastItem).map((monitorId) => (
+      <Monitor key={monitorId} monitorId={monitorId} searchQuery={searchQuery} />
+    ));
+
 
     return (
       <div>
         <div className="all-title-content" style={{
-    background: "#F4F4EF",
-    fontSize: "1.4rem",
-    padding: "20px 70px",
-    color: "black",
-    boxShadow: "rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px"
-  }}>Log Monitor</div>
+          background: "#F4F4EF",
+          fontSize: "1.4rem",
+          padding: "20px 70px",
+          color: "black",
+          boxShadow: "rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px"
+        }}>Log Monitor</div>
         <div className="search">
           <div className="filter">
             <button
@@ -158,7 +155,7 @@ const MonitorList = () => {
               onClick={() => handleChartButtonClick("Light")}
               className={selectedChart === "Light" ? "active" : ""}
             >
-              Light Chart
+              Smoke Chart
             </button>
           </div>
           <form onSubmit={(e) => e.preventDefault()} role="search">
@@ -177,7 +174,7 @@ const MonitorList = () => {
 
         <div className="data-section">
           <div className="ChartSection" >
-            <ChartLineYear data={dataimage}   width={720} height={480}/>
+            <ChartLineYear data={dataimage} width={720} height={480} />
           </div>
           <div className="table-section">
             <table className="table-monitor">
@@ -204,8 +201,7 @@ const MonitorList = () => {
                 <li className="btn-pg-li">
                   <button
                     onClick={handlePrevbtn}
-                    disabled={currentpage === pages[0] ? true : false}
-
+                    disabled={currentpage === 1}
                   >
                     Prev
                   </button>
@@ -214,8 +210,7 @@ const MonitorList = () => {
                 <li className="btn-pg-li">
                   <button
                     onClick={handleNextbtn}
-                    disabled={currentpage === pages[pages.length - 1] ? true : false}
-
+                    disabled={currentpage === totalPages}
                   >
                     Next
                   </button>
@@ -225,11 +220,9 @@ const MonitorList = () => {
           </div>
         </div>
         <div className="btn-export">
-      
-      <ExportCSV data={allData} fileName="exported_data.csv" />
-    </div>
+          <ExportCSV data={allData} fileName="exported_data.csv" />
+        </div>
       </div>
-      
     );
   }
   return null;

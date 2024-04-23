@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/popup.css';
-import alert from '../img/alert.png';
-import sound1 from "../sound/Radar_-_iPhone_Ringtone.mp4";
-import sound2 from "../sound/todtod.mp4";
+import alert from '../img/alarm.png';
+import level1 from "../sound/level1.mp3";
+import level2 from "../sound/level2.mp3";
+import level3 from "../sound/level3.mp3";
 
 function Popup(props) {
-  const [music, setMusic] = useState([]);
+  const [music, setMusic] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -16,29 +17,33 @@ function Popup(props) {
       const response = await fetch(`https://datacenter-api.onrender.com/music/active`);
       const result = await response.json();
       setMusic(result);
-      if (result.no === 1) {
-        play1();
-      } else if (result.no === 2) {
-        play2();
-      } else if (result.no === 3) {
-        play3();
-      }
+      
     } catch (error) {
       console.log("Error fetching data:", error);
     }
   };
 
-  function play1() {
-    new Audio(sound1).play();
-  }
-
-  function play2() {
-    new Audio(sound2).play();
-  }
-
-  function play3() {
-    new Audio(sound1).play();
-  }
+  useEffect(() => {
+    if (music) { // Only play music when music state is set
+      switch (music[0].no) { // Assuming music.no represents level number
+        case 1:
+          playAudio(level1);
+          break;
+        case 2:
+          playAudio(level2);
+          break;
+        case 3:
+          playAudio(level3);
+          break;
+        default:
+          break;
+      }
+    }
+  }, [music]); 
+  const playAudio = (audioSrc) => {
+    const audio = new Audio(audioSrc);
+    audio.play().catch(error => console.error('Error playing audio:', error));
+  };
 
   return (props.trigger) ? (
     <div className='popup'>

@@ -1,6 +1,8 @@
 import React from "react";
 import ReactToPrint from "react-to-print";
 import "../../styles/graph.css";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { useRef, useEffect, useState } from "react";
 import ChartsWeek from "../../components/Chartsweek";
 import ChartsMonth from "../../components/Chartyear";
@@ -10,113 +12,57 @@ import ChartLineYear from "../../components/ChartLineYear";
 import ChartLineWeek from "../../components/ChartLineweek";
 import ChartLineMonth from "../../components/ChartLineday";
 const LightStatistic = () => {
-  const [data, setData] = useState([]);
+  const [dataWeek, setDataWeek] = useState([]);
   const [dataDay, setDataDay] = useState([]);
+  const [dataMonth, setDataMonth] = useState([]);
   const [dataYear, setDataYear] = useState([]);
 
-  const [showWeekChart, setShowWeekChart] = useState(true);
-  const [showDayChart, setShowDayChart] = useState(false);
-  const [showMonthChart, setShowMonthChart] = useState(false);
+  const [selectedChart, setSelectedChart] = useState("Week");
+  const [selectedOption, setSelectedOption] = useState("Bar");
 
-  const [showLineWeekChart, setShowLineWeekChart] = useState(false);
-  const [showLineMonthChart, setShowLineMonthChart] = useState(false);
-  const [showLineYearChart, setShowLineYearChart] = useState(false);
-  const [options, setOptions] = useState(1);
-
-  const [barButtonClicked, setBarButtonClicked] = useState(false);
-  const [lineButtonClicked, setLineButtonClicked] = useState(false);
-  const toggleWeekChart = () => {
-    if (options === 1) {
-      setShowWeekChart(true);
-      setShowDayChart(false);
-      setShowMonthChart(false);
-      setShowLineMonthChart(false);
-      setShowLineYearChart(false);
-      setShowLineWeekChart(false);
-    } else {
-      setShowWeekChart(false);
-      setShowDayChart(false);
-      setShowMonthChart(false);
-      setShowLineMonthChart(false);
-      setShowLineYearChart(false);
-      setShowLineWeekChart(true);
-    }
-  };
-
-  const toggleDayChart = () => {
-    if (options === 1) {
-      setShowWeekChart(false);
-      setShowDayChart(true);
-      setShowMonthChart(false);
-      setShowLineMonthChart(false);
-      setShowLineYearChart(false);
-      setShowLineWeekChart(false);
-    } else {
-      setShowWeekChart(false);
-      setShowDayChart(false);
-      setShowMonthChart(false);
-      setShowLineMonthChart(true);
-      setShowLineYearChart(false);
-      setShowLineWeekChart(false);
-    }
-  };
-  const toggleMonthChart = () => {
-    if (options === 1) {
-      setShowWeekChart(false);
-      setShowDayChart(false);
-      setShowMonthChart(true);
-      setShowLineMonthChart(false);
-      setShowLineYearChart(false);
-      setShowLineWeekChart(false);
-    } else {
-      setShowWeekChart(false);
-      setShowDayChart(false);
-      setShowMonthChart(false);
-      setShowLineMonthChart(false);
-      setShowLineYearChart(true);
-      setShowLineWeekChart(false);
-    }
-  };
-
-  const toggleBar = () => {
-    setOptions(1);
-    setBarButtonClicked(true);
-    setLineButtonClicked(false);
-  };
-
-  const toggleLine = () => {
-    setOptions(2);
-    setBarButtonClicked(false);
-    setLineButtonClicked(true);
-  };
+  const chartRef = useRef(null);
+  const [printWidth, setPrintWidth] = useState(1200);
+  const [printHeight, setPrintHeight] = useState(800);
 
   useEffect(() => {
-    fetchData();
-    fetchDataDay();
+    fetchDataWeek();
+    fetchDataMonth();
     fetchDataYear();
+  }, []);
 
-    // Determine which chart to show based on options
-    if (options === 1) {
-      toggleBar(); // For example, set the initial chart to Bar
-    } else {
-      toggleLine(); // Or set it to Line
-    }
-  }, [options]);
-
-  const fetchData = async () => {
+  const fetchDataWeek = async () => {
     try {
       const response = await fetch(
-        "https://datacenter-api.onrender.com/notiLight/chartByWeek"
-        , {
+        "https://datacenter-api.onrender.com/notiLight/chartByWeek",
+        {
           method: "GET",
           mode: "cors",
           headers: {
-            "Accept": "application/json",
-            // Add any other headers you need here
+            Accept: "application/json",
           },
-        });
+        }
+      );
       const result = await response.json();
-      setData(result);
+      setDataWeek(result);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  const fetchDataMonth = async () => {
+    try {
+      const response = await fetch(
+        "https://datacenter-api.onrender.com/notiLight/chartByDay",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      const result = await response.json();
+      setDataMonth(result);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
@@ -125,15 +71,15 @@ const LightStatistic = () => {
   const fetchDataYear = async () => {
     try {
       const response = await fetch(
-        "https://datacenter-api.onrender.com/notiLight/chartByMonth"
-        , {
+        "https://datacenter-api.onrender.com/notiLight/chartByMonth",
+        {
           method: "GET",
           mode: "cors",
           headers: {
-            "Accept": "application/json",
-            // Add any other headers you need here
+            Accept: "application/json",
           },
-        });
+        }
+      );
       const result = await response.json();
       setDataYear(result);
     } catch (error) {
@@ -141,166 +87,130 @@ const LightStatistic = () => {
     }
   };
 
-  const fetchDataDay = async () => {
-    try {
-      const response = await fetch(
-        "https://datacenter-api.onrender.com/notiLight/chartByDay"
-        , {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Accept": "application/json",
-            // Add any other headers you need here
-          },
-        });
-      const result = await response.json();
-      setDataDay(result);
-    } catch (error) {
-      console.log("Error fetching data:", error);
+  const toggleChart = (chart) => {
+    setSelectedChart(chart);
+  };
+
+  const toggleOption = (option) => {
+    setSelectedOption(option);
+  };
+
+  const updatePrintDimensions = () => {
+    if (chartRef.current) {
+      const { offsetWidth, offsetHeight } = chartRef.current;
+      setPrintWidth(offsetWidth);
+      setPrintHeight(offsetHeight);
     }
   };
-  const chartRef = useRef(null);
-  const [pauseDataUpdates, setPauseDataUpdates] = useState(false);
 
-  const handleBeforePrint = () => {
-    setPauseDataUpdates(true);
+  const handlePrint = () => {
+    updatePrintDimensions();
+    html2canvas(chartRef.current, {
+      width: printWidth,
+      height: printHeight,
+      scrollX: 0,
+      scrollY: 0,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "px",
+        format: [printWidth, printHeight],
+      });
+
+      pdf.addImage(imgData, "PNG", 0, 0, printWidth, printHeight);
+
+      pdf.save("chart.pdf");
+    });
   };
 
-  const handleAfterPrint = () => {
-    setPauseDataUpdates(false);
-  };
   return (
     <>
-      <div className="chart" ref={chartRef}>
+      <div className="chart">
         <div className="chart-content">
           <div className="buttons">
             <div className="btu-chart">
               <button
-                onClick={toggleWeekChart}
-                className={showWeekChart ? "active" : ""}
+                onClick={() => toggleChart("Week")}
+                className={selectedChart === "Week" ? "active" : ""}
               >
                 Week
               </button>
             </div>
             <div className="btu-chart">
               <button
-                onClick={toggleDayChart}
-                className={showDayChart ? "active" : ""}
+                onClick={() => toggleChart("Month")}
+                className={selectedChart === "Month" ? "active" : ""}
               >
                 Month
               </button>
             </div>
             <div className="btu-chart">
               <button
-                onClick={toggleMonthChart}
-                className={showMonthChart ? "active" : ""}
+                onClick={() => toggleChart("Year")}
+                className={selectedChart === "Year" ? "active" : ""}
               >
                 Year
               </button>
             </div>
+
             <div className="print-button">
-              <ReactToPrint
-                trigger={() => <button>Print</button>}
-                content={() => chartRef.current}
-                onBeforeGetContent={handleBeforePrint}
-                onAfterPrint={handleAfterPrint}
-              />
+              <button onClick={handlePrint}>Print</button>
             </div>
-            <style>{`
-       .mongodb-chart-refreshing {
-         animation: none !important;
-       }
-       @page {
-         size: landscape;
-         size: 280mm 180mm;
-       }
-     `}</style>
-            {pauseDataUpdates && (
-              <style>{`
-         .mongodb-chart-refreshing {
-           animation: none !important;
-         }
-       `}</style>
-            )}
           </div>
-          <div className="all-content">
-            {" "}
+          <div className="all-content" ref={chartRef}>
             <div className="chart-title">
-            <div className="chart-name">
-              Smoke Chart
-              </div>
+              <div className="chart-name">Smoke Chart</div>
               <div className="method-chart">
                 <div className="method">
                   <button
-                    onClick={toggleBar}
-                    className={barButtonClicked ? "active" : ""}
+                    onClick={() => toggleOption("Bar")}
+                    className={selectedOption === "Bar" ? "active" : ""}
                   >
                     Bar
                   </button>
                 </div>
                 <div className="method">
                   <button
-                    onClick={toggleLine}
-                    className={lineButtonClicked ? "active" : ""}
+                    onClick={() => toggleOption("Line")}
+                    className={selectedOption === "Line" ? "active" : ""}
                   >
                     Line
                   </button>
                 </div>
               </div>
             </div>
+
             <section
               className="ChartSection-Statistic"
-              style={{ display: showWeekChart ? "block" : "none" }}
+              style={{ display: selectedChart === "Week" ? "block" : "none" }}
             >
-              <ChartsWeek data={data} width={1024} height={560}/>
-            </section>
-            <section
-              className="ChartSection-Statistic"
-              style={{ display: showDayChart ? "block" : "none" }}
-            >
-              <ChartDay data={dataDay} width={1024} height={560}/>
-            </section>
-            <section
-              className="ChartSection-Statistic"
-              style={{ display: showMonthChart ? "block" : "none" }}
-            >
-              <ChartsMonth data={dataYear} width={1024} height={560}/>
+              {selectedOption === "Bar" ? (
+                <ChartsWeek data={dataWeek} width={1024} height={560} />
+              ) : (
+                <ChartLineWeek data={dataWeek} width={1024} height={560} />
+              )}
             </section>
             <section
               className="ChartSection-Statistic"
-              style={{ display: showLineYearChart ? "block" : "none" }}
+              style={{ display: selectedChart === "Month" ? "block" : "none" }}
             >
-              <ChartLineYear data={dataYear} width={1024} height={560} />
+              {selectedOption === "Bar" ? (
+                <ChartDay data={dataMonth} width={1024} height={560} />
+              ) : (
+                <ChartLineMonth data={dataMonth} width={1024} height={560} />
+              )}
             </section>
             <section
               className="ChartSection-Statistic"
-              style={{ display: showLineMonthChart ? "block" : "none" }}
+              style={{ display: selectedChart === "Year" ? "block" : "none" }}
             >
-              <ChartLineMonth data={dataDay} width={1024} height={560}/>
-            </section>
-            <section
-              className="ChartSection-Statistic"
-              style={{ display: showLineWeekChart ? "block" : "none" }}
-            >
-              <ChartLineWeek data={data} width={1024} height={560}/>
-            </section>
-            <section
-              className="ChartSection"
-              style={{ display: showLineYearChart ? "block" : "none" }}
-            >
-              <ChartLineYear data={dataYear} />
-            </section>
-            <section
-              className="ChartSection"
-              style={{ display: showLineMonthChart ? "block" : "none" }}
-            >
-              <ChartLineMonth data={dataDay} />
-            </section>
-            <section
-              className="ChartSection"
-              style={{ display: showLineWeekChart ? "block" : "none" }}
-            >
-              <ChartLineWeek data={data} />
+              {selectedOption === "Bar" ? (
+                <ChartsMonth data={dataYear} width={1024} height={560} />
+              ) : (
+                <ChartLineYear data={dataYear} width={1024} height={560} />
+              )}
             </section>
           </div>
         </div>
@@ -308,4 +218,5 @@ const LightStatistic = () => {
     </>
   );
 };
+
 export default LightStatistic;
