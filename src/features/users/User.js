@@ -83,10 +83,10 @@ const User = ({ userId, searchQuery, selectRole, onDeleteClick }) => {
   
   if (
     (!searchQuery ||
-      String(user.username).includes(searchQuery) ||
-      String(user.firstname).includes(searchQuery) ||
+      String(user.username.toLowerCase()).includes(searchQuery.toLowerCase()) ||
+      String(user.firstname.toLowerCase()).includes(searchQuery) ||
       String(user.moisture).includes(searchQuery) ||
-      String(user.lastname).includes(searchQuery)) &&
+      String(user.lastname.toLowerCase()).includes(searchQuery)) &&
     (!selectRole || user.roles.includes(selectRole))
   ) {
     return (

@@ -22,7 +22,7 @@ const ChartLineDay = ({ data, width, height }) => {
         
           "#c45850",
         ],
-        data: temp.map(item => item.value),
+        data: temp.map(item => item.Count),
       },
     ],
   };

@@ -12,7 +12,7 @@ const ChartLineWeek = ({ data, width, height }) => {
   useEffect(() => {
     setTemp(data);
   }, [data]);
-
+console.log("temp: " , temp);
   const chartData = {
     labels: temp.map(item => `${item.day}/${currentMonth}/${currentYear}`), // Assuming you have a "week" property in your data
     datasets: [
@@ -22,7 +22,7 @@ const ChartLineWeek = ({ data, width, height }) => {
           
           "#c45850",
         ],
-        data: temp.map(item => item.value),
+        data: temp.map(item => item.Count),
       },
     ],
   };
@@ -43,7 +43,7 @@ const ChartLineWeek = ({ data, width, height }) => {
     width,
     height,
   };
-  console.log(chartStyle);
+  
   return (
     <div className="chart-item">
      

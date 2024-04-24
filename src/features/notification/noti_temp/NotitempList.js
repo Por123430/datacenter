@@ -12,16 +12,11 @@ import ChartLineYear from "../../../components/ChartLineYear";
 const NotitempList = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
-
-  const pages = [];
-
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [dataYear, setDataYear] = useState([]);
+  const [allData, setAllData] = useState([]);
 
   const fetchDataYear = async () => {
     try {
@@ -29,14 +24,12 @@ const NotitempList = () => {
         "https://datacenter-api.onrender.com/notiTemp/chartByMonth"
       );
       const result = await response.json();
-      setDataYear(result);
+      setAllData(result);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
   };
-  const handleClick = (event) => {
-    setCurrentPage(Number(event.target.id));
-  };
+  
   useEffect(() => {
     fetchDataYear();
   }, []);
@@ -54,38 +47,49 @@ const NotitempList = () => {
     setCurrentPage(1); // Reset current page when search query changes
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  let content;
+
+  if (isLoading) content = <p>Loading...</p>;
 
   if (isError) {
-    return (
+    content = (
       <p className={isError ? "errmsg" : "offscreen"}>{error?.data?.message}</p>
     );
   }
 
   if (isSuccess) {
+    const { entities } = notitemp;
+    const monitorIds = Object.keys(entities);
 
-    const { ids } = notitemp;
-
-    // Calculate total number of pages
-    const totalPages = Math.ceil(ids.length / itemsperpage);
-
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
+    const filteredIds = monitorIds.filter((monitorId) => {
+      const monitor = entities[monitorId];
+      const date = new Date(monitor.createdAt);
+      const formattedDate = date.toLocaleString();
+      if (!searchQuery) return true;
+      
+      return (
+        String(monitor.temp).includes(searchQuery) ||
+        String(monitor.humidity).includes(searchQuery) ||
+        (searchQuery === "detect" && monitor.lighting === "detect") ||
+        String(monitor.lighting).includes(searchQuery) ||
+        String(formattedDate).includes(searchQuery)
+      );
+    });
+    const totalPages = Math.ceil(filteredIds.length / itemsperpage);
 
     const indexOfLastItem = currentpage * itemsperpage;
     const indexOfFirstItem = indexOfLastItem - itemsperpage;
 
-    const renderPageNumbers = pages.map((number) => {
+    const renderPageNumbers = Array.from({ length: totalPages }).map((_, index) => {
+      const number = index + 1;
       if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
         return (
-          <li
-
-          >
-            <button key={number}
+          <li key={number}>
+            <button
               id={number}
-              onClick={handleClick}
-              className={currentpage === number ? "active" : null}>
+              onClick={() => setCurrentPage(number)}
+              className={currentpage === number ? "active" : null}
+            >
               {number}
             </button>
           </li>
@@ -111,17 +115,14 @@ const NotitempList = () => {
       }
     };
 
-    const tableContent = ids?.length
-      ? ids
-        .slice(indexOfFirstItem, indexOfLastItem)
+    const tableContent = filteredIds.slice(indexOfFirstItem, indexOfLastItem)
         .map((notitempId) => (
           <Notitemp
             key={notitempId}
             notitempId={notitempId}
             searchQuery={searchQuery}
           />
-        ))
-      : null;
+        ));
 
     return (
       <div>
@@ -161,7 +162,7 @@ const NotitempList = () => {
         </div>
         <div className="data-section">
           <div className="ChartSection" >
-          <ChartLineYear data={dataYear} width={1024} height={560}/>
+          <ChartLineYear data={allData} width={1024} height={560}/>
           </div>
           <div className="table-section">
             <table className="table-monitor">
@@ -182,8 +183,7 @@ const NotitempList = () => {
                 <li className="btn-pg-li">
                   <button
                     onClick={handlePrevbtn}
-                    disabled={currentpage === pages[0] ? true : false}
-
+                    disabled={currentpage === 1}
                   >
                     Prev
                   </button>
@@ -192,8 +192,7 @@ const NotitempList = () => {
                 <li className="btn-pg-li">
                   <button
                     onClick={handleNextbtn}
-                    disabled={currentpage === pages[pages.length - 1] ? true : false}
-
+                    disabled={currentpage === totalPages}
                   >
                     Next
                   </button>

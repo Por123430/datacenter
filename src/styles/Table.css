@@ -166,6 +166,9 @@ img{
     margin: 15px auto 0px auto;
 
 }
+.sound .title{
+    font-size: 24px;
+}
 .update {
     justify-content: center;
     /* width: 420px; */

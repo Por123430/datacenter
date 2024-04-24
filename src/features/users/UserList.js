@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/pagination.css";
 import close from "../../img/close.png";
 import line from "../../img/line.jpg";
+import alert from "../../img/alert.png";
 
 const UserList = () => {
   const [deleteUserId, setDeleteUserId] = useState(null);
@@ -59,12 +60,18 @@ const UserList = () => {
     setPopupData(null);
   };
 
-  const { data: users, refetch, isLoading, isSuccess, isError, error } =
-    useGetUsersQuery("usersList", {
-      pollingInterval: 60000,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    });
+  const {
+    data: users,
+    refetch,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery("usersList", {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   const [
     deleteUser,
@@ -103,9 +110,7 @@ const UserList = () => {
 
   if (isError) {
     content = (
-      <p className={isError ? "errmsg" : "offscreen"}>
-        {error?.data?.message}
-      </p>
+      <p className={isError ? "errmsg" : "offscreen"}>{error?.data?.message}</p>
     );
   }
 
@@ -155,32 +160,33 @@ const UserList = () => {
 
     const tableContent = ids?.length
       ? ids
-        .slice(indexOfFirstItem, indexOfLastItem)
-        .map((userId) => (
-          <User
-            key={userId}
-            userId={userId}
-            searchQuery={searchQuery}
-            selectRole={selectRole}
-            onDeleteClick={handleDeleteClick}
-          />
-        ))
+          .slice(indexOfFirstItem, indexOfLastItem)
+          .map((userId) => (
+            <User
+              key={userId}
+              userId={userId}
+              searchQuery={searchQuery}
+              selectRole={selectRole}
+              onDeleteClick={handleDeleteClick}
+            />
+          ))
       : null;
 
     content = (
       <div>
         <div
-  className="all-title-content"
-  style={{
-    background: "#F4F4EF",
-    fontSize: "1.4rem",
-    padding: "20px 70px",
-    color: "black",
-    boxShadow: "rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px"
-  }}
->
-  Edit User
-</div>
+          className="all-title-content"
+          style={{
+            background: "#F4F4EF",
+            fontSize: "1.4rem",
+            padding: "20px 70px",
+            color: "black",
+            boxShadow:
+              "rgba(45, 46, 46, 0.35) 0px 4px 32px 0px, rgba(45, 46, 46, 0.08) 0px 4px 16px 0px, rgba(45, 46, 46, 0.1) 0px 0px 4px 0px",
+          }}
+        >
+           User
+        </div>
         <div className="header-user">
           <div className="search-user">
             <input
@@ -277,18 +283,41 @@ const UserList = () => {
         </div>
         {showConfirmation && (
           <div className="overlay">
-            <div className="popupData" style={{height: "180px", width: "500px"}}>
-              <div className="content" >
-
-                <div className='title-popup' style={{margin: "30px 0px 35px 0px"}}>
+            <div
+              className="popupData"
+              style={{ height: "260px", width: "500px" }}
+            >
+              <div className="content">
+                <img
+                  src={alert}
+                  alt="alert"
+                  style={{
+                    width: "72px",
+                    margin: "20px 44%",
+                  }}
+                />
+                <div
+                  className="title-popup"
+                  style={{ margin: "0px 0px 35px 0px" }}
+                >
                   Are you sure you want to delete this user?
                 </div>
 
                 <div className="pagination-page">
-                    <div className="content-pg">
-                  <button onClick={confirmDelete} style={{backgroundColor:"#00AA9F"}}>Yes</button>
-                  <button onClick={cancelDelete} style={{backgroundColor:" #ea5455"}} >No</button>
-                </div>
+                  <div className="content-pg">
+                    <button
+                      onClick={confirmDelete}
+                      style={{ backgroundColor: "#00AA9F" }}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={cancelDelete}
+                      style={{ backgroundColor: " #ea5455" }}
+                    >
+                      No
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -296,15 +325,16 @@ const UserList = () => {
         )}
         {isPopupOpen && (
           <div className="overlay">
-            <div className="popupData">
+            <div className="popupData" style={{width: "575px"}}>
               <div className="content-close-icon">
                 <button className="close" onClick={closePopupClick}>
                   <img src={close} alt="close-icon" className="close-icon" />
                 </button>
               </div>
-              <div className='title-popup' >
-                  Scan Qr Code to receive Notifications via Line
-                </div>
+
+              <div className="title-popup">
+                Scan Qr Code to receive Notifications via Line
+              </div>
               <div className="content">
                 <img src={line} alt="line" className="line-img" />
               </div>

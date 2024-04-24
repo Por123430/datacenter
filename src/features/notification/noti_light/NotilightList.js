@@ -10,16 +10,11 @@ import ChartLineYear from "../../../components/ChartLineYear";
 const NotilightList = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const [itemsperpage, setItemPerPage] = useState(10);
-
-  const pages = [];
-
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [dataYear, setDataYear] = useState([]);
+  const [allData, setAllData] = useState([]);
 
   const fetchDataYear = async () => {
     try {
@@ -27,7 +22,7 @@ const NotilightList = () => {
         "https://datacenter-api.onrender.com/notiLight/chartByMonth"
       );
       const result = await response.json();
-      setDataYear(result);
+      setAllData(result);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
@@ -52,7 +47,6 @@ const NotilightList = () => {
     isError,
     error,
   } = useGetNotilightQuery();
-
   let content;
 
   if (isLoading) content = <p>Loading...</p>;
@@ -64,32 +58,50 @@ const NotilightList = () => {
   }
 
   if (isSuccess) {
-    const { ids } = notilight;
-    for (let i = 1; i <= Math.ceil(ids.length / itemsperpage); i++) {
-      pages.push(i);
-    }
+    const { entities } = notilight;
+    const monitorIds = Object.keys(entities);
+    // console.log(monitorIds);
+    const filteredIds = monitorIds.filter((monitorId) => {
+      const monitor = entities[monitorId];
+      
+      const date = new Date(monitor.createdAt);
+      const formattedDate = date.toLocaleString();
+      if (!searchQuery) return true;
+
+      return (
+        String(monitor.temp).includes(searchQuery) ||
+        String(monitor.humidity).includes(searchQuery) ||
+        (searchQuery === "detect" && monitor.lighting === "detect") ||
+        String(monitor.lighting).includes(searchQuery) ||
+        String(formattedDate).includes(searchQuery)
+      );
+    });
+    const totalPages = Math.ceil(filteredIds.length / itemsperpage);
 
     const indexOfLastItem = currentpage * itemsperpage;
     const indexOfFirstItem = indexOfLastItem - itemsperpage;
-    ids.slice(indexOfFirstItem, indexOfLastItem);
-    const renderPageNumbers = pages.map((number) => {
-      if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
-        return (
-          <li
 
-          >
-            <button key={number}
-              id={number}
-              onClick={handleClick}
-              className={currentpage === number ? "active" : null}>
-              {number}
-            </button>
-          </li>
-        );
-      } else {
-        return null;
+    const renderPageNumbers = Array.from({ length: totalPages }).map(
+      (_, index) => {
+        const number = index + 1;
+        if (number <= maxpageNumberLimit && number >= minpageNumberLimit + 1) {
+          return (
+            <li key={number}>
+              <button
+                id={number}
+                onClick={() => setCurrentPage(number)}
+                className={currentpage === number ? "active" : null}
+              >
+                {number}
+              </button>
+            </li>
+          );
+        } else {
+          return null;
+        }
       }
-    });
+    );
+
     const handleNextbtn = () => {
       setCurrentPage(currentpage + 1);
       if (currentpage + 1 > maxpageNumberLimit) {
@@ -97,6 +109,7 @@ const NotilightList = () => {
         setMinPageNumberLimit(minpageNumberLimit + pageNumberLimit);
       }
     };
+
     const handlePrevbtn = () => {
       setCurrentPage(currentpage - 1);
       if ((currentpage - 1) % pageNumberLimit === 0) {
@@ -105,38 +118,44 @@ const NotilightList = () => {
       }
     };
 
-    // console.log(notihumi)
-    const tableContent = ids?.length
-      ? ids
-          .slice(indexOfFirstItem, indexOfLastItem)
-          .map((notilightId) => (
-            <Notilight
-              key={notilightId}
-              notilightId={notilightId}
-              searchQuery={searchQuery}
-            />
-          ))
-      : null;
+    const tableContent = filteredIds
+      .slice(indexOfFirstItem, indexOfLastItem)
+      .map((notilightId) => (
+        <Notilight
+          key={notilightId}
+          notilightId={notilightId}
+          searchQuery={searchQuery}
+        />
+      ));
 
-    content = (
+    return (
       <div>
         <div className="search">
-        <div className="filter" >
+          <div className="filter">
             <button
-               style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
-              
+              style={{
+                color: "#F0F1F3",
+                backgroundColor: "#F0F1F3",
+                cursor: "default",
+              }}
             >
               Temperature Chart
             </button>
             <button
-              style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
-
+              style={{
+                color: "#F0F1F3",
+                backgroundColor: "#F0F1F3",
+                cursor: "default",
+              }}
             >
               Humidity Chart
             </button>
             <button
-              style={{ color: '#F0F1F3', backgroundColor: '#F0F1F3', cursor: 'default' }}
-
+              style={{
+                color: "#F0F1F3",
+                backgroundColor: "#F0F1F3",
+                cursor: "default",
+              }}
             >
               Light Chart
             </button>
@@ -154,53 +173,53 @@ const NotilightList = () => {
             />
           </form>
         </div>
-        <div className="data-section">
-          <div className="ChartSection">
-          <ChartLineYear data={dataYear} width={1024} height={560}/>
-          </div>
-          <div className="table-section">
-            <table className="table-monitor">
-              <thead className="table__thead">
-                <tr>
-                  <th scope="col" className="table__th-temp">
-                    smoke
-                  </th>
-                  <th scope="col" className="table__th-moistures">
-                    date-time
-                  </th>
-                </tr>
-              </thead>
-              <tbody>{tableContent}</tbody>
-            </table>
-            <div className="pagination-page">
-              <div className="content-pg">
-                <li className="btn-pg-li">
-                  <button
-                    onClick={handlePrevbtn}
-                    disabled={currentpage === pages[0] ? true : false}
-
-                  >
-                    Prev
-                  </button>
-                </li>
-                {renderPageNumbers}
-                <li className="btn-pg-li">
-                  <button
-                    onClick={handleNextbtn}
-                    disabled={currentpage === pages[pages.length - 1] ? true : false}
-
-                  >
-                    Next
-                  </button>
-                </li>
+       
+          <div className="data-section">
+            <div className="ChartSection">
+              <ChartLineYear data={allData} width={1024} height={560} />
+            </div>
+            <div className="table-section">
+              <table className="table-monitor">
+                <thead className="table__thead">
+                  <tr>
+                    <th scope="col" className="table__th-temp">
+                    Flame
+                    </th>
+                    <th scope="col" className="table__th-moistures">
+                      date-time
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>{tableContent}</tbody>
+              </table>
+              <div className="pagination-page">
+                <div className="content-pg">
+                  <li className="btn-pg-li">
+                    <button
+                      onClick={handlePrevbtn}
+                      disabled={currentpage === 1}
+                    >
+                      Prev
+                    </button>
+                  </li>
+                  {renderPageNumbers}
+                  <li className="btn-pg-li">
+                    <button
+                      onClick={handleNextbtn}
+                      disabled={currentpage === totalPages}
+                    >
+                      Next
+                    </button>
+                  </li>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+       
       </div>
     );
   }
-  return content;
+  return null;
 };
 
 export default NotilightList;

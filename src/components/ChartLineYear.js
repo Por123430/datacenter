@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import "../styles/chart.css";
 
-const ChartLineYear = ({ data, width, height }) => {
+const ChartLineYear = ({ data, width, height , title}) => {
   const [temp, setTemp] = useState([]);
  
   useEffect(() => {
@@ -18,7 +18,7 @@ const ChartLineYear = ({ data, width, height }) => {
         backgroundColor: "#c45850",
         borderColor: "#c45850",
         borderWidth: 1,
-        data: temp.map((item) => item.value),
+        data: temp.map((item) => item.Count),
       },
     ],
   };
@@ -28,7 +28,7 @@ const ChartLineYear = ({ data, width, height }) => {
       legend: { display: false },
       title: {
         display: true,
-        text: "Notifications Line By Year",
+        text: title ?? "Notifications Line By Year",
       },
     },
     maintainAspectRatio: false,

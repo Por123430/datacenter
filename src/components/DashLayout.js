@@ -4,8 +4,6 @@ import DashHeader from "./DashHeader";
 import DashFooter from "./DashFooter";
 import DashNav from "./DashNav";
 
-import sound1 from "../sound/Radar_-_iPhone_Ringtone.mp4";
-import sound2 from "../sound/todtod.mp4";
 
 import { useAddNotihumiMutation } from "../features/notification/noti_humi/notihumiApiSlice";
 import { useAddNotitempMutation } from "../features/notification/noti_temp/notitempApiSlice";
@@ -23,17 +21,7 @@ import { selectAllSensor } from "../features/sensor/sensorApiSlice";
 
 const DashLayout = () => {
 
-  function play1() {
-    new Audio(sound1).play();
-  }
-
-  function play2() {
-    new Audio(sound2).play();
-  }
-
-  function play3() {
-    new Audio(sound1).play();
-  }
+  
   const sensor1 = useSelector((state) => selectAllSensor(state));
 
   const [addNoticamera] = useAddNoticameraMutation();
@@ -84,7 +72,7 @@ const DashLayout = () => {
     }
     if (sensor1Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor1 smoke");
+      setTitlePopup("sensor1 flame");
 
       const flame = "detect";
       setDataPopup(flame);
@@ -93,7 +81,7 @@ const DashLayout = () => {
     }
     if (sensor2Data.flame === 0) {
       setButtonPopup(true);
-      setTitlePopup("sensor2 smoke");
+      setTitlePopup("sensor2 flame");
       const flame = "detect";
       setDataPopup(flame);
 

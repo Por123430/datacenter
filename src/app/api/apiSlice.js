@@ -3,6 +3,7 @@ import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
     baseUrl : 'https://datacenter-api.onrender.com/',
+    
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token

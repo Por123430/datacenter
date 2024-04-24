@@ -14,14 +14,14 @@ const Monitor = ({ monitorId, searchQuery }) => {
     // Define a class variable to hold the CSS class based on monitor.lighting
     const lightingClass = monitor.lighting === 'detected' ? 'red-text' : '';
 
-    if (
-      !searchQuery ||
-     String( monitor.temp).includes(searchQuery) ||
-     String(monitor.humidity).includes(searchQuery) ||
-     String(monitor.moisture).includes(searchQuery) ||
-     String(monitor.lighting).includes(searchQuery) ||
-      formattedDate.includes(searchQuery)
-    ) {
+    // if (
+    //   !searchQuery ||
+    //  String( monitor.temp).includes(searchQuery) ||
+    //  String(monitor.humidity).includes(searchQuery) ||
+    //  String(monitor.moisture).includes(searchQuery) ||
+    //  String(monitor.lighting).includes(searchQuery) ||
+    //   formattedDate.includes(searchQuery)
+    // ) {
       return (
         <tr className="table-allcell">
           <td className={`table-cell ${cellStatus} ${lightingClass}`}>{monitor.temp}</td>
@@ -33,9 +33,9 @@ const Monitor = ({ monitorId, searchQuery }) => {
     } else {
       return null;
     }
-  } else {
-    return null;
-  }
+  // } else {
+  //   return null;
+  // }
 };
 
 export default Monitor;
