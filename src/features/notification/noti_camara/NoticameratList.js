@@ -349,7 +349,6 @@ const NoticameraList = () => {
     setCurrentPage(currentpage + 1);
     if (currentpage + 1 > maxpageNumberLimit) {
       setMaxPageNumberLimit(maxpageNumberLimit + pageNumberLimit);
-      setMinPageNumberLimit(minpageNumberLimit + pageNumberLimit);
     }
   };
 
@@ -357,7 +356,6 @@ const NoticameraList = () => {
     setCurrentPage(currentpage - 1);
     if ((currentpage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxpageNumberLimit - pageNumberLimit);
-      setMinPageNumberLimit(minpageNumberLimit - pageNumberLimit);
     }
   };
 
